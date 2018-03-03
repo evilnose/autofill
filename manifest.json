@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "College App Autofill",
+  "version": "1.0.0",
+  "default_locale": "en",
+  "description": "Fill in college application forms at the press of a button",
+  "icons": {
+    "16": "TODO",
+    "32": "Maybe",
+    "48": "TODO",
+    "128": "TODO"
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "TODO"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+}
