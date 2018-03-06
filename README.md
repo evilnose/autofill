@@ -1,25 +1,13 @@
-# README #
+# Autofill Chrome Extension #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+A chrome extension that automates the process of completing college application forms.
 
-### What is this repository for? ###
+### Deployment notes
+The entire chrome extension is contained in the `extension` folder. It is
+important to note the script `build.py` **must** be run before each deployment in
+production.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-In the project directory, run "npm install" to install the dependencies. Install nodemon as a devDependency as well.
-Note you need node version 8.9.4
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+The build script is essentially a template parser that modifies `manifest.json`
+and view files such as `form.html` to reflect all the changes made to mapping files
+such as `app.json`. This is necessary so as to make adding new app templates much
+easier, safer, and more flexible.
