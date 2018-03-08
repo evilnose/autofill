@@ -1,0 +1,9 @@
+{
+  "commonapp": {
+    "fullname": "Common Application",
+    "origin": "commonapp.org",
+    "url": "https://apply.commonapp.org/login",
+    "ApplicantEmailAddress": "UserName",
+    "ApplicantPassword": "Password"
+  }
+}
