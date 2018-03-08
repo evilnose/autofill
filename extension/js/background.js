@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(
     if (request.action === 'login') {
       Promise.all([getAppInfo(request.appKey), getUserInfo(request.userKey)])
         .then(matchForm)
-        .catch(failToGetInfo());
+        .catch(failToGetInfo);
       // chrome.tabs.create({ url: appInfo.url },
       //   tab => handleNewTab($.extend({}, tab, matchedForm));
       // });
@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(
 
 // TODO handle error
 function failToGetInfo() {
-  console.log('Failed to get info');
+  console.log('ERROR: Failed to get info.');
 }
 
 // NOTE this looks very simple now because it is for testing. In production
@@ -30,9 +30,9 @@ function getUserInfo(userKey) {
 }
 
 // Matches the application form to the user form for convenience of filling later.
-function matchForm(dataArr) {
-  let appInfo = dataArr[0],
-  let userInfo = dataArr[1];
+function matchForm(dataArray) {
+  let appInfo = dataArray[0];
+  let userInfo = dataArray[1];
   // TODO merge them
 }
 
@@ -42,12 +42,6 @@ function handleNewTab(tab) {
       { file: 'js/content.js' }
     ],
     startLogin);
-}
-
-function injectContent(tabId) {
-  chrome.tabs.executeScript(tabId, { file: 'js/content.js' }, function () {
-    console.log('content injected.');
-  });
 }
 
 function startLogin(tabId) {
