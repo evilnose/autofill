@@ -1,9 +1,10 @@
 {
   "commonapp": {
-    "fullname": "Common Application",
-    "origin": "commonapp.org",
-    "url": "https://apply.commonapp.org/login",
-    "ApplicantEmailAddress": "UserName",
-    "ApplicantPassword": "Password"
+    "version": "0",
+    "origin": "https://commonapp.org",
+    "home": "/ca4app#!d/Status/?",
+    "login": "/login",
+    "username": ".UserName",
+    "password": ".Password"
   }
 }
