@@ -17,11 +17,11 @@ function getUserAuth(userKey, appName) {
   });
 }
 
-function sendTestMessage(app_auth, userKey, appName) {
+function sendTestMessage(appAuth, userKey, appName) {
   chrome.runtime.sendMessage({
     action: 'login',
     appKey: appName,
     userKey: userKey,
-    app_auth
+    appAuth
   });
 }

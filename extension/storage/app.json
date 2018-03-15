@@ -9,7 +9,7 @@
     "password": "#ApplicantPassword",
     "loginBtn": "#appLogin",
     "process": [
-      { "action": "c", "selector": "editSection_11" }
+      "c;#editSection_11;"
     ]
   }
 }
