@@ -9,10 +9,11 @@
     "password": "#ApplicantPassword",
     "loginBtn": "#appLogin",
     "process": [
-      "c;#editSection_11;",
-      "nr;/ca4app#!d/Status/?;",
-      "nc;a[href='/ca4app#!m/369/About'];",
-      "nr;ca4app#!c/0/11?sid=3;"
+      "-lc;#editSection_11;",
+      "f;#text_ques_173;first_name",
+      "f;#text_ques_174;middle_name",
+      "f;#text_ques_175;last_name",
+      "f;#text_ques_179;nickname"
     ]
   }
 }

@@ -1,8 +1,14 @@
 {
   "0": {
-    "auth_commonapp": {
-      "username_val": "ggarland33@gmail.com",
-      "password_val": "Somewhere-317"
-    }
+    "auth": {
+      "commonapp": {
+        "username_val": "ggarland33@gmail.com",
+        "password_val": "Somewhere-317"
+      }
+    },
+    "first_name": "Michael",
+    "middle_name": "Fart",
+    "last_name": "Scarn",
+    "nickname": "Mike"
   }
 }

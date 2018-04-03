@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener(
     console.log("Message received.");
     switch (request.action) {
     case "login":
-      sendResponse({state: 'received'});
+      sendResponse({state: 'done'});
       $(request.username).val(request.username_val);
       $(request.password).val(request.password_val);
       $(request.loginBtn).trigger('click');

@@ -3,6 +3,7 @@
 /*** CONSTANTS ***/
 var Atfl = {
   SEP: ';',
+  SEL_SEP: '@',
   LOGIN_SCRIPT_PATH: 'js/loginInjection.js',
   PROCESS_SCRIPT_PATH: 'js/processInjection.js',
   JQ: 'js/jquery.min.js'
@@ -126,7 +127,7 @@ function verifyLogin(res, success, failure) {
     if (changeInfo.status === 'complete') {
       // TODO verify logged in. Or, if not possible to do here,
       // do it somewhere else
-      if (res && res.state === 'received') {
+      if (res && res.state === 'done') {
         console.log("Login complete and loaded.");
         success();
         chrome.tabs.onUpdated.removeListener(waitForLogin);
@@ -146,56 +147,103 @@ function verifyLogin(res, success, failure) {
  */
 function processForms(dataArr) {
   console.log("Processing forms...");
-  var [app, user] = dataArr;
+  var app, user;
+  [app, user] = dataArr;
 
   // Duplicate app using shallow copying
   var info = $.extend({}, app);
 
-  var seq = [];
+  var seg = [];
 
   // Clear process array
   info.process = [];
   var oldPrc = app.process;
   var pLen = oldPrc.length;
-  var newI = 0;
-  let p;
-  let userVal;
-  let userKey;
-  let action;
-  let selector;
+  var flag, action, selector, userKey, userVal;
+  var offset = 0;
   for (let i = 0; i < pLen; i++) {
-    p = oldPrc[i];
-    [action, selector, userKey] = p.split(Atfl.SEP);
-
-    if (!action || action === 'f') {
+    [action, selector, userKey] = oldPrc[i].split(Atfl.SEP);
+    flag = action.startsWith('-') ? action.substr(0, 2) : null;
+    action = flag ? action.substring(2) : action;
+    // Handle actions
+    switch (action) {
+    case 'f':
       userVal = user[userKey];
       if (userVal) {
-        info.process[newI++] = {
+        info.process.push({
+          flag: flag,
           action: action,
           selector: selector,
           val: userVal
-        }
+        });
+        handleFlag(i - offset, flag, action);
       } else {
         console.log(`User does not have attribute ${userKey}`);
+        offset++;
       }
-    } else {
-      info.process[newI++] = {
-        action: action,
-        selector: selector
-      };
-
-      if (action.startsWith('n')) {
-        var a = action.charAt(1);
-        if (a === 'r') {
-          // If action is redirect, add the path for the redirect later
-          seq.push({ i: newI, action: a, path: selector });
+      break;
+    case 'c':
+      if (selector.startsWith('_')) {
+        // If the selector selects by value instead of name. For detailed
+        // syntax, check 'application file format' in Drive.
+        var optionName;
+        [fieldKey, optionVal] = userKey.substring(1).split(SEL_SEP);
+        var fieldVal = user[fieldKey];
+        if (fieldVal) {
+          if (fieldVal === optionVal) {
+            // User has the field value, and the field value matches the option
+            // value, so click.
+            info.process.push({
+              flag: flag,
+              action: action,
+              selector: selector
+            });
+            handleFlag(i - offset, flag, action, selector);
+          } else {
+            // Doesn't match, skip this process.
+            offset++;
+          }
         } else {
-          seq.push({ i: newI, action: a });
+          console.log(`User does not have attribute ${fieldKey}`);
+          offset++;
         }
+      } else {
+        info.process.push({
+          flag: flag,
+          action: action,
+          selector: selector
+        });
+        handleFlag(i, flag, action, selector);
       }
+      break;
+    case 'r':
+      // Redirect is already handled in handleFlag
+      offset++;
+      handleFlag(i, flag, action, selector);
+      break;
+    default:
+      console.log(`ERROR: action not found: ${action}`);
     }
   }
-  info.sequence = seq;
+
+  function handleFlag(i, flag, act, selector) {
+    // Handle flags
+    switch (flag) {
+    case '-n':
+      // If new page is loaded after the action
+      // If action is redirect, add the path for the redirect later
+      seg.push({ i: i - offset + 1, action: act, path: act === 'r' ? selector : null });
+      break;
+    }
+  }
+  console.log(`Info len: ${info.process.length}\
+  \nApp len: ${app.process.length}\nOffset: ${offset}`);
+  seg.push({ i: info.process.length });
+  console.assert(info.process.length === app.process.length - offset,
+    "ERROR: offset incorrect.");
+  console.log("Segments: " + JSON.stringify(seg));
+  console.log("Process: " + JSON.stringify(info.process));
+  info.segments = seg;
   return info;
 }
 
@@ -209,7 +257,7 @@ function startFormSeq(info) {
   chrome.tabs.onUpdated.addListener((function () {
     console.log("Update listener for processes added.");
     var idx = 0;
-    var seq = info.sequence;
+    var seg = info.segments;
     /* We need to make sure two things in order to begin the next sequence
      * segment: 1) the tab is in a new page (i.e. url changed) and 2) the tab
      * has finished loading. The tab loads later than it changes url, so a state
@@ -220,13 +268,17 @@ function startFormSeq(info) {
       // Make sure the tab's url has changed.
       if (changeInfo.url) {
         console.log("New page loading...URL: " + changeInfo.url);
+        if (isNewDomain(changeInfo.url, info.base)) {
+          interrupt('new domain');
+          return;
+        }
         newPageLoading = true;
       }
 
       if (newPageLoading && changeInfo.status === 'complete') {
         console.log("New page loaded.");
         newPageLoading = false;
-        if (idx < seq.length) {
+        if (idx < seg.length) {
           prepAndSend(info, idx++);
         }
       }
@@ -234,6 +286,16 @@ function startFormSeq(info) {
     return Atfl.tabLoadHandler;
   })());
   redirect(info.base + info.home);
+}
+
+function isNewDomain(url, base) {
+  // TODO check if url is out of the domain of base
+  return false;
+}
+
+function interrupt(reason) {
+  // TODO handle interruption
+  console.log(`Process interrupted. Reason: ${reason}`);
 }
 
 /* Send the sequence at the indicated index. If the newPage sequence at the end
@@ -245,19 +307,27 @@ function startFormSeq(info) {
 function prepAndSend(info, idx) {
   console.log("Prepping and sending...Current index: " + idx);
   // Get the index of the process one after the last newPage
-  var seq = info.sequence;
-  var s = seq[idx];
-  var iStart = (idx === 0) ? 0 : seq[idx - 1].i + 1;
+  var seg = info.segments;
+  var s = seg[idx];
+  var iStart = (idx === 0) ? 0 : seg[idx - 1].i;
   var iEnd = s.i;
   var action = s.action;
-  var process = info.process[iStart, iEnd];
-  var newUrl = s.path ? info.base + s.path : null;
+  console.log(`Starting process index: ${iStart}. Ending: ${iEnd}`);
 
-  injectAndSend([
-      { file: Atfl.JQ },
-      { file: Atfl.PROCESS_SCRIPT_PATH }
-    ], 'start_prc', { prc: process },
-    res => handleTabResponse(res, process, newUrl, (idx === seq.length)));
+  if (iStart === info.process.length) {
+    processComplete();
+  } else {
+    var process = info.process.slice(iStart, iEnd);
+    var newUrl = s.path ? (info.base + s.path) : null;
+
+    if (process.length) {
+      injectAndSend([
+          { file: Atfl.JQ },
+          { file: Atfl.PROCESS_SCRIPT_PATH }
+        ], 'start_prc', { prc: process },
+        res => handleTabResponse(res, process, newUrl, (idx === seg.length - 1)));
+    }
+  }
 }
 
 function handleTabResponse(res, prc, newUrl, isLast) {
@@ -297,7 +367,7 @@ function failToLogin() {
 }
 
 function failToDoProcess(prc) {
-  console.log("Fail to do process handler not done. Process: " + JSON.stringify(prc));
+  console.error("Fail to do process handler not done.", prc);
   processCleanup();
 }
 
