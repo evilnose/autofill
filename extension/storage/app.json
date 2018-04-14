@@ -3,17 +3,40 @@
     "version": "0",
     "app_name": "Common Application",
     "base": "https://apply.commonapp.org",
-    "home": "/ca4app#!c/0/11?sid=3",
-    "login": "/login",
-    "username": "#ApplicantEmailAddress",
-    "password": "#ApplicantPassword",
-    "loginBtn": "#appLogin",
+    "login_process": [
+      "open|/login",
+      "type|id=ApplicantEmailAddress|@username",
+      "type|id=ApplicantPassword|@password",
+      "click|id=appLogin|",
+      "open"
+    ],
+    "alt_mapping": {
+      "China, People's Republic of": "China"
+    }
+    ,
     "process": [
-      "-lc;#editSection_11;",
-      "f;#text_ques_173;first_name",
-      "f;#text_ques_174;middle_name",
-      "f;#text_ques_175;last_name",
-      "f;#text_ques_179;nickname"
+      "open|/ca4app#!c/0/11?sid=3|",
+      "click|id=editSection_11",
+      "type|id=text_ques_173|first_name",
+      "type|id=text_ques_174|middle_name",
+      "type|id=text_ques_175|last_name",
+      "click|//div[@id='singleSelect_ques_176_chzn']/div/ul/li[normalize-space(text())=\"{$}\"]|suffix",
+      "type|id=text_ques_179|nickname",
+      {
+        "type": "block",
+        "conditions": ["other_name"],
+        "process": ["click|id=rbContainer_0|", "type|id=text_ques_178|other_name"],
+        "alt": ["click|id=rbContainer_1|"]
+      },
+      "click|(//div[@id='rbContainer_0'])[2]|sex=male",
+      "click|(//div[@id='rbContainer_1'])[2]|sex=female",
+      "type|id=text_ques_1901|gender",
+      "click|//div[@id='year_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}']|birth_date>YYYY",
+      "click|//div[@id='month_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}']|birth_date>MMMM",
+      "click|//div[@id='day_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}']|birth_date>D",
+      "click|id=saveSection_11",
+      "click|css=div.editDisplay.bz.m-edit",
+      "click|//div[@id='country_ques_182_chzn']/div/ul/li[normalize-space(text())=\"{$}\"]|permanent_address.country"
     ]
   }
 }

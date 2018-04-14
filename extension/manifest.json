@@ -5,10 +5,15 @@
   "description": "Fill in college application forms at the press of a button.",
   "browser_action": {
     "default_icon": "icons/icon.png",
-    "default_popup": "popup.html"
+    "default_popup": "popup/index.html"
   },
   "background": {
-    "scripts": ["js/jquery.min.js", "js/eventPage.js"]
+    "scripts": [
+      "common/jquery.min.js", "preprocess/moment.min.js",
+      "preprocess/constants.js", "preprocess/ext_helpers.js",
+      "preprocess/info_retrieval.js", "background/background.js",
+      "preprocess/parser.js", "preprocess/process_flow.js"
+    ]
   },
   "permissions": [
     "https://*/",

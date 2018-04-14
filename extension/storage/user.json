@@ -2,13 +2,29 @@
   "0": {
     "auth": {
       "commonapp": {
-        "username_val": "ggarland33@gmail.com",
-        "password_val": "Somewhere-317"
+        "username": "ggarland33@gmail.com",
+        "password": "Somewhere-317"
       }
     },
-    "first_name": "Michael",
-    "middle_name": "Fart",
-    "last_name": "Scarn",
-    "nickname": "Mike"
+    "profile": {
+      "first_name": "Michael",
+      "middle_name": "Fart",
+      "last_name": "Scarn",
+      "suffix": "III",
+      "nickname": "Mike",
+      "other_name": "Miguel",
+      "sex": "female",
+      "gender": "sausage person",
+      "birth_date": "01/01/2001",
+      "permanent_address": {
+        "country": "China, People's Republic of",
+        "line_1": "",
+        "line_2": "",
+        "line_3": "",
+        "city": "Scranton",
+        "state": "Pennsylvania",
+        "zip_code": ""
+      }
+    }
   }
 }
