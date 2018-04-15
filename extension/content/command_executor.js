@@ -1,20 +1,49 @@
-var ActionFuncs = {}; // NOTE all action functions should return true by default
+var ActionFuncs = {};
 
-ActionFuncs.doClick = function doClick(ele) {
+ActionFuncs.doClick = function(ele) {
   var domEle = ele[0];
   triggerMouseEvent(domEle, "mouseover");
   triggerMouseEvent(domEle, "mousedown");
   triggerMouseEvent(domEle, "mouseup");
   triggerMouseEvent(domEle, "click");
+  domEle.focus();
+  // has not default assert, so return true
   return true;
 }
 
-ActionFuncs.doType = function doType(ele, val) {
+ActionFuncs.doType = function(ele, val) {
   ele.focus();
   ele.val(val);
   // node.value = '';
   // $(node).sendkeys(val);
-  return true;
+  return assertTyped(ele, val);
+}
+
+ActionFuncs.doWaitForElementPresent = function(ele) {
+  // getElement has already ensured the existense of element
+  return !!ele;
+}
+
+// This is an immediately invoked function (without retries)
+ActionFuncs.doAssertElementPresent = function(target) {
+  // jquery element does not exist when the array is empty
+  return !!(getElement(target).length);
+}
+
+// To clarify: this asserts that the "type" action is performed
+function assertTyped(ele, val) {
+  if (val && ele.val() === val) {
+    return true;
+  } else {
+    console.log(`Failed to assert typed.`);
+    return false;
+  }
+}
+
+function triggerMouseEvent(domEle, eventType) {
+  var clickEvent = document.createEvent('MouseEvents');
+  clickEvent.initEvent(eventType, true, true);
+  domEle.dispatchEvent(clickEvent);
 }
 
 // ActionFuncs.doSendKeys = function(node, keyStr) {
@@ -35,19 +64,3 @@ ActionFuncs.doType = function doType(ele, val) {
 //   $(node).sendkeys(key);
 //   return true;
 // }
-
-// To clarify: this asserts that the "type" action is performed
-ActionFuncs.assertType = function assertType(node, val, timeout) {
-  if (val && node.val() === val) {
-    return true;
-  } else {
-    console.log(`Failed to assert typed.`);
-    return false;
-  }
-}
-
-function triggerMouseEvent(node, eventType) {
-  var clickEvent = document.createEvent('MouseEvents');
-  clickEvent.initEvent(eventType, true, true);
-  node.dispatchEvent(clickEvent);
-}

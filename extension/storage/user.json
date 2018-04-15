@@ -15,15 +15,15 @@
       "other_name": "Miguel",
       "sex": "female",
       "gender": "sausage person",
-      "birth_date": "01/01/2001",
+      "birth_date": "2001-01-01",
       "permanent_address": {
         "country": "China, People's Republic of",
-        "line_1": "",
+        "line_1": "939 501",
         "line_2": "",
         "line_3": "",
-        "city": "Scranton",
-        "state": "Pennsylvania",
-        "zip_code": ""
+        "city": "Beijing",
+        "state": "Beijing",
+        "zip_code": "700089"
       }
     }
   }

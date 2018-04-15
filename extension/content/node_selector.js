@@ -1,7 +1,6 @@
 const BY_INDICATOR = '=';
 
 function getElement(path) {
-  console.log(`Target: ${path}`);
   var sep = path.indexOf(BY_INDICATOR);
   var selectBy = path.substr(0, sep);
   var target = path.substr(sep + 1);

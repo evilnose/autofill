@@ -18,7 +18,7 @@ function processForms(dataArr, appAuth, skipLogin) {
 
   var totalProcess = skipLogin ? app.process : app.login_process.concat(app.process);
 
-  handleProcesses(info, user, totalProcess, 0);
+  handleProcesses(info, user, totalProcess);
   info.segments.push({ i: info.process.length });
 
   console.log("Segments: " + JSON.stringify(info.segments));
@@ -29,36 +29,61 @@ function processForms(dataArr, appAuth, skipLogin) {
   return info;
 }
 
-function handleOneProcess(info, user, p, i) {
+function handleOneProcess(info, user, p) {
   if (typeof p != 'string') {
     console.error(`This is not a string: ${p}`);
-    // TODO throw error
     return;
   }
 
+  var parsed = parseProcessStr(info, user, p);
+  if (parsed)
+    if (parsed.action === 'open') {
+      recordNewPage(info, parsed.target);
+    } else {
+      pushToProcess(info, parsed);
+    }
+}
+
+function parseProcessStr(info, user, p) {
   var [action, target, userKey] = splitProcess(p);
+  var userVal;
   // Handle actions
   switch (action) {
     case 'open':
-      recordNewPage(info, i, target);
-      break;
+      return {
+        action: action,
+        target: target,
+      };
     case 'click':
-      let userVal;
+    case 'assertElementPresent':
+    case 'waitForElementPresent':
       if (target.includes(INTP_IND)) {
         [target, userVal] = interpolate(target, getVal(user, userKey), info.alt_mapping);
+        if (!userVal)
+          return;
       }
-      pushToProcess(info, i, action, target, userVal);
+      return {
+        action: action,
+        target: target,
+        val: userVal,
+      };
       break;
     case 'type':
-      pushToProcess(info, i, action, target, getVal(user, userKey));
-      break;
-    // case 'sendKeys':
-    //   // userKey is the key string in this case
-    //   pushToProcess(info, i, action, target, userKey);
-    //   break;
+      userVal = getVal(user, userKey);
+      if (userVal)
+        return {
+          action: action,
+          target: target,
+          val: userVal,
+        };
+      return;
+      // case 'sendKeys':
+      //   // userKey is the key string in this case
+      //   pushToProcess(info, i, action, target, userKey);
+      //   break;
     default:
       console.error(`Do not recognize action: ${action}`);
-      break;
+      return;
   }
 }
 
@@ -75,29 +100,32 @@ function interpolate(target, userVal, altMapping) {
   }
 }
 
-function handleProcesses(info, user, process, idx) {
+function handleProcesses(info, user, process) {
   var pLen = process.length;
   var p;
-  for (let i = 0; i < pLen; i++) {
+  for (let i = 0; i < pLen; ++i) {
     p = process[i];
     switch (p.type) {
       case 'block':
-        handleBlock(info, user, p, i + idx);
+        handleBlock(info, user, p);
         break;
         // case 'selection':
         //   handleSelection(info, user, p, i + idx);
         //   break;
       default:
-        handleOneProcess(info, user, p, i + idx);
+        if (Array.isArray(p))
+          handleConditional(info, user, p);
+        else
+          handleOneProcess(info, user, p);
         break;
     }
   }
 }
 
-function handleBlock(info, user, b, idx) {
+function handleBlock(info, user, b) {
   var prc;
   if (meetsReq(user, b.conditions)) {
-    prc = b.process;
+    prc = b.main;
   } else {
     prc = b.alt;
   }
@@ -107,61 +135,65 @@ function handleBlock(info, user, b, idx) {
     return;
   } else {
     var len = prc.length;
-    for (let i = 0; i < len; i++) {
-      handleOneProcess(info, user, prc[i], i + idx);
+    for (let i = 0; i < len; ++i) {
+      handleOneProcess(info, user, prc[i]);
     }
   }
 }
 
-// function handleSelection(info, user, selection, idx) {
-//   if (!selection.requires || meetsReq(user, selection.requires)) {
-//     // TODO handle preprocess
-//     if (selection.match_by) {
-//       delete selection.requires;
-//       info.process.push(selection);
-//     } else {
-//       if (selection.pre)
-//         var userVal = getVal(user, selection.userKey);
-//       var options = selection.options;
-//       var optArr;
-//       if (selection.nonex) {
-//         for (let i = 0; i < options.length; i++) {
-//           [target, optionVal] = splitOption(option[i]);
-//           if (optionVal === userVal) {
-//             // Omit optionVal
-//             pushToProcess(info, idx + i, selection.select_option, target);
-//           } else if (selection.deselect_option) {
-//             pushToProcess(info, idx + i, selection.deselect_option, target);
-//           }
-//         }
-//       } else {
-//         for (let i = 0; i < options.length; i++) {
-//           [target, optionVal] = splitOption(option[i]);
-//           if (optionVal === userVal) {
-//             // Omit optionVal
-//             pushToProcess(info, idx + i, selection.select_option, target);
-//             break;
-//           }
-//         }
-//         console.warn(`User's ${selection.userKey} matches none of the selection options.`);
-//         // TODO record this
-//       }
-//     }
-//   } else {
-//     console.log(`User does not meet selection requirement(s): ${selection.requires}`);
-//   }
-// }
+function handleConditional(info, user, conditionals) {
+  var c;
+  if (conditionals[0].assertions) {
+    var res = [];
+    // assertion conditional, parse all assertions and commands and then append
+    for (let i = 0; i < conditionals.length; ++i) {
+      c = conditionals[i];
+      if (c.assertions) {
+        res.push({
+          assertions: getParsedProcesses(info, user, c.assertions),
+          commands: getParsedProcesses(info, user, c.commands),
+        });
+      } else {
+        res.push({
+          commands: getParsedProcesses(info, user, c.commands),
+        });
+        console.assert(i === conditionals.length - 1, "Conditional without assertions is not\
+          the last conditional");
+        break;
+      }
+    }
+    info.process.push(res);
+  } else {
+    for (let i = 0; i < conditionals.length; ++i) {
+      c = conditionals[i];
+      if (meetsReq(user, c)) {
+        handleProcesses(info, user, c.commands);
+        return;
+      }
+    }
+  }
+}
+
+function getParsedProcesses(info, user, strArr) {
+  console.assert(Array.isArray(strArr), `Expected array: ${strArr}`)
+  var arr = [];
+  var len = strArr.length;
+  for (let i = 0; i < len; ++i) {
+    arr.push(parseProcessStr(info, user, strArr[i]));
+  }
+  return arr;
+}
 
 function meetsReq(user, req) {
   var len = req.length;
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < len; ++i) {
     if (!getVal(user, req[i]))
       return false;
   }
   return true;
 }
 
-function recordNewPage(info, i, target) {
+function recordNewPage(info, target) {
   info.segments.push({
     i: info.process.length,
     path: target
@@ -195,18 +227,14 @@ function splitOption(opt) {
   return opt.split(OPT_SEP);
 }
 
-function pushToProcess(info, i, action, target, userVal) {
-  if (!action || !target) {
+function pushToProcess(info, p) {
+  if (!p.action || !p.target) {
     console.error(`Process missing action and/or target: ${i}`);
     return;
     // TODO handle error?
   }
 
-  info.process.push({
-    action: action,
-    target: target,
-    val: userVal
-  });
+  info.process.push(p);
 }
 
 // TODO in situations where userKey is nested, we need to handle that
