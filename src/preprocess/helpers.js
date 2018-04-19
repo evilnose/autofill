@@ -4,26 +4,29 @@ const $ = require('jquery');
 
 module.exports = {
 
-  injectAndSend: function(tabId, fileNames, command, msg, callback) {
-    console.log("Injecting and sending scripts...");
-    if (Array.isArray(fileNames)) {
-      exports.executeScripts(tabId, fileNames,
-        () => exports.sendMsg(tabId, $.extend({}, { command: command }, msg), callback));
-    } else {
-      // Probably a string
-      chrome.tabs.executeScript(tabId, { file: fileNames }, callback);
-    }
-  },
-
   sendMsg: function(tabId, json, callback) {
-    chrome.tabs.query({ currentWindow: true, active: true }, function () {
+    chrome.tabs.query({ currentWindow: true, active: true }, function() {
       chrome.tabs.sendMessage(tabId, json, callback);
       console.log("Message sent: " + JSON.stringify(json));
     });
   },
 
+  injectAndSend: function(tabId, fileNames, command, msg, callback) {
+    // NOTE: the following code does not work for firefox. See its documentation
+    // on executeScript
+    console.log("Injecting and sending scripts...");
+    if (Array.isArray(fileNames)) {
+      exports.executeScripts(tabId, fileNames,
+        () => module.exports.sendMsg(tabId, $.extend({}, { command: command }, msg), callback));
+    } else {
+      // Probably a string
+      chrome.tabs.executeScript(tabId, { file: fileNames },
+        () => module.exports.sendMsg(tabId, $.extend({}, { command: command }, msg), callback));
+    }
+  },
+
   open: function(tabId, url, callback) {
-    chrome.tabs.query({ currentWindow: true, active: true }, function () {
+    chrome.tabs.query({ currentWindow: true, active: true }, function() {
       console.log(`Redirecting to '${url}'`);
       chrome.tabs.update(tabId, { url: url }, callback);
     });
@@ -61,46 +64,46 @@ module.exports = {
       nestedCallback(); // execute outermost function
   },
 
-  isOfDomain: function (url, base) {
+  isOfDomain: function(url, base) {
     // TODO check if url is out of the domain of base
-    return (extractRootDomain(url) === base);
+    return (extractRootDomain(url) === extractRootDomain(base));
   }
 };
 
 // FROM STACKOVERFLOW
 function extractRootDomain(url) {
-    var domain = extractHostname(url),
-        splitArr = domain.split('.'),
-        arrLen = splitArr.length;
+  var domain = extractHostname(url),
+    splitArr = domain.split('.'),
+    arrLen = splitArr.length;
 
-    //extracting the root domain here
-    //if there is a subdomain 
-    if (arrLen > 2) {
-        domain = splitArr[arrLen - 2] + '.' + splitArr[arrLen - 1];
-        //check to see if it's using a Country Code Top Level Domain (ccTLD) (i.e. ".me.uk")
-        if (splitArr[arrLen - 2].length == 2 && splitArr[arrLen - 1].length == 2) {
-            //this is using a ccTLD
-            domain = splitArr[arrLen - 3] + '.' + domain;
-        }
+  //extracting the root domain here
+  //if there is a subdomain 
+  if (arrLen > 2) {
+    domain = splitArr[arrLen - 2] + '.' + splitArr[arrLen - 1];
+    //check to see if it's using a Country Code Top Level Domain (ccTLD) (i.e. ".me.uk")
+    if (splitArr[arrLen - 2].length == 2 && splitArr[arrLen - 1].length == 2) {
+      //this is using a ccTLD
+      domain = splitArr[arrLen - 3] + '.' + domain;
     }
-    return domain;
+  }
+  return domain;
 }
 
 function extractHostname(url) {
-    var hostname;
-    //find & remove protocol (http, ftp, etc.) and get hostname
+  var hostname;
+  //find & remove protocol (http, ftp, etc.) and get hostname
 
-    if (url.indexOf("://") > -1) {
-        hostname = url.split('/')[2];
-    } else {
-        hostname = url.split('/')[0];
-    }
+  if (url.indexOf("://") > -1) {
+    hostname = url.split('/')[2];
+  } else {
+    hostname = url.split('/')[0];
+  }
 
-    //find & remove port number
-    hostname = hostname.split(':')[0];
-    //find & remove "?"
-    hostname = hostname.split('?')[0];
+  //find & remove port number
+  hostname = hostname.split(':')[0];
+  //find & remove "?"
+  hostname = hostname.split('?')[0];
 
-    return hostname;
+  return hostname;
 }
 // END

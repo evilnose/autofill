@@ -11,7 +11,7 @@ var Atfl = {
   LAST_ACTIONS: []
 };
 
-exports = function runProcess(process, autoRoute, sendRes) {
+module.exports = function runProcess(process, autoRoute, sendRes) {
 
   Atfl.skipPenalty = 0;
   Atfl.failedCount = 0;
@@ -75,7 +75,7 @@ function getCommandPromise(prc, i) {
 
     var p = Promise.resolve();
     p = p.then(() => getFindElementRetryPromise(prc.target, prc.action))
-      .then(ele => getActionRetryPromise(getCommands(prc.action), ele, prc));
+      .then(ele => getActionRetryPromise(getCommand(prc.action), ele, prc));
 
     p = p.then(() => { Atfl.skipPenalty = 0; }) // clear penalty on successful action
       .catch(err => skipAction(err, prc.action));
@@ -99,7 +99,7 @@ function verifyAssertions(assertions) {
   var a;
   for (let i = 0; i < assertions.length; i++) {
     a = assertions[i];
-    if (!getCommands(a.action)(a.target, a.val)) {
+    if (!getCommand(a.action)(a.target, a.val)) {
       console.log("Assertion false.");
       return false;
     }
@@ -182,6 +182,7 @@ function retryFindElement(path, action, dIdx, resolve, reject) {
 }
 
 function getCommand(action) {
+  console.log(Commands);
   var Command = Commands['do' + (action.charAt(0).toUpperCase() + action.substr(1))];
   if (!Command) {
     console.error(`Command does not exist: ${action}`);

@@ -1,6 +1,6 @@
 /* globals document XPathResult */
 
-const $ = require('jquery');
+import $ from 'jquery';
 
 const BY_INDICATOR = '=';
 

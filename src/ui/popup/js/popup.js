@@ -1,6 +1,7 @@
 /* global chrome */
 
-const $ = require('jquery');
+import $ from 'jquery';
+import '../css/styles.css';
 
 $(function () {
   $('#test').click(function () {

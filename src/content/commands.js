@@ -50,7 +50,7 @@ function triggerMouseEvent(domEle, eventType) {
   domEle.dispatchEvent(clickEvent);
 }
 
-exports = Commands;
+module.exports = Commands;
 
 // Commands.doSendKeys = function(node, keyStr) {
 //   var key;

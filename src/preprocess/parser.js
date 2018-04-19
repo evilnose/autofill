@@ -1,6 +1,6 @@
 
 const constants = require('./constants.js');
-const $ = require('jquery');
+import $ from 'jquery';
 const moment = require('moment');
 
 /* NOTE that this is somewhat redundant as it parses the file once in background.js
@@ -49,6 +49,9 @@ function handleOneProcess(info, user, p) {
 
 function parseProcessStr(info, user, p) {
   var [action, target, userKey] = splitProcess(p);
+  console.log(p);
+  console.log(constants.OPT_SEP);
+  console.log(action);
   var userVal;
   // Handle actions
   switch (action) {
