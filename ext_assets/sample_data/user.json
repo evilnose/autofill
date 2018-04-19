@@ -1,0 +1,30 @@
+{
+  "0": {
+    "auth": {
+      "commonapp": {
+        "username": "ggarland33@gmail.com",
+        "password": "Somewhere-317"
+      }
+    },
+    "profile": {
+      "first_name": "Michael",
+      "middle_name": "Fart",
+      "last_name": "Scarn",
+      "suffix": "III",
+      "nickname": "Mike",
+      "other_name": "Miguel",
+      "sex": "female",
+      "gender": "sausage person",
+      "birth_date": "2001-01-01",
+      "permanent_address": {
+        "country": "China, People's Republic of",
+        "line_1": "939 501",
+        "line_2": "",
+        "line_3": "",
+        "city": "Beijing",
+        "state": "Beijing",
+        "zip_code": "700089"
+      }
+    }
+  }
+}
