@@ -1,11 +1,6 @@
 /* global chrome */
 
-const infoLoad = require('./infoLoad.js');
-const parser = require('./parser.js');
-const helpers = require('./helpers.js');
-const constants = require('./constants.js');
-
-var tabLoadHandler;
+import Session from './session.js';
 
 /*** PROCESSES PROMISE CHAIN ***/
 exports.startProcesses = function (appKey, userKey, auth, skipLogin) {
@@ -15,142 +10,25 @@ exports.startProcesses = function (appKey, userKey, auth, skipLogin) {
 
   // Initial condition: user has logged in and is at the home url
   console.log("Starting form-filling process...");
-  return Promise.all([infoLoad.getAppInfo(appKey), infoLoad.getUserInfo(userKey)])
-    .catch(failToGetInfo)
-    .then(data => parser.processForms(data, auth, skipLogin))
-    .then(startFormSeq);
+  new Session(processComplete, processFailure).start(appKey, userKey, auth, skipLogin);
 };
-
-/* Given an array of messages, send them to the tab one-by-one. Note that each
- * message ends with a open, so the function waits till each message has
- * been executed, the tab has opened, and the page has loaded then runs the
- * next message
- */
-function startFormSeq(info) {
-  console.log("Starting form sequence...");
-
-  var tabInfo = {};
-
-  // TODO remove first path
-  chrome.tabs.onUpdated.addListener((function () {
-    // TODO make this its own method
-    console.log("Update listener for processes added.");
-    var idx = 0;
-
-    /* We need to make sure two things in order to begin the next sequence
-     * segment: 1) the tab is in a new page (i.e. url changed) and 2) the tab
-     * has finished loading. The tab loads later than it changes url, so a state
-     * machine is employed.
-     */
-    var newPageLoading = false;
-    tabLoadHandler = function (tabId, changeInfo) {
-      // make sure the updated tab is the same as our tab
-      if (tabId === tabInfo.id) {
-        // Make sure the tab's url has changed.
-        if (changeInfo.url) {
-          console.log("New page loading...URL: " + changeInfo.url);
-          if (!helpers.isOfDomain(changeInfo.url, info.base)) {
-            interrupt('Domain changed');
-            return;
-          }
-          newPageLoading = true;
-        }
-
-        if (newPageLoading && changeInfo.status === 'complete') {
-          console.log("New page loaded.");
-          newPageLoading = false;
-          if (idx < info.segments.length) {
-            prepAndSend(info, idx++, tabId, constants.CONTENT_JS_PATH);
-          }
-        }
-      }
-    };
-
-    return tabLoadHandler;
-  })());
-  
-  helpers.newTab(null, tabId => helpers.open(tabId, helpers.getUrl(info.base, info.segments[0].path)), tabInfo);
-}
-
-/* Send the sequence at the indicated index. If the newPage sequence at the end
- * is a open, update the tab url after the messageListener receives an OK
- * from the tab, indicating that the process is done. If the last action is
- * click, then it means that the tab automatically loads a new page, then the
- * listener is not required. Regardless, there's an onLoad listener on the outside.
- */
-function prepAndSend(info, idx, tabId, scripts) {
-  console.log("Prepping and sending...Current index: " + idx);
-  // Get the index of the process one after the last newPage
-  var seg = info.segments;
-  var nextS = seg[idx+1];
-  var iStart = seg[idx].i;
-  var iEnd = (idx === seg.length - 1) ? seg.length : nextS.i;
-  var targetUrl = nextS ? helpers.getUrl(info.base, nextS.path) : null;
-
-  console.log(`Starting process index: ${iStart}. Ending: ${iEnd}.`);
-
-  if (iStart === iEnd) {
-    if (targetUrl)
-      helpers.open(tabId, targetUrl);
-  } else {
-    var process = info.process.slice(iStart, iEnd);
-    var isLast = (idx===seg.length-2);
-
-    // Only if there is no target url AND if this is not the last segment,
-    // is auto_route true
-    helpers.injectAndSend(tabId, scripts,
-      'start_prc', { prc: process, auto_route: !targetUrl && !isLast },
-      res => handleTabResponse(tabId, res, process, targetUrl, isLast));
-  }
-}
-
-function interrupt(reason) {
-  // TODO handle interruption
-  console.log(`Process interrupted. Reason: ${reason}`);
-}
-
-function handleTabResponse(tabId, res, prc, targetUrl, isLast) {
-  if (res) {
-    // TODO handle message
-    console.log("Received response from tab: " + JSON.stringify(res));
-    if (isLast) {
-      // The process is complete.
-      processComplete();
-    } else if (targetUrl) {
-      // There is a target url, so we need to redirect to it manually
-      helpers.open(tabId, targetUrl);
-    } else {
-      console.log("Next path is automatically routed.");
-    }
-  } else {
-    // TODO handle issue
-    failToDoProcess('Tab did not respond.');
-  }
-}
 
 /*** AFTER PROCESSES ***/
 function processComplete() {
   // TODO what happens when the form-sending process is complete?
-  console.log("Form-sending process complete.");
+  console.log("Form-sending process successful. But success handler not done.");
+  processCleanup();
+}
+
+function processFailure(reason, message) {
+  // TODO handle error based on reason and message
+  console.error(`Fail to do process handler not done. Reason: ${reason}`);
+  if (message) {
+    console.log(`Message: ${message}`);
+  }
   processCleanup();
 }
 
 function processCleanup() {
-  chrome.tabs.onUpdated.removeListener(tabLoadHandler);
-}
-
-/*** ERROR HANDLERS ***/
-function failToLogin() {
-  console.error("Fail to login (in injection) handler not done.");
-}
-
-function failToDoProcess(reason) {
-  console.error(`Fail to do process handler not done. Reason: ${reason}`);
-  processCleanup();
-}
-
-// TODO handle error
-function failToGetInfo(reason) {
-  console.error("Fail to get info handler not done.");
-  console.error(reason);
+  // TODO what now?
 }

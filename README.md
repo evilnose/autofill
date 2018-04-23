@@ -19,7 +19,7 @@ The source code is written in `nodejs`, and the distributed extension is built u
 
 ### Prerequisites
 
-To be able to build this extension, you would need `nodejs` and `npm`. At the time this is written, `node` of version `8.9.4` and `npm` of `5.6.0` are being used. Installing `node` also installs `npm` automatically.
+To be able to build this extension, you would need `nodejs` and `npm`. At the time this is written, `node` of version `8.9.4` and `npm` of `5.8.0` are being used. Installing `node` also installs `npm` automatically.
 
 ### Setup
 

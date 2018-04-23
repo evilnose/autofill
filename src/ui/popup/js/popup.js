@@ -5,7 +5,6 @@ import '../css/styles.css';
 
 $(function () {
   $('#test').click(function () {
-    console.log("HIIYAA")
     var userKey = 0;
     var appName = 'commonapp';
     // NOTE appName is only a temporary measure. AppId will ensure that

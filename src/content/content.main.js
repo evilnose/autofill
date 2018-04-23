@@ -1,13 +1,18 @@
 /* global chrome */
 
-const runProcess = require('./runProcess.js');
+const actionProcessor = require('./actionProcessor.js');
 
 chrome.runtime.onMessage.addListener(
-  function (request, sender, sendResponse) {
-    console.log("Message received.");
-    switch (request.command) {
-    case 'start_prc':
-      runProcess(request.prc, request.auto_route, sendResponse);
-    }
-  }
+	function(request, sender, sendResponse) {
+		console.log("Message received.");
+		switch (request.action) {
+			case 'run_cmd':
+				actionProcessor.runCommand(request.command, sendResponse);
+		}
+	}
 );
+
+(function () {
+	chrome.runtime.sendMessage({ state: 'injected' });
+})();
+

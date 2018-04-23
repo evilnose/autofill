@@ -24,5 +24,6 @@ module.exports = function getElement(path) {
 
 function getElementByXPath(xpath) {
   console.log(`Finding element by Xpath: ${xpath}`);
-  return $(document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue);
+  return $(document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+    .singleNodeValue);
 }

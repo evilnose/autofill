@@ -1,41 +1,53 @@
 /* global chrome */
 
 const $ = require('jquery');
+const constants = require('./constants');
 
 module.exports = {
 
   sendMsg: function(tabId, json, callback) {
-    chrome.tabs.query({ currentWindow: true, active: true }, function() {
-      chrome.tabs.sendMessage(tabId, json, callback);
-      console.log("Message sent: " + JSON.stringify(json));
+    chrome.tabs.query({ currentWindow: true }, function() {
+      chrome.tabs.sendMessage(tabId, json, () => {
+        console.log("Message sent: " + JSON.stringify(json));
+        if (callback) callback();
+      });
     });
   },
 
-  injectAndSend: function(tabId, fileNames, command, msg, callback) {
-    // NOTE: the following code does not work for firefox. See its documentation
-    // on executeScript
+  sendCommand: function(tabId, command, callback) {
+    setTimeout(() => {
+      module.exports.sendMsg(tabId, { command: command, action: 'run_cmd' }, callback);
+    }, constants.DELAY_AFTER_INJECT);
+  },
+
+  inject: function(tabId, fileNames, callback) {
     console.log("Injecting and sending scripts...");
     if (Array.isArray(fileNames)) {
-      exports.executeScripts(tabId, fileNames,
-        () => module.exports.sendMsg(tabId, $.extend({}, { command: command }, msg), callback));
+      exports.executeScripts(tabId, fileNames, callback);
     } else {
       // Probably a string
-      chrome.tabs.executeScript(tabId, { file: fileNames },
-        () => module.exports.sendMsg(tabId, $.extend({}, { command: command }, msg), callback));
+      chrome.tabs.executeScript(tabId, { file: fileNames }, callback);
     }
   },
 
   open: function(tabId, url, callback) {
     chrome.tabs.query({ currentWindow: true, active: true }, function() {
-      console.log(`Redirecting to '${url}'`);
+      if (!url) {
+        console.error("URL is null.");
+      } else {
+        console.log(`Redirecting to '${url}'`);
+      }
       chrome.tabs.update(tabId, { url: url }, callback);
     });
   },
 
-  newTab: function(url, callback, toStore) {
-    console.log("Creating new tab...");
+  newTab: function(url, callback) {
+    if (!url) {
+      console.error("The given url is null.");
+      return;
+    }
+    console.log(`Creating new tab (url: ${url})...`);
     chrome.tabs.create({ url: url }, tab => {
-      if (toStore) toStore.id = tab.id;
       callback(tab.id);
     });
   },

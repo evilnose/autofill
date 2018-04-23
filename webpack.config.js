@@ -1,3 +1,4 @@
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebPackPlugin = require('clean-webpack-plugin');
@@ -11,7 +12,8 @@ module.exports = {
 	entry: {
 		background: './src/background.main.js',
 		content: './src/content/content.main.js',
-		popup: './src/ui/popup/js/popup.js'
+		popup: './src/ui/popup/js/popup.js',
+		form: './src/ui/form/js/form.js',
 	},
 	devtool: 'inline-source-map',
 	plugins: [
@@ -20,7 +22,13 @@ module.exports = {
 			title: 'Autofill Popup',
 			filename: 'popup.html',
 			chunks: ['popup'],
-			template: './src/ui/popup/index.html'
+			template: './src/ui/popup/index.html',
+		}),
+		new HtmlWebpackPlugin({
+			title: 'Form | Autofill',
+			filename: 'form.html',
+			chunks: ['form'],
+			template: './src/ui/form/form.html',
 		}),
 		new CopyWebpackPlugin([
 			{ from: 'ext_assets', to: './' }

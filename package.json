@@ -5,12 +5,14 @@
   "private": true,
   "main": "./ui/popup/popup.js",
   "scripts": {
-    "pretest": "npm run lint",
-    "test": "mocha test -u bdd -R spec",
+    "test": "mocha test/ -u bdd -R spec",
     "lint": "jshint src",
-    "build:dev": "webpack --mode development",
+    "build": "webpack --mode development",
     "build:prod": "webpack --mode production",
-    "watch": "webpack --watch --mode development"
+    "watch": "webpack --watch --mode development",
+
+    "pretest": "npm run lint",
+    "prebuild": "npm run test"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,7 @@
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.14",
+    "webpack-merge": "^4.1.2",
     "webpack-node-modules-list": "^0.4.1"
   },
   "dependencies": {
@@ -45,6 +48,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "jquery": "^3.3.1",
-    "moment": "^2.22.1"
+    "moment": "^2.22.1",
+    "npm": "^5.8.0"
   }
 }

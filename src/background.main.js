@@ -5,6 +5,9 @@ const processFlow = require('./preprocess/processFlow.js');
 /*** Main message listener ***/
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
+    if (!request.action) {
+      return;
+    }
     switch (request.action) {
     case 'login':
       processFlow.startProcesses(request.appKey, request.userKey, request.appAuth, false);
