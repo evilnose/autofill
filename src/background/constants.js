@@ -10,5 +10,5 @@ module.exports = {
 	CONTENT_JS_PATH: './content.bundle.js',
 
 	MAX_ACTION_TIMEOUT: 10000,
-	DELAY_AFTER_INJECT: 100,
+	DEFAULT_DELAY: 50,
 };

@@ -1,6 +1,6 @@
 /* global chrome */
 
-const processFlow = require('./preprocess/processFlow.js');
+const processFlow = require('./background/processFlow.js');
 
 /*** Main message listener ***/
 chrome.runtime.onMessage.addListener(

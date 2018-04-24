@@ -1,3 +1,4 @@
+/* global chrome */
 
 const getCommandFn = require('./getCommandFn.js');
 const getElement = require('./getElement.js');

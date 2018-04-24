@@ -1,3 +1,4 @@
+
 const constants = require('./constants.js');
 import $ from 'jquery';
 const moment = require('moment');
@@ -28,46 +29,50 @@ exports.processForms = function(dataArr, appAuth, skipLogin) {
   return info;
 };
 
-function handleOneProcess(info, user, p) {
-  pushToProcess(info, parseProcessStr(info, user, p));
+function handleOneProcess(info, user, c) {
+  pushToProcess(info, parseProcessStr(info, user, c));
 
 }
 
-function parseProcessStr(info, user, pStr) {
-  var p = splitProcess(pStr);
+function parseProcessStr(info, user, cStr) {
+  var c = splitCommand(cStr);
 
   var userVal;
   // Handle actions
-  switch (p.action) {
+  switch (c.action) {
     case 'open':
     case 'wait':
     case 'warn':
-      return p;
-    case 'click':
     case 'assertElementPresent':
     case 'waitForElementPresent':
-      if (p.target.includes(constants.INTP_IND)) {
-        [p.target, userVal] = interpolate(p.target, getVal(user, p.val), info.alt_mapping);
-        if (!userVal) {
-          console.log(`Command skipped since no userVal (interp): ${p.target}`);
+      return c;
+    case 'click':
+      if (c.target.includes(constants.INTP_IND)) {
+        c.target = interpolate(c.target, getVal(user, c.val), info.alt_mapping);
+        if (!c.target) {
+          console.log(`Command skipped since no userVal (interp): ${c.target}`);
           return;
         }
-      }
-      p.val = userVal;
-      return p;
+      } else if (c.val)
+        // assign field to c.val if it exists; if not, return.
+        if (!(c.field = getVal(user, c.val)))
+          return;
+
+      return c;
     case 'type':
-      if (!!(userVal = getVal(user, p.val))) {
-        p.val = userVal;
-        return p;
+      if (!!(userVal = getVal(user, c.val))) {
+        c.field = c.val;
+        c.val = userVal;
+        return c;
       }
-      console.log(`Command skipped since no userVal: ${p.target}`);
+      console.log(`Command skipped since no userVal: ${c.target}`);
       return;
       // case 'sendKeys':
       //   // userKey is the key string in this case
       //   pushToProcess(info, i, action, target, userKey);
       //   break;
     default:
-      console.error(`Do not recognize action: ${p.action}`);
+      console.error(`Do not recognize action: ${c.action}`);
       return;
   }
 }
@@ -75,11 +80,11 @@ function parseProcessStr(info, user, pStr) {
 function interpolate(target, userVal, altMapping) {
   // OPTIMIZE use indexOf to save from searching twice
   if (userVal) {
-    userVal = altMapping[userVal] || userVal;
-    return [target.replace(constants.INTP_IND, userVal), userVal];
+    var newVal = altMapping[userVal] || userVal;
+    return target.replace(constants.INTP_IND, newVal);
   } else {
     console.error(`Interpolation failed: No userVal. Target: ${target}`);
-    return [target];
+    return null;
   }
 }
 
@@ -170,12 +175,12 @@ function meetsReq(user, req) {
   return true;
 }
 
-function splitProcess(p) {
-  var [action, target, userKey, message] = p.split(constants.OPT_SEP);
+function splitCommand(c) {
+  var [action, target, userKey, message] = c.split(constants.OPT_SEP);
   var flag;
   if (action.startsWith(constants.FLAG_IND)) {
-    flag = p[1];
-    action = p.substr(3);
+    flag = c[1];
+    action = c.substr(3);
   }
 
   return {
@@ -187,17 +192,17 @@ function splitProcess(p) {
   };
 }
 
-function pushToProcess(info, p) {
-  if (!p)
+function pushToProcess(info, c) {
+  if (!c)
     return;
 
-  if (!p.action) {
-    console.error(`Process missing action: ${p}`);
+  if (!c.action) {
+    console.error(`Process missing action: ${c}`);
     return;
     // TODO handle error?
   }
 
-  info.process.push(p);
+  info.process.push(c);
 }
 
 // TODO in situations where userKey is nested, we need to handle that
@@ -208,7 +213,7 @@ function getVal(user, userKey) {
 
   if (userKey.includes(constants.SEL_SEP)) {
     var [fieldKey, optionVal] = userKey.split(constants.SEL_SEP);
-    return (getUserVal(user, fieldKey) === optionVal);
+    return (getUserVal(user, fieldKey) === optionVal) ? fieldKey : null;
   } else {
     if (userKey.includes(constants.FORMAT_IND)) {
       var [newKey, format] = userKey.split(constants.FORMAT_IND);

@@ -3,7 +3,12 @@
     "version": "0",
     "app_name": "Common Application",
     "base": "https://apply.commonapp.org",
-    "login_process": ["open;/login", "type;id=ApplicantEmailAddress;@username", "type;id=ApplicantPassword;@password", "click;id=appLogin;"],
+    "login_process": [
+      "open;/login",
+      "type;id=ApplicantEmailAddress;@username",
+      "type;id=ApplicantPassword;@password",
+      "click;id=appLogin;"
+    ],
     "alt_mapping": {
       "China, People's Republic of": "China"
     },

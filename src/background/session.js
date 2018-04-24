@@ -37,8 +37,8 @@ export default class Session {
 	getSummary() {
 		return {
 			warnings: this.warnings,
-			successCount: this.succCount,
-			totalCount: this.totalCount,
+			totalFields: this.totalFields,
+			completedFields: this.completedFields,
 		};
 	}
 
@@ -49,9 +49,8 @@ export default class Session {
 		this.queue = [];
 		this.conditionals = [];
 		this.warnings = [];
-		// TODO succCount and totalCount
-		this.succCount = 0;
-		this.totalCount = 0;
+		this.totalFields = [];
+		this.completedFields = [];
 
 		this.startCheckingTimeout();
 		// TODO add max timeout handler
@@ -66,27 +65,93 @@ export default class Session {
 	}
 
 	getMessageHandler() {
-		this.actionMessageHandler = onMessage.bind(this);
+		this.actionMessageHandler = this.onMessage.bind(this);
 		return this.actionMessageHandler;
 	}
 
 	getTabLoadHandler() {
-		/* We need to make sure two things in order to begin the next sequence
-		 * segment: 1) the tab is in a new page (i.e. url changed) and 2) the tab
-		 * has finished loading. The tab loads later than it changes url, so a state
-		 * machine is employed.
-		 */
 		this.newPageLoading = false;
-		this.tabLoadHandler = onTabLoad.bind(this);
+		this.tabLoadHandler = this.onTabLoad.bind(this);
 		return this.tabLoadHandler;
 	}
 
+	/* We need to make sure two things in order to begin the next sequence
+	 * segment: 1) the tab is in a new page (i.e. url changed) and 2) the tab
+	 * has finished loading. The tab loads later than it changes url, so a state
+	 * machine is employed.
+	 */
+	onTabLoad(tabId, changeInfo) {
+		// make sure the updated tab is the same as our tab
+		if (tabId === this.tabId) {
+			// Make sure the tab's url has changed.
+			if (changeInfo.url) {
+				console.log("New page loading...URL: " + changeInfo.url);
+				if (!helpers.isOfDomain(changeInfo.url, this.info.base)) {
+					// New domain; fail for safety
+					this.failure('new_domain');
+					return;
+				}
+				this.newPageLoading = true;
+			}
+
+			if (this.newPageLoading && changeInfo.status === 'complete') {
+				console.log("New page loaded.");
+				this.newPageLoading = false;
+
+				if (this.waitingFor === WaitingFor.NEW_PAGE_LOAD) {
+					this.runNextCommand();
+				} else {
+					console.log("A new path is loaded, but the script is still there.");
+				}
+
+			}
+		}
+	}
+
+	onMessage(request) {
+		console.log(`Received message with state: ${request.state}`);
+		switch (request.state) {
+			case 'try_met':
+				// Remove conditionals to jump to queue in getNextCommand()
+				this.conditionals = [];
+				/* falls through */
+			case 'next':
+				if (this.pendingField)
+					this.completedFields.push(this.pendingField);
+				/* falls through */
+			case 'try_unmet':
+				if (this.waitingFor === WaitingFor.MESSAGE) {
+					this.runNextCommand();
+				} else {
+					console.error("Expected waitingFor to be MESSAGE but got " +
+						this.waitingFor + " instead.");
+				}
+				break;
+			case 'injected':
+				this.runNextCommand();
+				break;
+			case 'failed':
+				this.failure(request.reason, request.message);
+				break;
+			default:
+				console.error(`Do not recognize request state: ${request.state}.`);
+				break;
+		}
+	}
+
 	runNextCommand() {
-		if (this.idx > this.info.process.length && this.queue.length === 0 &&
+		if (this.idx >= this.info.process.length && this.queue.length === 0 &&
 			this.conditionals.length === 0) {
 			// TODO add success count and warnings
 			// TODO handle penalty
 			this.success();
+			return;
+		}
+
+		if (this.needToInject) {
+			// Fresh page; need to inject script
+			this.needToInject = false;
+			helpers.inject(this.tabId, constants.CONTENT_JS_PATH);
 			return;
 		}
 
@@ -96,6 +161,15 @@ export default class Session {
 			console.log(`Running command ${cmd.action}`);
 		else
 			console.error(`Command has no action: ${JSON.stringify(cmd)}`);
+
+
+		if (cmd.field) {
+			// For summary and analytics
+			this.totalFields.push(cmd.field);
+			this.pendingField = cmd.field;
+		} else {
+			this.pendingField = null;
+		}
 
 		switch (cmd.action) {
 			case 'open':
@@ -114,7 +188,7 @@ export default class Session {
 				this.runNextCommand();
 				break;
 			default:
-				this.sendCommand(cmd);
+				helpers.sendCommand(this.tabId, cmd);
 				this.waitingFor = WaitingFor.MESSAGE;
 				break;
 		}
@@ -154,22 +228,8 @@ export default class Session {
 		};
 	}
 
-	sendCommand(cmd) {
-		if (this.needToInject) {
-			// Fresh page; need to inject script
-			this.needToInject = false;
-			this.inject();
-		} else {
-			helpers.sendCommand(this.tabId, cmd);
-		}
-	}
-
 	getFullUrl(path) {
 		return helpers.getUrl(this.info.base, path);
-	}
-
-	inject() {
-		helpers.inject(this.tabId, constants.CONTENT_JS_PATH);
 	}
 
 	stopSession() {
@@ -184,60 +244,3 @@ function bindMethods(context, props) {
 		context[prop].bind(context);
 	});
 }
-
-function onTabLoad(tabId, changeInfo) {
-	// make sure the updated tab is the same as our tab
-	if (tabId === this.tabId) {
-		// Make sure the tab's url has changed.
-		if (changeInfo.url) {
-			console.log("New page loading...URL: " + changeInfo.url);
-			if (!helpers.isOfDomain(changeInfo.url, this.info.base)) {
-				// New domain; fail for safety
-				this.failure('new_domain');
-				return;
-			}
-			this.newPageLoading = true;
-		}
-
-		if (this.newPageLoading && changeInfo.status === 'complete') {
-			console.log("New page loaded.");
-			this.newPageLoading = false;
-
-			if (this.waitingFor === WaitingFor.NEW_PAGE_LOAD) {
-				this.runNextCommand();
-			} else {
-				console.log("A new path is loaded, but the script is still there.");
-			}
-
-		}
-	}
-}
-
-function onMessage(request) {
-	console.log(`Received message with state: ${request.state}`);
-	switch (request.state) {
-		case 'try_met':
-			// Remove conditionals to jump to queue in getNextCommand()
-			this.conditionals = [];
-			/* falls through */
-		case 'next':
-		case 'try_unmet':
-			if (this.waitingFor === WaitingFor.MESSAGE) {
-				this.runNextCommand();
-			} else {
-				console.error("Expected waitingFor to be MESSAGE but got " +
-					this.waitingFor + " instead.");
-			}
-			break;
-		case 'injected':
-			this.idx--;
-			this.runNextCommand();
-			break;
-		case 'failed':
-			this.failure(request.reason, request.message);
-			break;
-		default:
-			console.error(`Do not recognize request state: ${request.state}.`);
-			break;
-	}
-};
