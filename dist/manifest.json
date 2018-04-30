@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Fill in college application forms at the press of a button.",
   "browser_action": {
-    "default_icon": "icons/icon.png",
-    "default_popup": "popup.html"
+    "default_icon": "icons/icon.png"
   },
   "background": {
     "scripts": ["background.bundle.js"]
@@ -13,7 +12,6 @@
   "permissions": [
     "https://*/",
     "http://*/",
-    "activeTab",
-    "storage"
+    "activeTab"
   ]
 }

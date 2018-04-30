@@ -1,4 +1,3 @@
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebPackPlugin = require('clean-webpack-plugin');
@@ -9,32 +8,26 @@ const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
+	context: path.resolve(__dirname, 'src'),
 	entry: {
-		background: './src/background.main.js',
-		content: './src/content/content.main.js',
-		popup: './src/ui/popup/js/popup.js',
-		form: './src/ui/form/js/form.js',
+		background: './background.main.js',
+		content: './content/content.main.js',
+		index: './app/index.js',
 	},
 	devtool: 'inline-source-map',
 	plugins: [
 		new CleanWebPackPlugin(['dist']),
+		//TODO: we don't need this if we're using angular
 		new HtmlWebpackPlugin({
-			title: 'Autofill Popup',
-			filename: 'popup.html',
-			chunks: ['popup'],
-			template: './src/ui/popup/index.html',
-		}),
-		new HtmlWebpackPlugin({
-			title: 'Form | Autofill',
-			filename: 'form.html',
-			chunks: ['form'],
-			template: './src/ui/form/form.html',
+			title: 'Dashboard | Autofill',
+			filename: 'index.html',
+			chunks: ['index'],
+			template: './app/index.html',
 		}),
 		new CopyWebpackPlugin([
-			{ from: 'ext_assets', to: './' }
+			{ from: '../ext_assets', to: './' }
 		]),
 		new MomentLocalesPlugin,
-
 		// new UglifyJsPlugin({
 		// 	test: /\.js($|\?)/i
 		// })
@@ -44,7 +37,17 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist')
 	},
 	module: {
-		rules: [{
+		rules: [
+            {
+                test: /\.(html)$/,
+                use: {
+                    loader: 'html-loader',
+                    options: {
+                        attrs: [':data-src']
+                    }
+                }
+            },
+		    {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: ['babel-loader']
@@ -57,7 +60,20 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(png|svg|jpg|gif)$/,
+				test: /\.scss$/,
+				use: [{
+						loader: "style-loader" // creates style nodes from JS strings
+					},
+					{
+						loader: "css-loader" // translates CSS into CommonJS
+					},
+					{
+						loader: "sass-loader" // compiles Sass to CSS
+					}
+				]
+			},
+			{
+				test: /\.(jpe|jpg|png|gif|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
 				use: [{
 					loader: 'file-loader',
 					options: {

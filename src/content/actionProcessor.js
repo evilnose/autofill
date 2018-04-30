@@ -19,7 +19,7 @@ module.exports = {
         }
         break;
       case 'wait':
-        getDelayPromise(cmd.target || constants.SPECIFIED_DELAY)
+        getDelayPromise(cmd.target || constants.DEFAULT_WAIT_DELAY)
           .then(handleActionSuccess)
           .catch(handleActionFailure);
         break;

@@ -1,6 +1,7 @@
 /* global chrome */
 
 import Session from './session.js';
+const constants = require('./constants.js');
 
 /*** PROCESSES PROMISE CHAIN ***/
 exports.startProcesses = function (appKey, userKey, auth, skipLogin) {
@@ -21,15 +22,17 @@ function processComplete(sum) {
   processCleanup();
 }
 
-function processFailure(sum, reason, message) {
+function processFailure(sum, reason, implication) {
   // TODO handle error based on reason and message
   console.error(`Fail to do process handler not done. Reason: ${reason}`);
-  if (message) {
-    console.log(`Message: ${message}`);
+  switch (implication) {
+    case constants.Message.Implication.BAD_LOGIN:
+      console.log("Bad login.");
+      break;
   }
   console.log(sum);
-  console.warn("Since the process failed, the last few field values may not\
-    have been sent.");
+  console.log("WARNING: Since the process failed, the last few field values may not" +
+    "have been sent.");
   processCleanup();
 }
 

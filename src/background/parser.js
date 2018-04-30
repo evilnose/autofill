@@ -1,7 +1,6 @@
-
 const constants = require('./constants.js');
-import $ from 'jquery';
 const moment = require('moment');
+import $ from 'jquery';
 
 /* NOTE that this is somewhat redundant as it parses the file once in background.js
  * then it parses it again in injected.js, but this ensures that only the required
@@ -20,7 +19,7 @@ exports.processForms = function(dataArr, appAuth, skipLogin) {
 
   var totalProcess = skipLogin ? app.process : app.login_process.concat(app.process);
 
-  handleProcesses(info, user, totalProcess);
+  handleProcesses(info, user, totalProcess, app.login_process ? app.login_process.length : 0);
 
   console.log("Process: " + JSON.stringify(info.process));
 
@@ -29,13 +28,13 @@ exports.processForms = function(dataArr, appAuth, skipLogin) {
   return info;
 };
 
-function handleOneProcess(info, user, c) {
-  pushToProcess(info, parseProcessStr(info, user, c));
-
+function handleOneProcess(info, user, c, imp) {
+  pushToProcess(info, parseProcessStr(info, user, c, imp));
 }
 
-function parseProcessStr(info, user, cStr) {
+function parseProcessStr(info, user, cStr, imp) {
   var c = splitCommand(cStr);
+  c.implication = imp;
 
   var userVal;
   // Handle actions
@@ -43,19 +42,27 @@ function parseProcessStr(info, user, cStr) {
     case 'open':
     case 'wait':
     case 'warn':
+      return c;
     case 'assertElementPresent':
     case 'waitForElementPresent':
-      return c;
-    case 'click':
       if (c.target.includes(constants.INTP_IND)) {
         c.target = interpolate(c.target, getVal(user, c.val), info.alt_mapping);
         if (!c.target) {
           console.log(`Command skipped since no userVal (interp): ${c.target}`);
           return;
         }
-      } else if (c.val)
-        // assign field to c.val if it exists; if not, return.
-        if (!(c.field = getVal(user, c.val)))
+      }
+      return c;
+    case 'click':
+      if (c.target.includes(constants.INTP_IND)) {
+        c.target = interpolate(c.target, getVal(user, c.val), info.alt_mapping);
+        c.field = c.val;
+        if (!c.target) {
+          console.log(`Command skipped since no userVal (interp): ${c.target}`);
+          return;
+        }
+      } else if (c.val && !(c.field = getVal(user, c.val)))
+        // assign c.val to field if it exists; if not, return.
           return;
 
       return c;
@@ -88,16 +95,23 @@ function interpolate(target, userVal, altMapping) {
   }
 }
 
-function handleProcesses(info, user, process) {
+function handleProcesses(info, user, process, endOfLogin) {
   var pLen = process.length;
-  var cmd;
-  for (let i = 0; i < pLen; ++i) {
-    cmd = process[i];
-    if (typeof cmd === 'string')
-      handleOneProcess(info, user, cmd);
-    else
-      handleConditional(info, user, cmd);
+
+  if (!endOfLogin) endOfLogin = 0;
+  for (let i = 0; i < endOfLogin; ++i) {
+    handleCommand(info, user, process[i], 'bl');
   }
+  for (let i = endOfLogin; i < pLen; ++i) {
+    handleCommand(info, user, process[i]);
+  }
+}
+
+function handleCommand(info, user, cmd, imp) {
+  if (typeof cmd === 'string')
+    handleOneProcess(info, user, cmd, imp);
+  else
+    handleConditional(info, user, cmd);
 }
 
 // function handleBlock(info, user, b) {
@@ -141,6 +155,7 @@ function handleConditional(info, user, conditionals) {
     }
     info.process.push(res);
   } else {
+    console.log(JSON.stringify(conditionals));
     for (let i = 0; i < conditionals.length; ++i) {
       c = conditionals[i];
       if (meetsReq(user, c.require)) {
@@ -176,7 +191,7 @@ function meetsReq(user, req) {
 }
 
 function splitCommand(c) {
-  var [action, target, userKey, message] = c.split(constants.OPT_SEP);
+  var [action, target, userKey, imp] = c.split(constants.OPT_SEP);
   var flag;
   if (action.startsWith(constants.FLAG_IND)) {
     flag = c[1];
@@ -188,7 +203,7 @@ function splitCommand(c) {
     action: action,
     target: target,
     val: userKey,
-    message: message,
+    implication: imp,
   };
 }
 

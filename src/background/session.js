@@ -16,13 +16,13 @@ export default class Session {
 			succ(this.getSummary());
 		};
 
-		this.failure = function(errReason, errMessage) {
+		this.failure = function(errReason) {
 			this.stopSession();
-			fail(this.getSummary(), errReason, errMessage);
+			fail(this.getSummary(), errReason, this.lastImplication);
 		};
 
 		// bindMethods(this, ['start', 'runFormSeq', 'startCheckingTimeout', 'getMessageHandler',
-		// 	'getTabLoadHandler', 'runNextCommand', 'getNextCommand', 'sendCommand',
+		// 	'getTabLoadHandler', 'runNextCommandWithDelay', 'getNextCommand', 'sendCommand',
 		// 	'getFullUrl', 'injectAndSendCommand', 'stopSession']);
 		bindMethods(this, ['start']);
 	}
@@ -51,6 +51,7 @@ export default class Session {
 		this.warnings = [];
 		this.totalFields = [];
 		this.completedFields = [];
+		this.newPageLoading = false;
 
 		this.startCheckingTimeout();
 		// TODO add max timeout handler
@@ -61,17 +62,27 @@ export default class Session {
 	}
 
 	startCheckingTimeout() {
-		// TODO throttle
+		this.lastTimeActive = Date.now();
+		var end = () => this.failure.call(this, 'timeout');
+
+		var checkTimeout = function() {
+			if (Date.now() - this.lastTimeActive > constants.MAX_ACTION_TIMEOUT) {
+				end();
+			}
+		}.bind(this);
+
+		this.timeoutInterval = setInterval(checkTimeout, constants.CHECK_TIMEOUT_INTERVAL);
 	}
 
 	getMessageHandler() {
-		this.actionMessageHandler = this.onMessage.bind(this);
+		if (!this.actionMessageHandler)
+			this.actionMessageHandler = this.onMessage.bind(this);
 		return this.actionMessageHandler;
 	}
 
 	getTabLoadHandler() {
-		this.newPageLoading = false;
-		this.tabLoadHandler = this.onTabLoad.bind(this);
+		if (!this.tabLoadHandler)
+			this.tabLoadHandler = this.onPageLoad.bind(this);
 		return this.tabLoadHandler;
 	}
 
@@ -80,7 +91,7 @@ export default class Session {
 	 * has finished loading. The tab loads later than it changes url, so a state
 	 * machine is employed.
 	 */
-	onTabLoad(tabId, changeInfo) {
+	onPageLoad(tabId, changeInfo) {
 		// make sure the updated tab is the same as our tab
 		if (tabId === this.tabId) {
 			// Make sure the tab's url has changed.
@@ -99,9 +110,9 @@ export default class Session {
 				this.newPageLoading = false;
 
 				if (this.waitingFor === WaitingFor.NEW_PAGE_LOAD) {
-					this.runNextCommand();
+					this.runNextCommandWithDelay();
 				} else {
-					console.log("A new path is loaded, but the script is still there.");
+					console.warn("A new path is loaded, but the script is still there.");
 				}
 
 			}
@@ -121,14 +132,14 @@ export default class Session {
 				/* falls through */
 			case 'try_unmet':
 				if (this.waitingFor === WaitingFor.MESSAGE) {
-					this.runNextCommand();
+					this.runNextCommandWithDelay();
 				} else {
 					console.error("Expected waitingFor to be MESSAGE but got " +
 						this.waitingFor + " instead.");
 				}
 				break;
 			case 'injected':
-				this.runNextCommand();
+				this.runNextCommandWithDelay();
 				break;
 			case 'failed':
 				this.failure(request.reason, request.message);
@@ -137,6 +148,7 @@ export default class Session {
 				console.error(`Do not recognize request state: ${request.state}.`);
 				break;
 		}
+		this.lastImplication = null;
 	}
 
 	runNextCommand() {
@@ -144,6 +156,9 @@ export default class Session {
 			this.conditionals.length === 0) {
 			// TODO add success count and warnings
 			// TODO handle penalty
+			console.log(this.idx);
+			console.log(this.info.process.length);
+			console.log(this.getNextCommand());
 			this.success();
 			return;
 		}
@@ -160,7 +175,7 @@ export default class Session {
 		if (cmd.action)
 			console.log(`Running command ${cmd.action}`);
 		else
-			console.error(`Command has no action: ${JSON.stringify(cmd)}`);
+			this.failure(`Command has no action: ${JSON.stringify(cmd)}`);
 
 
 		if (cmd.field) {
@@ -171,12 +186,14 @@ export default class Session {
 			this.pendingField = null;
 		}
 
+		this.lastImplication = cmd.implication;
+
 		switch (cmd.action) {
 			case 'open':
 				this.needToInject = true;
 				this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
-				if (this.idx === 0 && this.queue.length === 0) {
-					// If first command
+				if (this.idx === 1 && this.queue.length === 0) {
+					// If first command (since idx is incremented before)
 					helpers.newTab(this.getFullUrl(cmd.target),
 						tabId => { this.tabId = tabId; });
 				} else {
@@ -185,7 +202,7 @@ export default class Session {
 				break;
 			case 'warn':
 				this.warnings.push(cmd.target);
-				this.runNextCommand();
+				this.runNextCommandWithDelay();
 				break;
 			default:
 				helpers.sendCommand(this.tabId, cmd);
@@ -197,13 +214,20 @@ export default class Session {
 		if (cmd.flag === 'n')
 			this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
 
-		this.idx++;
+		this.lastTimeActive = Date.now();
+	}
+
+	runNextCommandWithDelay() {
+		setTimeout(() => this.runNextCommand(), constants.DEFAULT_DELAY);
 	}
 
 	getNextCommand() {
 		if (this.conditionals && this.conditionals.length > 0) {
 			return this.getNextTry();
 		} else if (this.queue.length > 0) {
+			// queue is about to be empty
+			if (this.queue.length === 1)
+				this.idx++;
 			return this.queue.splice(0, 1)[0];
 		} else {
 			var cmd = this.info.process[this.idx];
@@ -213,6 +237,7 @@ export default class Session {
 				this.conditionals = cmd;
 				return this.getNextTry();
 			} else {
+				this.idx++;
 				return cmd;
 			}
 		}
@@ -236,6 +261,8 @@ export default class Session {
 		console.log("Session stopped.");
 		chrome.tabs.onUpdated.removeListener(this.tabLoadHandler);
 		chrome.runtime.onMessage.removeListener(this.actionMessageHandler);
+		if (this.timeoutInterval)
+			clearInterval(this.timeoutInterval);
 	}
 }
 
