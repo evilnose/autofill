@@ -1,0 +1,32 @@
+
+$fa-font-path: "~font-awesome/fonts" !default;
+@import "~font-awesome/scss/font-awesome";
+
+%btn-def {
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.btn-go {
+	@extend %btn-def;
+	font-size: 1.2em;
+	height: 3em;
+	width: 100%;
+	//border-width: 1px;
+	//border-color: $primary;
+	//color: $primary;
+	background-color: white;
+	&:hover {
+		//background-color: $primary;
+		color: white;
+	}
+	/* TODO transitions */
+}
+
+.btn-options {
+	@extend %btn-def;
+	background-color: inherit;
+	border: none;
+	color: gray;
+}

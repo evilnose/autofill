@@ -6,7 +6,7 @@ const constants = require('./constants.js');
 /*** PROCESSES PROMISE CHAIN ***/
 exports.startProcesses = function (appKey, userKey, auth, skipLogin) {
   if (!auth && !skipLogin) {
-    console.error("User requested login but not app auth is provided.");
+    console.error("User requested login but not angular-app auth is provided.");
   }
 
   // Initial condition: user has logged in and is at the home url

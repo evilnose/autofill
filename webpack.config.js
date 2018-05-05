@@ -1,43 +1,47 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebPackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-// const webpack = require('webpack');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-	mode: 'development',
-	context: path.resolve(__dirname, 'src'),
-	entry: {
-		background: './background.main.js',
-		content: './content/content.main.js',
-		index: './app/index.js',
-	},
-	devtool: 'inline-source-map',
-	plugins: [
-		new CleanWebPackPlugin(['dist']),
-		//TODO: we don't need this if we're using angular
-		new HtmlWebpackPlugin({
-			title: 'Dashboard | Autofill',
-			filename: 'index.html',
-			chunks: ['index'],
-			template: './app/index.html',
-		}),
-		new CopyWebpackPlugin([
-			{ from: '../ext_assets', to: './' }
-		]),
-		new MomentLocalesPlugin,
-		// new UglifyJsPlugin({
-		// 	test: /\.js($|\?)/i
-		// })
-	],
-	output: {
-		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, 'dist')
-	},
-	module: {
-		rules: [
+    context: path.resolve(__dirname, 'src'),
+    entry: {
+        background: './background.main.js',
+        content: './content/content.main.js',
+        index: './angular-app/index.ts',
+    },
+    devtool: 'inline-source-map',
+    plugins: [
+        new CleanWebPackPlugin(['dist']),
+        //TODO: we don't need this if we're using angular
+        new HtmlWebpackPlugin({
+            title: 'Dashboard | Autofill',
+            filename: 'index.html',
+            chunks: ['index'],
+            template: './angular-app/index.html',
+        }),
+        new CopyWebpackPlugin([
+            {from: '../ext_assets', to: './'}
+        ]),
+        new MomentLocalesPlugin(),
+        new webpack.ContextReplacementPlugin(
+            // The (\\|\/) piece accounts for path separators in *nix and Windows
+            /angular(\\|\/)core/,
+            path.resolve(__dirname, './src/angular-app/app'), // location of your src
+            {} // a map of your routes
+        ),
+        new CheckerPlugin(),
+    ],
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+        rules: [
             {
                 test: /\.(html)$/,
                 use: {
@@ -47,45 +51,71 @@ module.exports = {
                     }
                 }
             },
-		    {
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: ['babel-loader']
-			},
-			{
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader'
-				]
-			},
-			{
-				test: /\.scss$/,
-				use: [{
-						loader: "style-loader" // creates style nodes from JS strings
-					},
-					{
-						loader: "css-loader" // translates CSS into CommonJS
-					},
-					{
-						loader: "sass-loader" // compiles Sass to CSS
-					}
-				]
-			},
-			{
-				test: /\.(jpe|jpg|png|gif|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
-				use: [{
-					loader: 'file-loader',
-					options: {
-						outputPath: 'img/',
-						publicPath: 'img/'
-					}
-				}]
-			}
-		]
-	},
-	watch: true,
-	watchOptions: {
-		ignored: /node_modules/
-	}
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
+            },
+            {
+                test: /\.ts$/,
+                loaders: [
+                    'ts-loader',
+                    'angular2-template-loader'
+                ],
+            },
+            // {
+            //     test: /\.ts$/,
+            //     loaders: [
+            //         {
+            //             loader: 'awesome-typescript-loader',
+            //             options: { configFileName: path.resolve(__dirname, "src/angular-app/tsconfig.json") }
+            //         } , 'angular2-template-loader'
+            //     ]
+            // },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    'to-string-loader',
+                    // 'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                    {
+                        loader: 'postcss-loader', // Run post css actions
+                        options: {
+                            plugins: function () { // post css plugins, can be exported to postcss.config.js
+                                return [
+                                    // require('precss'),
+                                    require('autoprefixer')
+                                ];
+                            }
+                        }
+                    },
+                ]
+            },
+            {
+                test: /\.(jpe|jpg|png|gif|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'img/',
+                        publicPath: 'img/'
+                    }
+                }]
+            },
+        ]
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
+    },
+    watch: true,
+    watchOptions: {
+        ignored: /node_modules/
+    }
 };

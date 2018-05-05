@@ -39,3 +39,7 @@ Thumbs.db
 # IDE configs #
 ###############
 ./idea
+
+# Personal recording files #
+############################
+*.notes
