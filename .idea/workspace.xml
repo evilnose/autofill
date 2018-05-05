@@ -1,1086 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7f0fda6-c323-433d-82bc-b7ec587386be" name="Default" comment="Set up Angular 4 and Typescript">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/typescript-compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/app/app.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/app/app.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/assets/js/form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/controllers.old/controller-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/controllers.old/form.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/controllers.old/home.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/controllers.old/main.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/directives.old/directive-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/directives.old/form.directive.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/directives.old/home.directive.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/index.old.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/polyfills.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/angular-app/vendor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f7f0fda6-c323-433d-82bc-b7ec587386be" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/form/form.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/form/form.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/form/form.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/form/form.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/send/send.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/send/send.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/send/send.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/send/send.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/background.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/background.bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.bundle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ext_assets/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/ext_assets/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/DOCS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/ISSUE_TEMPLATE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/artifacts.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/downstream_projects.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/angular.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/angular.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/angular.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/directives/stateDirectives.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/directives/stateDirectives.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/directives/stateDirectives.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/directives/viewDirective.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/directives/viewDirective.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/directives/viewDirective.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/injectables.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/injectables.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/injectables.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/legacy/resolveService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/legacy/resolveService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/legacy/resolveService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/legacy/stateEvents.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/legacy/stateEvents.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/legacy/stateEvents.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/locationServices.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/locationServices.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/locationServices.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/services.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/services.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/services.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/stateFilters.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/stateFilters.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/stateFilters.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/stateProvider.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/stateProvider.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/stateProvider.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/statebuilders/onEnterExitRetain.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/statebuilders/onEnterExitRetain.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/statebuilders/onEnterExitRetain.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/statebuilders/views.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/statebuilders/views.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/statebuilders/views.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/templateFactory.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/templateFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/templateFactory.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/urlRouterProvider.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/urlRouterProvider.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/urlRouterProvider.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/viewScroll.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/viewScroll.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib-esm/viewScroll.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/angular.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/angular.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/angular.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/directives/stateDirectives.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/directives/stateDirectives.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/directives/stateDirectives.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/directives/viewDirective.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/directives/viewDirective.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/directives/viewDirective.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/injectables.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/injectables.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/injectables.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/legacy/resolveService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/legacy/resolveService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/legacy/resolveService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/legacy/stateEvents.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/legacy/stateEvents.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/legacy/stateEvents.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/locationServices.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/locationServices.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/locationServices.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/services.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/services.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/services.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/stateFilters.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/stateFilters.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/stateFilters.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/stateProvider.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/stateProvider.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/stateProvider.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/statebuilders/onEnterExitRetain.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/statebuilders/onEnterExitRetain.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/statebuilders/onEnterExitRetain.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/statebuilders/views.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/statebuilders/views.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/statebuilders/views.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/templateFactory.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/templateFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/templateFactory.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/urlRouterProvider.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/urlRouterProvider.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/urlRouterProvider.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/viewScroll.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/viewScroll.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/lib/viewScroll.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/angular-ui-router.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/angular-ui-router.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/angular-ui-router.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/angular-ui-router.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/resolveService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/resolveService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/resolveService.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/resolveService.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/stateEvents.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/stateEvents.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/stateEvents.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/stateEvents.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/ui-router-angularjs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/ui-router-angularjs.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/ui-router-angularjs.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/release/ui-router-angularjs.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/rollup.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/typedoc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/angularjs/yarn.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_bundles/ui-router-core.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_bundles/ui-router-core.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_bundles/ui-router-core.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_bundles/ui-router-core.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/css/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/css/main.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/css/uirouter.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/images/icons.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/images/icons@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/images/widgets.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/images/widgets@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/js/modernizr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/js/reset.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/assets/js/search.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/common.queue.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/core.glob.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/core.uirouter.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/core.uirouterglobals.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/core.uirouterpluginbase.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/params.param.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/params.paramtype.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/params.paramtypes.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/params.stateparams.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/path.pathnode.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/path.pathutils.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/resolve.resolvable.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/resolve.resolvecontext.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/resolve.uiinjectorimpl.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/state.statebuilder.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/state.statematcher.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/state.stateobject.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/state.statequeuemanager.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/state.stateregistry.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/state.stateservice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/state.targetstate.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/trace.trace-1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/transition.hookbuilder.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/transition.registeredhook.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/transition.rejection.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/transition.transition-1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/transition.transitioneventtype.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/transition.transitionservice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/url.baseurlrule.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/url.urlmatcher.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/url.urlmatcherfactory.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/url.urlrouter.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/url.urlrulefactory.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/url.urlservice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/vanilla.baselocationservices.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/vanilla.browserlocationconfig.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/vanilla.hashlocationservice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/vanilla.memorylocationconfig.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/vanilla.memorylocationservice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/vanilla.pushstatelocationservice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/classes/view.viewservice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/enums/params.deftype.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/enums/trace.category.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/enums/transition.rejecttype.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/enums/transition.transitionhookphase.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/enums/transition.transitionhookscope.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/globals.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common._injectorlike.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common._qlike.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common._qlikedeferred.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common.coreservices.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common.locationconfig.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common.locationservices.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common.obj.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/common.typedmap.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/core.disposable.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/core.uiinjector.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/core.uirouterplugin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/params.paramdeclaration.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/params.paramtypedefinition.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/params.rawparams.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/params.replace.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/resolve.providerlike.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/resolve.resolvableliteral.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/resolve.resolvepolicy.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/state._viewdeclaration.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/state.builders.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/state.hrefoptions.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/state.lazyloadresult.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/state.statedeclaration.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/state.targetstatedef.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/state.transitionpromise.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.hookmatchcriteria.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.hookregoptions.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.hooktuple.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.ihookregistry.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.imatchingnodes.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.transitioncreatehookfn.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.transitionhookfn.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.transitionhookoptions.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.transitionoptions.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.transitionservicepluginapi.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.transitionstatehookfn.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/transition.treechanges.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.matcherurlrule.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.matchresult.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.paramfactory.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.regexprule.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.staterule.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlconfigapi.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlmatcherconfig.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlparts.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlrule.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlrulehandlerfn.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlrulematchfn.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlrulesapi.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/url.urlsyncapi.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/vanilla.historylike.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/vanilla.locationlike.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/vanilla.locationplugin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/vanilla.servicesplugin.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/view.activeuiview.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/view.viewconfig.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/view.viewcontext.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/view.viewservicepluginapi.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/view.viewsynclistener.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/interfaces/view.viewtuple.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/common.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/common_hof.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/common_predicates.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/common_strings.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/core.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/hooks.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/params.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/path.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/resolve.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/state.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/trace.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/transition.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/url.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/vanilla.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/_doc/modules/view.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/artifacts.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/downstream_projects.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/common.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/common.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/coreservices.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/coreservices.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/coreservices.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/glob.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/glob.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/glob.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/hof.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/hof.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/hof.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/predicates.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/predicates.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/predicates.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/queue.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/queue.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/queue.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/strings.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/strings.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/strings.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/trace.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/trace.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/common/trace.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/globals.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/globals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/globals.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/coreResolvables.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/coreResolvables.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/coreResolvables.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/ignoredTransition.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/ignoredTransition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/ignoredTransition.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/invalidTransition.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/invalidTransition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/invalidTransition.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/lazyLoad.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/lazyLoad.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/lazyLoad.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/onEnterExitRetain.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/onEnterExitRetain.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/onEnterExitRetain.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/redirectTo.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/redirectTo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/redirectTo.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/resolve.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/resolve.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/resolve.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/updateGlobals.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/updateGlobals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/updateGlobals.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/url.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/url.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/url.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/views.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/views.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/hooks/views.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/param.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/param.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/param.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/paramType.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/paramType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/paramType.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/paramTypes.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/paramTypes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/paramTypes.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/stateParams.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/stateParams.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/params/stateParams.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/pathNode.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/pathNode.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/pathNode.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/pathUtils.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/pathUtils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/path/pathUtils.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/resolvable.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/resolvable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/resolvable.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/resolveContext.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/resolveContext.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/resolve/resolveContext.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/router.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/router.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/router.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateBuilder.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateBuilder.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateBuilder.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateMatcher.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateMatcher.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateMatcher.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateObject.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateObject.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateObject.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateQueueManager.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateQueueManager.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateQueueManager.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateRegistry.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateRegistry.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateRegistry.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/stateService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/targetState.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/targetState.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/state/targetState.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/hookBuilder.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/hookBuilder.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/hookBuilder.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/hookRegistry.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/hookRegistry.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/hookRegistry.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/rejectFactory.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/rejectFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/rejectFactory.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transition.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transition.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionEventType.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionEventType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionEventType.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionHook.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionHook.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionHook.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/transition/transitionService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlMatcher.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlMatcher.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlMatcher.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlMatcherFactory.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlMatcherFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlMatcherFactory.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlRouter.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlRouter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlRouter.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlRule.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlRule.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlRule.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/url/urlService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/baseLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/baseLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/baseLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/browserLocationConfig.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/browserLocationConfig.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/browserLocationConfig.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/hashLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/hashLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/hashLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/injector.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/injector.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/injector.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/memoryLocationConfig.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/memoryLocationConfig.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/memoryLocationConfig.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/memoryLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/memoryLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/memoryLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/plugins.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/plugins.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/plugins.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/pushStateLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/pushStateLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/pushStateLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/q.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/q.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/q.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/utils.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/vanilla/utils.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/view.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/view.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib-esm/view/view.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/common.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/common.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/common.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/coreservices.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/coreservices.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/coreservices.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/glob.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/glob.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/glob.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/hof.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/hof.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/hof.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/predicates.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/predicates.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/predicates.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/queue.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/queue.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/queue.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/strings.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/strings.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/strings.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/trace.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/trace.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/common/trace.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/globals.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/globals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/globals.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/coreResolvables.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/coreResolvables.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/coreResolvables.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/ignoredTransition.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/ignoredTransition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/ignoredTransition.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/invalidTransition.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/invalidTransition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/invalidTransition.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/lazyLoad.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/lazyLoad.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/lazyLoad.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/onEnterExitRetain.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/onEnterExitRetain.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/onEnterExitRetain.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/redirectTo.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/redirectTo.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/redirectTo.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/resolve.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/resolve.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/resolve.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/updateGlobals.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/updateGlobals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/updateGlobals.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/url.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/url.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/url.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/views.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/views.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/hooks/views.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/param.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/param.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/param.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/paramType.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/paramType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/paramType.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/paramTypes.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/paramTypes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/paramTypes.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/stateParams.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/stateParams.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/params/stateParams.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/pathNode.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/pathNode.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/pathNode.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/pathUtils.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/pathUtils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/path/pathUtils.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/resolvable.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/resolvable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/resolvable.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/resolveContext.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/resolveContext.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/resolve/resolveContext.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/router.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/router.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/router.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateBuilder.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateBuilder.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateBuilder.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateMatcher.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateMatcher.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateMatcher.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateObject.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateObject.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateObject.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateQueueManager.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateQueueManager.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateQueueManager.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateRegistry.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateRegistry.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateRegistry.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/stateService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/targetState.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/targetState.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/state/targetState.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/hookBuilder.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/hookBuilder.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/hookBuilder.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/hookRegistry.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/hookRegistry.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/hookRegistry.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/rejectFactory.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/rejectFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/rejectFactory.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transition.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transition.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transition.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionEventType.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionEventType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionEventType.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionHook.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionHook.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionHook.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/transition/transitionService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlMatcher.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlMatcher.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlMatcher.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlMatcherFactory.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlMatcherFactory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlMatcherFactory.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlRouter.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlRouter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlRouter.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlRule.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlRule.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlRule.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/url/urlService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/baseLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/baseLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/baseLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/browserLocationConfig.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/browserLocationConfig.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/browserLocationConfig.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/hashLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/hashLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/hashLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/injector.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/injector.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/injector.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/memoryLocationConfig.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/memoryLocationConfig.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/memoryLocationConfig.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/memoryLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/memoryLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/memoryLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/plugins.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/plugins.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/plugins.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/pushStateLocationService.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/pushStateLocationService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/pushStateLocationService.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/q.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/q.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/q.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/utils.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/vanilla/utils.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/interface.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/interface.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/interface.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/view.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/view.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/lib/view/view.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/migrate/migrate.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/migrate/migratewarn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@uirouter/core/typedoc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/angular-route.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/angular-route.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/angular-route.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular-route/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/angular-csp.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/angular.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/angular.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/angular.min.js.gzip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/angular.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/angular/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/AUTHORS" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/AUTHORS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/data/prefixes.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/data/prefixes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/at-rule.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/at-rule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/autoprefixer.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/autoprefixer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/brackets.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/brackets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/browsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/browsers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/declaration.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/declaration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/align-content.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/align-content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/align-items.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/align-items.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/align-self.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/align-self.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/background-size.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/background-size.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/block-logical.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/block-logical.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/border-image.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/border-image.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/border-radius.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/border-radius.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/break-props.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/break-props.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/cross-fade.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/cross-fade.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/display-flex.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/display-flex.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/display-grid.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/display-grid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/filter-value.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/filter-value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/filter.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/filter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-basis.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-basis.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-direction.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-direction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-flow.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-flow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-grow.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-grow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-shrink.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-shrink.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-values.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-wrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex-wrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/flex.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/fullscreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/fullscreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/gradient.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/gradient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-end.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-end.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-row-align.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-row-align.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-start.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-start.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-template.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/grid-template.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/image-rendering.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/image-rendering.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/image-set.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/image-set.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/inline-logical.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/inline-logical.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/justify-content.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/justify-content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/justify-items.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/mask-border.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/mask-border.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/pixelated.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/pixelated.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/placeholder.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/placeholder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/stretch.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/text-emphasis-position.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/text-emphasis-position.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/transform-decl.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/transform-decl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/writing-mode.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/hacks/writing-mode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/info.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/old-selector.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/old-selector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/old-value.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/old-value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/prefixer.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/prefixer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/prefixes.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/prefixes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/processor.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/processor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/resolution.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/resolution.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/selector.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/selector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/supports.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/supports.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/transition.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/transition.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/lib/value.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/lib/value.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/autoprefixer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/autoprefixer/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-grid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-grid.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-grid.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-grid.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-reboot.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-reboot.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-reboot.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/dist/js/bootstrap.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/alert.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/alert.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/button.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/button.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/carousel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/carousel.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/collapse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/collapse.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/dropdown.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/dropdown.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/index.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/modal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/modal.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/popover.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/popover.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/scrollspy.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/scrollspy.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/tab.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/tab.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/tooltip.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/tooltip.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/util.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/dist/util.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/alert.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/button.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/carousel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/collapse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/dropdown.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/modal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/popover.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/scrollspy.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/tab.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/tooltip.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/js/src/util.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_alert.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_badge.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_breadcrumb.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_button-group.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_buttons.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_card.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_carousel.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_close.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_code.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_custom-forms.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_dropdown.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_forms.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_functions.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_grid.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_images.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_input-group.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_jumbotron.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_list-group.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_media.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_mixins.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_modal.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_nav.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_navbar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_pagination.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_popover.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_print.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_progress.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_reboot.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_root.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_tables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_tooltip.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_transitions.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_type.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_utilities.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/bootstrap-grid.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/bootstrap-reboot.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/bootstrap.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_alert.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_background-variant.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_badge.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_border-radius.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_box-shadow.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_breakpoints.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_buttons.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_caret.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_clearfix.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_float.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_forms.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_gradients.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_grid-framework.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_grid.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_hover.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_image.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_list-group.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_lists.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_nav-divider.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_pagination.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_reset-text.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_resize.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_screen-reader.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_size.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_table-row.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_text-emphasis.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_text-hide.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_text-truncate.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_transition.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/mixins/_visibility.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_align.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_background.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_borders.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_clearfix.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_display.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_embed.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_flex.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_float.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_position.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_screenreaders.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_shadows.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_sizing.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_spacing.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_text.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_visibility.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/__tests__/__snapshots__/export-loader.js.snap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/__tests__/export-loader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/__tests__/handlers.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/clover.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/coverage-final.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/prettify.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/prettify.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/sort-arrow-sprite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/sorter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/class-declaration.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/esprima.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/export-loader.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/handle-assignment-expression.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/handle-default-expression.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/handle-export-named-declaration.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/handle-expression-statement.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/handle-function-declaration.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/handle-variable-declaration.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/src/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/test-utils/function-declaration.example.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/test-utils/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov-report/test-utils/var-declaration.example.js.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/coverage/lcov.info" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/dist/bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/npm-debug.log.1312269083" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/class-declaration.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/esprima.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/export-loader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/handle-assignment-expression.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/handle-default-expression.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/handle-export-named-declaration.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/handle-expression-statement.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/handle-function-declaration.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/src/handle-variable-declaration.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/test-utils/function-declaration.example.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/test-utils/resourcePath.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/test-utils/var-declaration.example.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/webpack.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/export-loader/yarn.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper-utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper-utils.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper-utils.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper-utils.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/esm/popper.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper-utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper-utils.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper-utils.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper-utils.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/popper.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper-utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper-utils.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper-utils.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper-utils.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/dist/umd/popper.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/popper.js/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/assets/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/app/app.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/assets/js/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/assets/js/popup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/assets/scss/_custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/assets/scss/_custom.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/assets/scss/popup.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/assets/scss/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/form/form.controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/form/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/pages/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/home/home.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/pages/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/pages/help.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/pages/popup.old.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/background/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/background/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/background/infoLoad.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/background/infoLoad.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/background/parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/background/parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/background/processFlow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/background/processFlow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/controllers.old/controller-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/controllers.old/form.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/controllers.old/home.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/controllers.old/main.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/index.old.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/angular-app/polyfills.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/angular-app/polyfills.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/dist/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -1098,68 +44,29 @@
       <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.module.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+            <state relative-caret-position="299">
+              <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
               <folding>
-                <element signature="e#0#46#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webpack.config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="89" column="52" selection-start-line="89" selection-start-column="52" selection-end-line="89" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/angular-app/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="60" column="41" lean-forward="true" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/angular-app/pages/home.html">
+      <file leaf-file-name="app.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.component.html">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+              <caret column="35" selection-start-column="35" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="polyfills.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/angular-app/polyfills.ts">
+      <file leaf-file-name="form.component.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/angular-app/app/form/form.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="infoLoad.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/background/infoLoad.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+            <state relative-caret-position="153">
+              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -1169,17 +76,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
         <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>controller-directive</find>
-      <find>style</find>
       <find>popper</find>
       <find>autopre</find>
       <find>bootstrap</find>
@@ -1208,7 +113,13 @@
       <find>~4.2.0</find>
       <find>css</find>
       <find>plugin</find>
+      <find>app-root</find>
+      <find>ng-component</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Work\autofill</dir>
+      <dir>C:\Work\autofill\src</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -1216,17 +127,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/.jshintrc" />
-        <option value="$PROJECT_DIR$/src/app/app.config.js" />
-        <option value="$PROJECT_DIR$/src/app/pages/form/formController.js" />
-        <option value="$PROJECT_DIR$/src/app/pages/form.html" />
-        <option value="$PROJECT_DIR$/src/app/pages/form/form.controller.js" />
-        <option value="$PROJECT_DIR$/src/app/pages/form/form.routes.js" />
-        <option value="$PROJECT_DIR$/src/app/pages/form/form.html" />
-        <option value="$PROJECT_DIR$/src/background/constants.js" />
-        <option value="$PROJECT_DIR$/src/app/dashboard/dashboard.controller.js" />
-        <option value="$PROJECT_DIR$/src/app/dashboard/dashboard.html" />
-        <option value="$PROJECT_DIR$/dist/test.html" />
         <option value="$PROJECT_DIR$/src/app/index.js" />
         <option value="$PROJECT_DIR$/src/app/index.html" />
         <option value="$PROJECT_DIR$/src/angular-app/directives/form.directive.js" />
@@ -1243,30 +143,41 @@
         <option value="$PROJECT_DIR$/src/angular-app/index.js" />
         <option value="$PROJECT_DIR$/src/angular-app/tsconfig.js.ts" />
         <option value="$PROJECT_DIR$/src/angular-app/app/app.component.scss.css" />
-        <option value="$PROJECT_DIR$/src/angular-app/app/app.module.ts" />
         <option value="$PROJECT_DIR$/webpack.production.js" />
         <option value="$PROJECT_DIR$/webpack.dev.js" />
         <option value="$PROJECT_DIR$/webpack.prod.js" />
         <option value="$PROJECT_DIR$/webpack.common.js" />
         <option value="$PROJECT_DIR$/src/angular-app/tsconfig.json" />
         <option value="$PROJECT_DIR$/src/tsconfig.json" />
-        <option value="$PROJECT_DIR$/src/angular-app/index.html" />
-        <option value="$PROJECT_DIR$/src/angular-app/app/app.component.html" />
-        <option value="$PROJECT_DIR$/src/angular-app/app/app.component.ts" />
         <option value="$PROJECT_DIR$/tsconfig.json" />
-        <option value="$PROJECT_DIR$/src/angular-app/index.ts" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/angular-app/vendor.ts" />
         <option value="$PROJECT_DIR$/src/angular-app/controllers.old/controller-index.js" />
         <option value="$PROJECT_DIR$/src/angular-app/directives.old/directive-index.js" />
         <option value="$PROJECT_DIR$/src/angular-app/pages/form.html" />
         <option value="$PROJECT_DIR$/src/angular-app/pages/home.html" />
         <option value="$PROJECT_DIR$/src/angular-app/assets/scss/app.scss" />
-        <option value="$PROJECT_DIR$/src/angular-app/polyfills.ts" />
         <option value="$PROJECT_DIR$/src/angular-app/assets/js/popup.js" />
         <option value="$PROJECT_DIR$/src/background/parser.js" />
         <option value="$PROJECT_DIR$/src/background/infoLoad.js" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.html.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.module.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.spec.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/index.ts" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/form/form.component.html" />
+        <option value="$PROJECT_DIR$/src/angular-app/polyfills.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/app.component.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/index.html" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/welcome/form.component.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.html" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/app.component.html" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/send/welcome.component.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/send/send.component.html" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/send/send.component.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.ts" />
+        <option value="$PROJECT_DIR$/src/angular-app/app/form/form.component.ts" />
       </list>
     </option>
   </component>
@@ -1304,8 +215,7 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="20" />
-    <option name="y" value="61" />
+    <option name="x" value="-8" />
     <option name="width" value="1346" />
     <option name="height" value="728" />
   </component>
@@ -1341,15 +251,23 @@
               <item name="autofill" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="angular-app" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
               <item name="autofill" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="angular-app" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="scss" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autofill" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="angular-app" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="welcome" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1370,6 +288,9 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Work\autofill\src\angular-app\app" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Work\autofill" />
       <recent name="C:\Work\autofill\src" />
@@ -1421,25 +342,33 @@
       <workItem from="1525223773276" duration="7892000" />
       <workItem from="1525316175157" duration="8253000" />
       <workItem from="1525390962838" duration="15574000" />
-      <workItem from="1525553355143" duration="2499000" />
+      <workItem from="1525553355143" duration="8574000" />
     </task>
+    <task id="LOCAL-00001" summary="Set up Angular 4 and Typescript">
+      <created>1525556090659</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1525556090659</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49062000" />
+    <option name="totallyTimeSpent" value="55137000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32874617" />
+      <window_info anchor="bottom" id="Messages" weight="0.32874617" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32874617" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32874617" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24304539" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24304539" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32874617" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1496,90 +425,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/angular-app/index.old.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-start-column="3" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/pages/form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/pages/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/index.old.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/pages/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" selection-start-column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/index.old.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="32" lean-forward="true" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/pages/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" selection-start-column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/angular-app/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1670,48 +515,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webpack.prod.js" />
     <entry file="file://$PROJECT_DIR$/webpack.dev.js" />
-    <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tsconfig.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="89" column="52" selection-start-line="89" selection-start-column="52" selection-end-line="89" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1722,13 +529,6 @@
           <folding>
             <element signature="e#11#46#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -1760,13 +560,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="60" column="41" lean-forward="true" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/angular-app/assets/scss/_custom.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1788,13 +581,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/pages/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/angular-app/assets/js/popup.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
@@ -1809,20 +595,160 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/angular-app/polyfills.ts">
+    <entry file="file://$PROJECT_DIR$/node_modules/autoprefixer/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        <state>
+          <caret line="39" column="24" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/background/infoLoad.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="10" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/form/form.component.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/welcome/welcome.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/form/form.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/background/infoLoad.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+        <state relative-caret-position="408">
+          <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="89" column="52" selection-start-line="89" selection-start-column="52" selection-end-line="89" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/pages/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="4" selection-start-column="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/polyfills.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="25" lean-forward="true" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/form/form.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" selection-start-column="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/send/send.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" selection-start-column="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/send/send.component.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/send/send.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/send/send.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/welcome/welcome.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/app.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="35" selection-start-column="35" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/angular-app/app/form/form.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
         </state>
       </provider>
     </entry>
