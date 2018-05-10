@@ -10,13 +10,13 @@ exports.startProcesses = function (appKey, userKey, auth, skipLogin) {
   }
 
   // Initial condition: user has logged in and is at the home url
-  console.log("Starting form-filling process...");
+  console.log("Starting user-form-filling process...");
   new Session(processComplete, processFailure).start(appKey, userKey, auth, skipLogin);
 };
 
 /*** AFTER PROCESSES ***/
 function processComplete(sum) {
-  // TODO what happens when the form-sending process is complete?
+  // TODO what happens when the user-form-sending process is complete?
   console.log("Form-sending process successful. But success handler not done.");
   console.log(sum);
   processCleanup();

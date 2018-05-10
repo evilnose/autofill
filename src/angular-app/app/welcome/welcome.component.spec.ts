@@ -1,20 +1,20 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 //
-// import { FormComponent } from './form.component';
+// import { UserFormComponent } from './user-form.component';
 //
 // describe('HeroesComponent', () => {
-//     let component: FormComponent;
-//     let fixture: ComponentFixture<FormComponent>;
+//     let component: UserFormComponent;
+//     let fixture: ComponentFixture<UserFormComponent>;
 //
 //     beforeEach(async(() => {
 //         TestBed.configureTestingModule({
-//             declarations: [ FormComponent ]
+//             declarations: [ UserFormComponent ]
 //         })
 //             .compileComponents();
 //     }));
 //
 //     beforeEach(() => {
-//         fixture = TestBed.createComponent(FormComponent);
+//         fixture = TestBed.createComponent(UserFormComponent);
 //         component = fixture.componentInstance;
 //         fixture.detectChanges();
 //     });

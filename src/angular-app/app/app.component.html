@@ -1,7 +1,15 @@
-<h1>Autofill (#TODO: A better name)</h1>
-<nav>
-    <a routerLink="welcome">Welcome</a>
-    <a routerLink="form">Edit Form</a>
-    <a routerLink="send">Auto-Fill</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a routerLink="/" class="navbar-brand">Autofill</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="welcome">Welcome</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="form">Edit Form</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="send">Auto-fill</a>
+        </li>
+    </ul>
 </nav>
 <router-outlet></router-outlet>

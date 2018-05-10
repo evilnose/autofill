@@ -1,5 +1,7 @@
 
 $fa-font-path: "~font-awesome/fonts" !default;
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
 
 %btn-def {

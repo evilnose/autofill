@@ -40,6 +40,6 @@ Thumbs.db
 ###############
 ./idea
 
-# Personal recording files #
-############################
-*.notes
+# Distribution directory #
+##########################
+./dist

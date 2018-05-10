@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {FormsModule} from '@angular/forms'
 
 import {AppComponent} from './app.component';
 import {WelcomeComponent} from './welcome/welcome.component';
-import {FormComponent} from './form/form.component';
+import {UserFormComponent} from './user-form/user-form.component';
 import {SendComponent} from './send/send.component';
 
 const appRoutes: Routes = [
@@ -15,7 +16,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'form',
-        component: FormComponent,
+        component: UserFormComponent,
     },
     {
         path: 'send',
@@ -34,16 +35,17 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {enableTracing: true}
-        )
+        ),
+        FormsModule,
     ],
     declarations: [
         AppComponent,
-        FormComponent,
+        UserFormComponent,
         WelcomeComponent,
         SendComponent,
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy }
+        {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     bootstrap: [AppComponent]
 })
