@@ -4,9 +4,23 @@ $fa-font-path: "~font-awesome/fonts" !default;
 @import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
 
-main {
+@font-face {
+	font-family: sans-serif;
+	src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
+}
+
+.root {
 	// Fixed top navbar demands padding
-	padding-top: 60px;
+	padding-top: 65px;
+	font-family: sans-serif;
+}
+
+.my-nav-brand {
+	font-size: 30px;
+}
+
+.my-nav-item {
+	font-size: 25px;
 }
 
 %btn-def {

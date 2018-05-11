@@ -63,15 +63,6 @@ module.exports = {
                     'angular2-template-loader'
                 ],
             },
-            // {
-            //     test: /\.ts$/,
-            //     loaders: [
-            //         {
-            //             loader: 'awesome-typescript-loader',
-            //             options: { configFileName: path.resolve(__dirname, "src/angular-app/tsconfig.json") }
-            //         } , 'angular2-template-loader'
-            //     ]
-            // },
             {
                 test: /\.css$/,
                 use: [
@@ -100,7 +91,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(jpe|jpg|png|gif|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+                test: /\.(jpe|jpg|png|gif|svg)(\?.*$|$)/,
                 use: [{
                     loader: 'file-loader',
                     options: {
@@ -108,6 +99,15 @@ module.exports = {
                         publicPath: 'img/'
                     }
                 }]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf)$/,
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        limit: 50000,
+                    },
+                },
             },
         ]
     },
