@@ -1,15 +1,17 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-    <a routerLink="/" class="navbar-brand">Autofill</a>
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" routerLink="welcome">Welcome</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="form">Edit Form</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="send">Auto-fill</a>
-        </li>
-    </ul>
-</nav>
-<router-outlet></router-outlet>
+ <div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary">
+        <a routerLink="/" class="navbar-brand">Autofill</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" [routerLinkActive]="['active']">
+                <a class="nav-link" routerLink="welcome">Welcome</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+                <a class="nav-link" routerLink="form">Edit Form</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+                <a class="nav-link" routerLink="send">Auto-fill</a>
+            </li>
+        </ul>
+    </nav>
+    <router-outlet></router-outlet>
+ </div>
