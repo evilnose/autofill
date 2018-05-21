@@ -14,7 +14,7 @@ module.exports = {
         content: './content/content.main.js',
         index: './angular-app/index.ts',
     },
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     plugins: [
         new CleanWebPackPlugin(['dist']),
         //TODO: we don't need this if we're using angular

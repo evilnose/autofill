@@ -1,6 +1,6 @@
- <div class="container-fluid root">
+<div class="container-fluid root">
     <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary">
-        <a routerLink="/" class="navbar-brand my-nav-brand"><span class="fa fa-pencil-square-o"></span></a>
+        <a routerLink="/welcome" class="navbar-brand my-nav-brand"><span class="fa fa-pencil-square-o"></span></a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item my-nav-item" [routerLinkActive]="['active']">
                 <a class="nav-link" routerLink="welcome">Welcome</a>
@@ -13,5 +13,7 @@
             </li>
         </ul>
     </nav>
-    <router-outlet></router-outlet>
- </div>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
-import {User} from '../../user';
+import {User} from '../user';
 
 @Component({
     selector: 'user-form',
     templateUrl: './user-form.component.html',
-    styleUrls: ['../../../assets/scss/app.scss']
+    styleUrls: ['../../assets/scss/app.scss']
 })
 
 export class UserFormComponent implements OnInit {

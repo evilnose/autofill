@@ -1,53 +1,73 @@
-
 $fa-font-path: "~font-awesome/fonts" !default;
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
 
 @font-face {
-	font-family: sans-serif;
-	src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
+  font-family: sans-serif;
+  src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
 }
 
 .root {
-	// Fixed top navbar demands padding
-	padding-top: 65px;
-	font-family: sans-serif;
+  // Fixed top navbar demands padding
+  padding-top: 65px;
+  font-family: sans-serif;
+}
+
+.title-container {
+}
+
+.sidenav {
+  // TODO style better
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  overflow-x: hidden;
+  padding-top: 60px;
+  a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    display: block;
+    &:hover {
+
+    }
+  }
 }
 
 .my-nav-brand {
-	font-size: 30px;
+  font-size: 30px;
 }
 
 .my-nav-item {
-	font-size: 25px;
+  font-size: 25px;
 }
 
 %btn-def {
-	text-align: center;
-	vertical-align: middle;
-	cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 .btn-go {
-	@extend %btn-def;
-	font-size: 1.2em;
-	height: 3em;
-	width: 100%;
-	//border-width: 1px;
-	//border-color: $primary;
-	//color: $primary;
-	background-color: white;
-	&:hover {
-		//background-color: $primary;
-		color: white;
-	}
-	/* TODO transitions */
+  @extend %btn-def;
+  font-size: 1.2em;
+  height: 3em;
+  width: 100%;
+  //border-width: 1px;
+  //border-color: $primary;
+  //color: $primary;
+  background-color: white;
+  &:hover {
+    //background-color: $primary;
+    color: white;
+  }
+  /* TODO transitions */
 }
 
 .btn-options {
-	@extend %btn-def;
-	background-color: inherit;
-	border: none;
-	color: gray;
+  @extend %btn-def;
+  background-color: inherit;
+  border: none;
+  color: gray;
 }
