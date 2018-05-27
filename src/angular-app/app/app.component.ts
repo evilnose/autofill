@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {PageScrollConfig} from 'ng2-page-scroll';
+import {AuthService} from "./services/auth.service";
 
 @Component({
     selector: 'app-root',
@@ -8,7 +9,11 @@ import {PageScrollConfig} from 'ng2-page-scroll';
 })
 
 export class AppComponent {
-    constructor() {
+    constructor(public authService: AuthService) {
+        this.configPageScroll();
+    }
+
+    private configPageScroll(): void {
         PageScrollConfig.defaultScrollOffset = 75;
         PageScrollConfig.defaultEasingLogic = {
             ease: (t: number, b: number, c: number, d: number): number => {

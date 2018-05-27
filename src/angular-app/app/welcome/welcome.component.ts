@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../services/auth.service";
 
 @Component({
     selector: 'welcome',
@@ -8,10 +9,15 @@ import {Component, OnInit} from '@angular/core';
 
 export class WelcomeComponent implements OnInit {
 
-    constructor() {
+    constructor(public authService: AuthService) {
     }
 
     ngOnInit() {
     }
 
+    getWelcomeMessage(): string {
+        let msg: string = "Welcome";
+        if (this.authService.isAuthenticated())
+        return msg;
+    }
 }

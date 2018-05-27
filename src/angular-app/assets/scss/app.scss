@@ -8,6 +8,10 @@ $fa-font-path: "~font-awesome/fonts" !default;
   src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
 }
 
+p {
+  font-size: 1.2em;
+}
+
 .root {
   // Fixed top navbar demands padding
   padding-top: 65px;
@@ -54,12 +58,11 @@ $fa-font-path: "~font-awesome/fonts" !default;
   font-size: 1.2em;
   height: 3em;
   width: 100%;
-  //border-width: 1px;
-  //border-color: $primary;
-  //color: $primary;
+  border: 1px $primary;
+  color: $primary;
   background-color: white;
   &:hover {
-    //background-color: $primary;
+    background-color: $primary;
     color: white;
   }
   /* TODO transitions */

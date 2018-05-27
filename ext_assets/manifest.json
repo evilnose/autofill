@@ -1,6 +1,12 @@
 {
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn1mA5RkBPLJ7GMhs2YdlgqC7Qsz21aH9+akgzFtot2Ov0FlIhIRuYXBdeeBKEzxYgJwKyKf8a4E8IZnFXUVdF2s80Agv5Igxsr0pDvXxKMxufy+DiioU3tKaMhQCP2CI1FjpAvrItDbfCCQvXvOH9/v1On1GlXnP1dUIsEOclANy+hMq88oKwiK/KW7sZNiIGUQiVn2DZCNA1KtLU0kHSBPf5vsLvbWhAIbuuI0kv4aa/UO7KAFi/o2FRXcFkSzkXIS7OH2WeVy6uFuhwG6GD2Ix/rJhSwvvKVkGs/HUuNWxvU7jDOvsxv0QQffqn3AFAinAciHj72hdyJpt6sDaSQIDAQAB",
-  "client_id": "  109331497527-2lak0b9uf70ud8kio2qevbreh8udn5qk.apps.googleusercontent.com",
+  "oauth2": {
+    "client_id": "109331497527-542u124nql180tfbhevr5ol18ig9pv21.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
+  },
   "manifest_version": 2,
   "name": "College App Autofill",
   "version": "0.0.1",
@@ -11,11 +17,16 @@
   },
   "background":
   {
-    "scripts": ["background.bundle.js"]
+    "scripts": [
+      "background.bundle.js"
+    ],
+    "persistent": false
   },
   "permissions": [
-    "*://*/",
-    "chrome-extension://*/",
+    "https://www.gstatic.com/",
+    "https://firebaseio.com/",
+    "https://www.googleapis.com/",
+    "https://*.google.com/",
     "identity"
   ],
   "web_accessible_resources": [
@@ -25,11 +36,5 @@
     "*.woff2",
     "*.eot"
   ],
-  ...
-  "sandbox":
-  {
-    "pages": [
-      "index.html"
-    ]
-  }
+  "content_security_policy":"script-src 'self' https://*.google.com https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com 'unsafe-eval'; object-src 'self'"
 }
