@@ -11,18 +11,18 @@ export class AuthService {
 
     constructor(public firebaseApp: FirebaseApp, public afAuth: AngularFireAuth) {}
 
-    login(interactive: boolean, callback: Function): void {
+    login(callback: (value: any) => any): void {
         let self = this;
         let provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope('profile');
         provider.addScope('email');
-        this.firebaseApp.auth().signInWithPopup(provider);
+        this.firebaseApp.auth().signInWithPopup(provider)
+            .then(callback);
     }
 
     logout(): void {
         this.afAuth.auth.signOut();
     }
-
 
     isAuthenticated(): boolean {
         return !!this.firebaseApp.auth().currentUser;

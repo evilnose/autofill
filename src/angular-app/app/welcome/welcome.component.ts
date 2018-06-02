@@ -18,6 +18,6 @@ export class WelcomeComponent implements OnInit {
     getWelcomeMessage(): string {
         let msg: string = "Welcome";
         if (this.authService.isAuthenticated())
-        return msg;
+            return msg;
     }
 }

@@ -3,13 +3,19 @@ $fa-font-path: "~font-awesome/fonts" !default;
 @import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
 
+/*
 @font-face {
   font-family: sans-serif;
   src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
 }
+*/
 
 p {
-  font-size: 1.2em;
+  font-size: 1.4em;
+}
+
+small {
+  font-size: 0.7em;
 }
 
 .root {
@@ -55,12 +61,14 @@ p {
 
 .btn-go {
   @extend %btn-def;
-  font-size: 1.2em;
+  font-size: 1.5em;
+  font-weight: bold;
   height: 3em;
-  width: 100%;
-  border: 1px $primary;
+  width: 30%;
+  border: 1px solid $primary;
   color: $primary;
   background-color: white;
+  display:block;
   &:hover {
     background-color: $primary;
     color: white;
