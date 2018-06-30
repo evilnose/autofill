@@ -1,0 +1,66 @@
+.fixture-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #e6e6e6;
+}
+
+.fixture-item {
+  display: block;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #a6a6a6;
+  &:hover {
+    color: white;
+    background-color: #ffbb00;
+  }
+}
+
+.test-status {
+  margin: 0;
+  color: #8a8a8a;
+  position: absolute;
+  bottom: 0;
+}
+
+.prog-action-btn {
+  min-width: 5em;
+}
+
+.test-status {
+  display: block;
+}
+
+.log-area {
+  width: 90%;
+  height: 10em;
+}
+
+.left-panel {
+  padding: 0;
+  background-color: #a6a6a6;
+}
+
+.panels {
+  height: 90%;
+}
+
+.top-action-bar {
+  padding-bottom: 1em;
+}
+
+.btn-std {
+  width: 80%;
+  font-size: 1em;
+}
+
+.fixture-editor {
+  width: 100%;
+  height: 100%;
+}
+
+.text-area-btn {
+  position: absolute;
+  right: 2em;
+  top: 0.5em;
+}

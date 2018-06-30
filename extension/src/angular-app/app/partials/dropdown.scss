@@ -1,0 +1,54 @@
+@import "../../assets/scss/app";
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.full-dropdown {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  position: absolute;
+  background-color: #f1f1f1;
+  width: 100%;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  span {
+    color: black;
+    padding: 12px 16px;
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
+    cursor: pointer;
+    &:hover {
+      background-color: lightgray;
+    }
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    font-size: 1.5em;
+    border: none;
+  }
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* The selected dropdown option */
+.dropdown-selected {
+  display: block;
+  color: #9b9b9b;
+  font-size: 1.2em;
+}

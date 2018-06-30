@@ -1,0 +1,178 @@
+$fa-font-path: "~font-awesome/fonts" !default;
+@import "custom";
+@import "../bootstrap/scss/bootstrap";
+@import "~font-awesome/scss/font-awesome";
+
+$admin: #ffbb00;
+$admin-darker: darken($admin, 8);
+$primary-darker: darken($primary, 8);
+/*
+@font-face {
+  font-family: sans-serif;
+  src: url('../fonts/open-sans/OpenSans-Regular.ttf') format('truetype');
+}
+*/
+
+body {
+  font-size: 18px;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+.active-link {
+  color: white !important;
+}
+
+/* admin dashboard */
+.link-admin {
+  color: #ffdd82 !important;
+  &:hover {
+    color: #ffd35e !important;
+  }
+}
+
+.active-link-admin {
+  color: $admin !important;
+}
+
+.admin-dashboard {
+
+}
+
+.admin-action-btn {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  cursor: pointer;
+  width: 100% !important;
+  min-width: 10em;
+  background-color: $admin;
+  margin: 0;
+  color: white;
+  font-size: 1.25em;
+  &:hover {
+    background-color: $admin-darker;
+  }
+  text-align: center;
+}
+
+.admin-action-area {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+  width: 40% !important;
+  height: 5em;
+}
+
+.admin-major-action {
+  background-color: $primary;
+  &:hover {
+    background-color: $primary-darker;
+  }
+}
+
+.hidden-file-upload {
+  display: none;
+}
+
+.editor {
+
+}
+
+.bot-align {
+  position: absolute;
+  bottom: 0;
+}
+
+/* sign in */
+.div-signin {
+  display: flex;
+  align-items: center;
+}
+
+.form-signin {
+  position: relative;
+  width: auto;
+  max-width: 500px;
+  margin: auto;
+  .checkbox {
+    font-weight: bold;
+  }
+}
+
+.label-small {
+  font-size: 1.1em;
+}
+
+.indicator {
+  font-size: 1.3em;
+  color: #7f7f7f;
+}
+
+.root {
+  // Fixed top navbar demands padding
+  padding-top: 65px;
+  font-family: sans-serif;
+}
+
+.title-container {
+}
+
+.sidenav {
+  // TODO style better
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  overflow-x: hidden;
+  padding-top: 60px;
+  a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    display: block;
+    &:hover {
+
+    }
+  }
+}
+
+.my-nav-brand {
+  font-size: 30px;
+}
+
+.my-nav-item {
+  font-size: 25px;
+}
+
+/* custom button */
+
+%btn-def {
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.btn-go {
+  @extend %btn-def;
+  font-size: 1.5em;
+  font-weight: bold;
+  height: 3em;
+  width: 30%;
+  border: 1px solid $primary;
+  color: $primary;
+  background-color: white;
+  &:hover {
+    background-color: $primary;
+    color: white;
+  }
+  /* TODO transitions */
+}
+
+.btn-options {
+  @extend %btn-def;
+  background-color: inherit;
+  border: none;
+  color: gray;
+}

@@ -1,0 +1,28 @@
+<div class="container-fluid root">
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary main-nav">
+        <a routerLink="/welcome" class="navbar-brand my-nav-brand"><span class="fa fa-pencil-square-o"></span></a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item my-nav-item">
+                <a class="nav-link" routerLink="welcome" routerLinkActive="active-link">Welcome</a>
+            </li>
+            <li class="nav-item my-nav-item">
+                <a class="nav-link" routerLink="form" routerLinkActive="active-link">Edit Form</a>
+            </li>
+            <li class="nav-item my-nav-item">
+                <a class="nav-link" routerLink="send" routerLinkActive="active-link">Auto-fill</a>
+            </li>
+            <li class="nav-item my-nav-item">
+                <a class="link-admin nav-link" routerLink="contribute" routerLinkActive="active-link-admin">Admin</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-5">
+            <li class="nav-item my-nav-item">
+                <a class="nav-link" routerLink="login" *ngIf="!authService.isAuthenticated()">Log in</a>
+                <a class="nav-link" href="#" (click)="authService.logout()" *ngIf="authService.isAuthenticated()">Log out</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
+</div>

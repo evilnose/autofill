@@ -36,10 +36,8 @@
 ehthumbs.db
 Thumbs.db
 
-# IDE configs #
-###############
-./idea
-
 # Distribution directory #
 ##########################
-./dist
+extension/dist/
+api/
+extension/node_modules/

@@ -1,0 +1,40 @@
+{
+  "0": {
+    "auth": {
+      "commonapp": {
+        "username": "ggarland33@gmail.com",
+        "password": "Somewhere-317"
+      }
+    },
+    "profile": {
+      "first_name": "Michael",
+      "middle_name": "Fart",
+      "last_name": "Scarn",
+      "suffix": "III",
+      "nickname": "Mike",
+      "other_name": "Miguel",
+      "sex": "female",
+      "gender": "sausage person",
+      "birth_date": "2001-01-01",
+      "permanent_address": {
+        "country": "China, People's Republic of",
+        "line_1": "939 501",
+        "line_2": "",
+        "line_3": "",
+        "city": "Beijing",
+        "state": "Beijing",
+        "zip_code": "700089"
+      },
+      "mailing_address": {
+        "country": "United States of America",
+        "line_1": "99-0-99-98 24th Ave",
+        "state": "New York",
+        "city": "East Elmhurst", 
+        "zip_code": "11369"
+      },
+      "primary_phone_country_code": "+86",
+      "primary_phone_number": "13661200345",
+      "primary_phone_type": "home"
+    }
+  }
+}
