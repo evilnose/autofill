@@ -1,5 +1,7 @@
 /* global chrome */
 import ProcessManager from './background/processManager';
+import Messaging from "./messaging";
+
 const constants = require('./background/constants.js');
 
 const manager = new ProcessManager();
@@ -7,15 +9,13 @@ const manager = new ProcessManager();
 /*** Main message listener ***/
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        if (!request.action) {
+        if (request._source !== Messaging.Source.UI) {
             return;
         }
         switch (request.action) {
             case 'start':
-                if (request.skipLogin)
-                    manager.startProcess(request.appKey, request.userKey, request.appAuth, false);
-                else
-                    manager.startProcess(request.appKey, request.userKey, null, true);
+                manager.startProcess(
+                    request.processObj, request.userInfo, request.authObj, request.skipLogin, request.debug);
                 break;
             case 'end':
                 manager.endProcess();

@@ -7,13 +7,6 @@
   position: relative;
 }
 
-.full-dropdown {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   position: absolute;
@@ -38,6 +31,9 @@
     width: 100%;
     font-size: 1.5em;
     border: none;
+    &:focus {
+      border: none;
+    }
   }
 }
 

@@ -1,0 +1,42 @@
+@import "../../assets/scss/app.scss";
+
+table {
+  border-collapse: collapse;
+  font-size: 1.25em;
+  width: 100%;
+  margin-top: 0.8em;
+}
+
+%tc {
+  border: 1px solid #e2e2e2;
+  text-align: left;
+}
+
+th {
+  @extend %tc;
+  padding: 1em 0.8em;
+}
+
+td {
+  @extend %tc;
+  padding: 0;
+  input {
+    line-height: 100%;
+    width: 100%;
+    border: none;
+    background-color: #e2e2e2;
+    &:focus {
+      outline: none;
+      background-color: #f0f0f0
+    }
+    padding: 1em 0.8em;
+  }
+  div {
+    width: 100%;
+    padding: 1em 0.8em;
+  }
+}
+
+.editable-row {
+  color: $primary;
+}

@@ -6,26 +6,15 @@ import $ from 'jquery';
  * then it parses it again in injected.js, but this ensures that only the required
  * user vals are passed into injected.js
  */
-exports.processForms = function (dataArr, appAuth, skipLogin) {
-    console.log("Processing forms...");
-    let [app, user] = dataArr;
+exports.processForms = function (process, user, appAuth, skipLogin) {
     user.appAuth = appAuth;
-
-    // Duplicate angular-app
-
-    let info = $.extend({}, app);
-
+    let info = $.extend({}, process);
     // Clear process array
     info.process = [];
-
-    let totalProcess = skipLogin ? app.process : app.login_process.concat(app.process);
-
-    handleProcesses(info, user, totalProcess, app.login_process ? app.login_process.length : 0);
-
+    let totalProcess = skipLogin ? process.process : process.login_process.concat(process.process);
+    handleProcesses(info, user, totalProcess, process.login_process ? process.login_process.length : 0);
     console.log("Process: " + JSON.stringify(info.process));
-
-    info.alt_mapping = app.alt_mapping;
-
+    info.alt_mapping = process.alt_mapping;
     return info;
 };
 
@@ -101,9 +90,10 @@ function handleProcesses(info, user, process, endOfLogin) {
 
     if (!endOfLogin) endOfLogin = 0;
     for (let i = 0; i < endOfLogin; ++i) {
-        handleCommand(info, user, process[i], 'bl');
+        handleCommand(info, user, process[i]);
     }
-    for (let i = endOfLogin; i < pLen; ++i) {
+    handleCommand(info, user, process[endOfLogin], 'bl'); // if this command fails it is likely that login was unsuccessful
+    for (let i = endOfLogin + 1; i < pLen; ++i) {
         handleCommand(info, user, process[i]);
     }
 }
@@ -156,7 +146,6 @@ function handleConditional(info, user, conditionals) {
         }
         info.process.push(res);
     } else {
-        console.log(JSON.stringify(conditionals));
         for (let i = 0; i < conditionals.length; ++i) {
             c = conditionals[i];
             if (meetsReq(user, c.require)) {

@@ -1,5 +1,7 @@
 /* global chrome */
 
+import Messaging from "../messaging";
+
 const constants = require('./constants');
 
 module.exports = {
@@ -15,7 +17,11 @@ module.exports = {
 
     sendCommand: function (tabId, command, callback) {
         setTimeout(() => {
-            module.exports.sendMsg(tabId, {command: command, action: 'run_cmd'}, callback);
+            module.exports.sendMsg(tabId, {
+                _source: Messaging.Source.BACKGROUND,
+                command: command,
+                action: 'run_cmd'
+            }, callback);
         }, constants.DELAY_AFTER_INJECT);
     },
 
@@ -47,6 +53,7 @@ module.exports = {
         }
         console.log(`Creating new tab (url: ${url})...`);
         chrome.tabs.create({url: url}, tab => {
+            console.log("calling create new tab callback");
             callback(tab.id);
         });
     },

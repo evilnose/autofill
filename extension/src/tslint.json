@@ -25,7 +25,8 @@
     "max-classes-per-file": {
       "severity": "warning"
     },
-    "no-trailing-whitespace": false
+    "no-trailing-whitespace": false,
+    "object-literal-sort-keys": false
   },
   "jsRules": {
     "max-line-length": {

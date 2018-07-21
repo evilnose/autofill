@@ -23,12 +23,8 @@
     "persistent": false
   },
   "permissions": [
-    "https://www.gstatic.com/",
-    "https://firebaseio.com/",
-    "https://www.googleapis.com/",
-    "https://*.google.com/",
-    "https://unpkg.com/",
-    "identity"
+    "identity",
+    "*://*/*"
   ],
   "web_accessible_resources": [
     "img/*",

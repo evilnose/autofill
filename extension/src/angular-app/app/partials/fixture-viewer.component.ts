@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {DbService} from "../services/db.service";
-import {SelectOption} from "./dropdown.component";
+import {DropdownComponent, SelectOption} from "./dropdown.component";
+import {FormControl} from "@angular/forms";
 
 @Component({
     selector: "fixture-editor",
@@ -8,9 +9,9 @@ import {SelectOption} from "./dropdown.component";
     template: `
         <div class="row top-action-bar">
             <div class="col-lg-2">
-                <json-upload [btnText]="'Load local'" [btnStyle]="'btn btn-small btn-primary btn-std'"
-                             [onFileChange]="fixtureChange.bind(this)"
-                             [uniqueId]="'hidden-fixture-upload'"></json-upload>
+                <file-upload [btnText]="'Load local'" [btnClass]="'btn btn-small btn-primary btn-std'"
+                             [onFileChange]="updateFixture.bind(this)"
+                             [uniqueId]="'hidden-fixture-upload'"></file-upload>
             </div>
             <div class="col-lg-4">
                 <h3>{{currFixtureName}}</h3>
@@ -46,78 +47,71 @@ import {SelectOption} from "./dropdown.component";
                 <button class="btn btn-small btn-outline-primary text-area-btn" *ngIf="editing" (click)="editing=false">
                     Done
                 </button>
-                <textarea [readonly]="!editing" class="fixture-editor">{{currFixtureData}}</textarea>
+                <textarea [readonly]="!editing" class="fixture-editor"
+                          [formControl]="fixtureData">{{currFixtureData}}</textarea>
             </div>
         </div>
     `,
 })
 export class FixtureViewerComponent {
-    private static createOptions(map: object, labelProp: string): SelectOption[] {
-        const list: SelectOption[] = [];
-        for (const key of Object.keys(map)) {
-            list.push(new SelectOption(map[key][labelProp], key));
-        }
-        list.sort((a: SelectOption, b: SelectOption) => {
-            return a.label.localeCompare(b.label);
-        });
-        return list;
-    }
 
     private fixtureOptions: SelectOption[];
     private fixtureMap: object;
+    private fixtureData: FormControl;
     private currFixtureId: string;
     private currFixtureName: string;
     private isLoading: boolean;
     private editing: boolean;
 
-    private currFixtureData: string;
-
     constructor(public dbService: DbService) {
+        this.fixtureData = new FormControl();
         this.reinitialize();
     }
 
     private reinitialize() {
         this.isLoading = true;
         this.editing = false;
-        this.currFixtureData = "";
+        this.fixtureData.setValue("");
         this.dbService.getFixtures().then((fixtures: object[]) => {
             this.isLoading = false;
             this.fixtureMap = fixtures;
-            this.fixtureOptions = FixtureViewerComponent.createOptions(fixtures, "display_name");
+            this.fixtureOptions = DropdownComponent.createOptions(fixtures, "display_name");
         });
     }
 
     private viewFixture(id: string) {
         this.editing = false;
         this.currFixtureId = id;
-        this.currFixtureData = this.fixtureMap[id].fixture_data;
+        this.fixtureData.setValue(this.fixtureMap[id].fixture_data);
         this.currFixtureName = this.fixtureMap[id].display_name;
     }
 
-    private fixtureChange(jsonStr: string) {
-        this.currFixtureData = JSON.stringify(JSON.parse(jsonStr), null, 2);
+    private updateFixture(jsonStr: string) {
+        this.fixtureData.setValue(JSON.stringify(JSON.parse(jsonStr), null, 2));
     }
 
     private saveToCurr() {
+        // TODO non-official for contrib
         if (confirm(`Overwrite this fixture "${this.fixtureMap[this.currFixtureId].display_name}"?`)) {
             this.dbService
-                .setFixture(this.currFixtureId, this.currFixtureData)
+                .setOfficialFixture(this.currFixtureId, this.fixtureData.value)
                 .then(this.reinitialize.bind(this));
         }
     }
 
     private saveAs() {
+        // TODO non-official for contrib
         const name = prompt("Enter display name for new fixture:");
-        console.log(name);
         this.dbService
-            .newFixture(name, this.currFixtureData)
+            .newOfficialFixture(name, this.fixtureData.value)
             .then(this.reinitialize.bind(this));
     }
 
     private deleteCurr() {
+        // TODO non-official for contrib
         if (confirm(`Permanently delete this fixture "${this.fixtureMap[this.currFixtureId].display_name}"?`)) {
             this.dbService
-                .deleteFixture(this.currFixtureId)
+                .delOfficialFixture(this.currFixtureId)
                 .then(this.reinitialize.bind(this));
         }
     }

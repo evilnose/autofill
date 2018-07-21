@@ -1,4 +1,6 @@
 /* global chrome */
+import Messaging from "../messaging";
+
 const infoLoad = require('./infoLoad');
 const helpers = require('./helpers');
 const parser = require('./parser');
@@ -12,31 +14,42 @@ const WaitingFor = {
 export default class Session {
     constructor(succ, fail) {
         this.inSession = false;
-        let self = this;
-        this.success = function () {
-            self.stopSession();
-            succ(self.getSummary());
+        this.success = () => {
+            this._stopSession();
+            succ(this.getSummary());
         };
 
-        this.failure = function (errReason) {
-            self.stopSession();
-            fail(self.getSummary(), errReason, this.lastImplication);
+        this.failure = (errReason) => {
+            this._stopSession();
+            fail(this.getSummary(), errReason, this.lastImplication);
         };
 
-        // bindMethods(this, ['start', 'runFormSeq', 'startCheckingTimeout', 'getMessageHandler',
-        // 	'getTabLoadHandler', 'runNextCommandWithDelay', 'getNextCommand', 'sendCommand',
-        // 	'getFullUrl', 'injectAndSendCommand', 'stopSession']);
-        bindMethods(this, ['startOver']);
+        this.startOver.bind(this);
     }
 
-    startOver(appKey, userKey, auth, skipLogin) {
-        if (this.inSession)
-            this.stopSession();
+    startOver(process, userInfo, auth, skipLogin, debug) {
+        if (this.inSession) {
+            console.warn("A session is already running. It is stopped to start over.");
+            this._stopSession();
+        }
+        this.debug = debug;
         this.inSession = true;
-        Promise.all([infoLoad.getAppInfo(appKey), infoLoad.getUserInfo(userKey)])
-            .catch(() => this.failure('get_info'))
-            .then(data => parser.processForms(data, auth, skipLogin))
-            .then(info => this.runFormSeq(info));
+        console.log("auth" + JSON.stringify(auth));
+        const info = parser.processForms(process, userInfo, auth, skipLogin);
+        this.runFormSeq(info);
+    }
+
+    _stopSession() {
+        console.log("Session stopped.");
+        this.inSession = false;
+        chrome.tabs.onUpdated.removeListener(this.tabLoadHandler);
+        chrome.runtime.onMessage.removeListener(this.actionMessageHandler);
+        if (this.timeoutInterval)
+            clearInterval(this.timeoutInterval);
+    }
+
+    interrupt() {
+        this.failure("interrupted");
     }
 
     getSummary() {
@@ -97,6 +110,7 @@ export default class Session {
      * machine is employed.
      */
     onPageLoad(tabId, changeInfo) {
+        console.log(changeInfo);
         // make sure the updated tab is the same as our tab
         if (tabId === this.tabId) {
             // Make sure the tab's url has changed.
@@ -119,13 +133,15 @@ export default class Session {
                 } else {
                     console.warn("A new path is loaded, but the script is still there.");
                 }
-
             }
         }
     }
 
     onMessage(request) {
         console.log(`Received message with state: ${request.state}`);
+        if (request._source !== Messaging.Source.CONTENT) {
+            return;
+        }
         switch (request.state) {
             case 'try_met':
                 // Remove conditionals to jump to queue in getNextCommand()
@@ -182,7 +198,6 @@ export default class Session {
         else
             this.failure(`Command has no action: ${JSON.stringify(cmd)}`);
 
-
         if (cmd.field) {
             // For summary and analytics
             this.totalFields.push(cmd.field);
@@ -199,6 +214,7 @@ export default class Session {
                 this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
                 if (this.idx === 1 && this.queue.length === 0) {
                     // If first command (since idx is incremented before)
+                    this.newPageLoading = true;
                     helpers.newTab(this.getFullUrl(cmd.target),
                         tabId => {
                             this.tabId = tabId;
@@ -262,16 +278,6 @@ export default class Session {
 
     getFullUrl(path) {
         return helpers.getUrl(this.info.base, path);
-    }
-
-    stopSession() {
-        console.log("Session stopped.");
-        this.inSession = false;
-        chrome.tabs.onUpdated.removeListener(this.tabLoadHandler);
-        chrome.runtime.onMessage.removeListener(this.actionMessageHandler);
-        if (this.timeoutInterval)
-            clearInterval(this.timeoutInterval);
-        this.failure('interrupted');
     }
 }
 

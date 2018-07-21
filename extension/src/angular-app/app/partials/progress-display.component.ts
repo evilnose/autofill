@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import Messaging from "../../../messaging";
 
 @Component({
     selector: "progress-display",
@@ -8,18 +9,17 @@ import {Component, Input, OnInit} from "@angular/core";
             <div class="row mb-2">
                 <div class="col-md-2">
                     <div *ngIf="!testing">
-                        <button class="btn btn-success prog-action-btn" (click)="startTest(false)"
+                        <button class="btn btn-success prog-action-btn" (click)="startTest()"
                                 [disabled]="!readyToStart()">
                             GO
                         </button>
-                        <span *ngIf="readyToStart()" class="ml-2">Ready to go.</span>
                     </div>
                     <div *ngIf="testing">
                         <button class="btn btn-danger prog-action-btn" (click)="endTest()">STOP</button>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <h4 class="test-status">{{testStatus}}</h4>
+                    <h4 class="test-status">{{getStatus()}}</h4>
                 </div>
             </div>
             <textarea class="log-area" readonly>
@@ -28,11 +28,12 @@ import {Component, Input, OnInit} from "@angular/core";
         </div>
     `,
 })
-export class ProgressDisplayComponent implements OnInit {
-    @Input() public process: object;
-    @Input() public userInfo: object;
-    @Input() public appAuth: object;
-    @Input() public forAdmin: boolean;
+export class ProgressDisplayComponent {
+    @Input() private process: object;
+    @Input() private userInfo: object;
+    @Input() private appAuth: object;
+    @Input() private forAdmin: boolean;
+    @Input() private skipLogin: boolean;
 
     private testStatus: string;
     private testDetails: string;
@@ -40,37 +41,41 @@ export class ProgressDisplayComponent implements OnInit {
     private testing: boolean;
 
     constructor() {
-        this.testStatus = "Standing by...";
+        this.testStatus = "Ready to go.";
     }
 
-    public ngOnInit(): void {
-        if (this.forAdmin) {
-            // TODO tell logger that this is for admin
-        } else {
-            // TODO
-        }
-    }
-
-    public readyToStart(): boolean {
-        return !!(this.process && this.userInfo && this.appAuth);
-    }
-
-    public startTest(skipLogin: boolean) {
+    public startTest() {
         this.testStatus = "Starting...";
         this.testDetails = "";
-
-        chrome.runtime.sendMessage({
+        const toSend = Object.assign({
+            _source: Messaging.Source.UI,
             action: "start",
-            skipLogin,
-        });
+            debug: this.forAdmin,
+            processObj: this.process,
+            userInfo: this.userInfo,
+        }, this.skipLogin || {authObj: this.appAuth}); // If skip login, only send skipLogin; else, send appAuth.
+        chrome.runtime.sendMessage(toSend);
         this.testing = true;
     }
 
     public endTest() {
         this.testStatus = "Ended.";
         chrome.runtime.sendMessage({
+            _source: Messaging.Source.UI,
             action: "end",
         });
         this.testing = false;
+    }
+
+    private readyToStart(): boolean {
+        return !!(this.process && this.userInfo && (this.appAuth || this.skipLogin));
+    }
+
+    private getStatus() {
+        // TODO if this has already started.
+        if (!this.readyToStart()) {
+            return "Not ready to start.";
+        }
+        return this.testStatus;
     }
 }

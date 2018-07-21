@@ -1,11 +1,13 @@
 import {Injectable} from "@angular/core";
 import {
-AngularFirestore,
-AngularFirestoreCollection, AngularFirestoreDocument,
+    AngularFirestore,
+    AngularFirestoreCollection, AngularFirestoreDocument, QuerySnapshot,
 } from "angularfire2/firestore";
-import {User} from "firebase";
+import {AppCredential, IUserData} from "../models/Info";
 import {SelectOption} from "../partials/dropdown.component";
 import {AuthService} from "./auth.service";
+import {User} from "firebase";
+import FormField from "../models/FormField";
 
 @Injectable()
 export class DbService {
@@ -42,14 +44,13 @@ export class DbService {
     private static officialProcessPath(appId: string) {
         return `official_processes/${appId}`;
     }
-    public isUserAdmin: boolean;
-    private readonly userColl: AngularFirestoreCollection;
 
+    public isUserContrib: boolean;
+    private readonly userColl: AngularFirestoreCollection;
     private readonly appColl: AngularFirestoreCollection;
     private readonly officialProcessColl: AngularFirestoreCollection;
-
     private readonly officialFixtureColl: AngularFirestoreCollection;
-
+    private readonly formFieldColl: AngularFirestoreCollection;
     private readonly processColl: AngularFirestoreCollection;
 
     constructor(private db: AngularFirestore, private authService: AuthService) {
@@ -57,30 +58,40 @@ export class DbService {
         this.appColl = db.collection("apps");
         this.officialProcessColl = db.collection("official_processes");
         this.officialFixtureColl = db.collection("official_fixtures");
+        this.formFieldColl = db.collection("official_fields");
         this.processColl = db.collection("processes");
 
-        this.isUserAdmin = false;
+        this.isUserContrib = false;
         const self = this;
         authService.onStateChange((user: User) => {
             self.updateUserStatus();
         });
     }
 
-    public isAdmin(): Promise<boolean> {
-        return this.getPermissions().then((perm) => !!perm.isAdmin);
+    public getContribStatus(): Promise<boolean> {
+        return this.getPermissions().then((perm) => perm.isAdmin);
     }
 
     public updateUserStatus(): void {
-        this.isAdmin().then((isAdm) => this.isUserAdmin = isAdm);
+        this.getContribStatus().then((isCtrb) => this.isUserContrib = isCtrb);
     }
 
     public getAppListOptions(): Promise<SelectOption[]> {
         return this.getCollectionAsOptionsRef(this.appColl, "fullName");
     }
 
+    public getApps(): Promise<object> {
+        return DbService.getCollByRef(this.appColl);
+    }
+
     public getFixtureListOptions(): Promise<SelectOption[]> {
         return this.getCollectionAsOptionsRef(this.officialFixtureColl, "display_name");
     }
+
+    //
+    // public getOfficialProcesses(): Promise<any> {
+    //     return DbService.getCollByRef(this.officialProcessColl);
+    // }
 
     public getFixtures(): Promise<object> {
         return DbService.getCollByRef(this.officialFixtureColl);
@@ -121,21 +132,83 @@ export class DbService {
             });
     }
 
-    public setFixture(id: string, fixtureData: string): Promise<void> {
+    public setOfficialFixture(id: string, fixtureData: string): Promise<void> {
         return this.officialFixtureColl.ref.doc(id).update({
             fixture_data: fixtureData,
         });
     }
 
-    public newFixture(displayName: string, fixtureData: string): Promise<any> {
+    public newOfficialFixture(displayName: string, fixtureData: string): Promise<any> {
         return this.officialFixtureColl.ref.add({
             display_name: displayName,
             fixture_data: fixtureData,
         });
     }
 
-    public deleteFixture(id: string): Promise<void> {
+    public delOfficialFixture(id: string): Promise<void> {
         return this.officialFixtureColl.ref.doc(id).delete();
+    }
+
+    public getCredentials(appId: string, isContrib: boolean): Promise<AppCredential> {
+        // TODO
+        return this.queryCredentials(appId, isContrib)
+            .then((querySnapshot) => {
+                if (querySnapshot.docs.length === 0) {
+                    // no matched doc
+                    return null;
+                } else {
+                    return querySnapshot.docs[0].data() as AppCredential;
+                }
+            });
+    }
+
+    public submitCredentials(creds: AppCredential, isContrib: boolean): Promise<void> {
+        return this.queryCredentials(creds.app_id, isContrib)
+            .then((querySnapshot: QuerySnapshot<AppCredential>) => {
+                const data = {
+                    username: creds.username,
+                    password: creds.password,
+                    app_id: creds.app_id,
+                };
+                if (querySnapshot.docs.length === 0) {
+                    const credColl = this.getCredentialsColl(isContrib);
+                    credColl.ref.add(data);
+                } else {
+                    return querySnapshot.docs[0].ref.set(data);
+                }
+            });
+    }
+
+    public getOfficialFormFields(): Promise<FormField[]> {
+        return this.formFieldColl.ref.doc("0").get().then((doc) => {
+            if (doc.exists && doc.data().fields) {
+                return doc.data().fields as FormField[];
+            } else {
+                return [];
+            }
+        });
+    }
+
+    public setOfficialFormFields(formFields: FormField[]): Promise<void> {
+        return this.formFieldColl.ref.doc("0").update({
+            fields: formFields,
+        });
+    }
+
+    private get currUserPath(): string {
+        return `users/${this.authService.getUid()}`;
+    }
+
+    public getCurrUserData(): Promise<IUserData> {
+        return this.db.collection(this.currUserPath + "/user_data").ref.doc("0").get().then(
+            (doc) => doc.data().data as IUserData,
+        );
+    }
+
+    public setCurrUserData(userData: any): Promise<void> {
+        return this.db.collection(this.currUserPath + "/user_data").ref.doc("0").update({
+            data: userData,
+        });
     }
 
     protected getPermissions(): Promise<any> {
@@ -143,11 +216,28 @@ export class DbService {
         if (!this.authService.isAuthenticated()) {
             return Promise.resolve({});
         } else {
-            uid = this.authService.getCurrentUser().uid;
+            uid = this.authService.getUid();
         }
         const userDoc = this.userColl.ref.doc(uid);
         return userDoc.get().then((doc) => {
             return !doc.exists ? {} : doc.data().permissions;
         });
     }
+
+    private queryCredentials(appId: string, isContrib: boolean): Promise<QuerySnapshot<AppCredential>> {
+        const credColl = this.getCredentialsColl(isContrib);
+        return credColl.ref.where("app_id", "==", appId).get() as Promise<QuerySnapshot<AppCredential>>;
+    }
+
+    private getCredentialsColl(isContrib: boolean): AngularFirestoreCollection {
+        const collName = isContrib ? "dev_app_credentials" : "app_credentials";
+        const uid = this.authService.getUid();
+        if (uid) {
+            return this.db.collection("users/" + uid + "/" + collName);
+        } else {
+            alert("You're supposed to be logged in. Either I screwed up or you did something sketchy.");
+        }
+    }
 }
+
+

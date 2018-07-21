@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from './services/auth.service';
+import {Component} from "@angular/core";
+import {Router} from "@angular/router";
+import {AuthService} from "./services/auth.service";
+import {DbService} from "./services/db.service";
 
 @Component({
     template: `
@@ -22,36 +23,63 @@ import {AuthService} from './services/auth.service';
                 </button>
             </form>
         </div>`,
-    styleUrls: ['../assets/scss/app.scss'],
+    styleUrls: ["../assets/scss/app.scss"],
 })
 export class LoginComponent {
-    message: string;
-    remember: boolean;
+    public message: string;
+    public remember: boolean;
+    private readonly FALLBACK_URL = "/welcome";
+    private redirecting: boolean;
 
-    constructor(public authService: AuthService, public router: Router) {
+    constructor(public authService: AuthService, public router: Router, private dbService: DbService) {
         this.remember = false;
+        this.redirecting = false;
     }
 
-    toLogin(): void {
-        this.authService.login(this.remember, () => this.redirectBack());
+    public toLogin(): void {
+        this.authService.login(this.remember, this.authRedirect.bind(this));
     }
 
-    toLogout(): void {
+    public toLogout(): void {
         this.authService.logout();
     }
 
-    private redirectBack(): void {
-        // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl || '/welcome';
+    private authRedirect(): void {
+        if (this.authService.redirectUrl === "/contribute") {
+            this.redirecting = true;
+            // need to test for admin identity
+            this.dbService.getContribStatus()
+                .then((isContrib) => {
+                    if (isContrib) {
+                        this.redirectTo(this.authService.redirectUrl);
+                    } else {
+                        this.redirectTo(this.FALLBACK_URL);
+                    }
+                });
+        } else {
+            this.redirectTo(this.authService.redirectUrl || this.FALLBACK_URL);
+        }
+    }
 
+    private redirectTo(url: string): void {
         // Redirect the user
-        this.router.navigate([redirect]);
+        this.redirecting = true;
+        this.router.navigate([url])
+            .then(() => this.redirecting = false)
+            .catch((reason) => {
+                console.error(reason);
+                this.redirecting = false;
+            });
         this.authService.redirectUrl = null;
     }
 
     private getLoginStatusMessage(): string {
         if (this.authService.isAuthenticated()) {
-            return "Logged in; you will be redirected shortly.";
+            if (!this.redirecting) {
+                this.authRedirect();
+                console.log("redirecting");
+            }
+            return "Logged in; you should be redirected shortly.";
         } else {
             return "Please log in to access your data and services.";
         }

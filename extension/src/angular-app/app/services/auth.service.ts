@@ -10,12 +10,12 @@ export class AuthService {
     private static handleSignInError(err: FirebaseError): void {
         console.error("Could not connect to Firebase.");
     }
-
     public redirectUrl: string;
 
-    constructor(public firebaseApp: FirebaseApp, public afAuth: AngularFireAuth) {}
+    constructor(public firebaseApp: FirebaseApp, public afAuth: AngularFireAuth) {
+    }
 
-    public login(remember: boolean, callback: (value: any) => any): void {
+    public login(remember: boolean, callback: (a: any) => any): void {
         const provider = new firebase.auth.GoogleAuthProvider();
         provider.addScope("profile");
         provider.addScope("email");
@@ -39,8 +39,16 @@ export class AuthService {
         return this.firebaseApp.auth().currentUser;
     }
 
+    public getUid(): string {
+        const u = this.getCurrentUser();
+        if (u) {
+            return u.uid;
+        } else {
+            return undefined;
+        }
+    }
+
     public onStateChange(handler: (value: User) => void): void {
         this.afAuth.auth.onAuthStateChanged(handler);
     }
-
 }

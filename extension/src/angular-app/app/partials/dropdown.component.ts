@@ -31,7 +31,7 @@ export class SelectOption {
     selector: "dropdown-search",
     styleUrls: ["dropdown.scss"],
     template: `
-        <div class="full-dropdown">
+        <div class="{{fullClass}}">
             <span class="dropdown-selected text-left">You selected: {{selectedLabel}}</span>
             <button type="button" (click)="toggleShow()" class="{{finalBtnClass}}">{{btnText}}</button>
 
@@ -44,6 +44,17 @@ export class SelectOption {
     `,
 })
 export class DropdownComponent implements OnInit, ControlValueAccessor {
+    public static createOptions(map: object, labelProp: string): SelectOption[] {
+        const list: SelectOption[] = [];
+        for (const key of Object.keys(map)) {
+            list.push(new SelectOption(map[key][labelProp], key));
+        }
+        list.sort((a: SelectOption, b: SelectOption) => {
+            return a.label.localeCompare(b.label);
+        });
+        return list;
+    }
+
     private static filterQuery(label: string, query: string): boolean {
         return label.toLowerCase().includes(query.toLowerCase());
     }
@@ -51,6 +62,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
     @Input() public options: SelectOption[] | Promise<SelectOption[]>;
     @Input() public btnText: string;
     @Input() public btnClass: string;
+    @Input() public fullClass: string;
     private _hideMenu: boolean;
     private allOptions: SelectOption[];
     private filteredOptions: SelectOption[];
@@ -92,12 +104,12 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
         const self = this;
         Promise.resolve(this.options)
             .then((options) => {
-                if (options) {
+                if (Array.isArray(options) && options.length) {
                     self.allOptions = self.filteredOptions = options;
                     self.searchText = "Search...";
                 } else {
                     // Getting options failed and caught on the other side.
-                    self.searchText = "Error: Check page for messages.";
+                    self.searchText = "Failed. No Data retrieved.";
                 }
             })
             .catch((err) => {

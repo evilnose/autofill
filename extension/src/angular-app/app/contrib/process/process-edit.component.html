@@ -1,0 +1,73 @@
+<div class="title-container">
+    <h2>Contribute to the College App Struggle</h2>
+    <p>
+        Don't see the app that you need? Need more support for one of the existing apps? You can contribute
+        to AutoFill+ by writing a custom, automated AutoFill process. Here, you may upload, test, and share your
+        solutions for other applicants to use as well.
+    </p>
+</div>
+<p>Go to the link <a href="#">here</a> to learn how to write one of our AutoFill processes. It is simple and intuitive.
+</p>
+<div class="container-fluid mt-5 p-3 admin-dashboard">
+    <form [formGroup]="processForm" (ngSubmit)="submitProcess()">
+        <div *ngIf="submitStatus == SubmitStatusRef.SUBMITTING" class="alert alert-info">
+            Submitting process...
+        </div>
+        <div *ngIf="submitStatus == SubmitStatusRef.DONE" class="alert alert-success">
+            Process submitted successfully!
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <div *ngIf="this.appIdField.invalid && (this.appIdField.dirty || this.appIdField.touched || processForm.touched)"
+                     class="alert alert-danger admin-action-area">
+                    <div *ngIf="this.appIdField.errors.required">Please select an App.</div>
+                </div>
+                <div class="admin-action-area">
+                    <dropdown-search [options]="getAppOptionsPromise" [btnClass]="'admin-action-btn btn'"
+                                     [btnText]="'Select App...'" formControlName="appId"
+                                     dropdownRequired></dropdown-search>
+                </div>
+                <!--<span class="indicator text-center ml-5">Or</span>-->
+                <!--<div class="admin-action-area">-->
+                <!--<button type="button" class="admin-action-btn btn">Create App...</button>-->
+                <!--<hr/>-->
+                <!--</div>-->
+                <div class="admin-action-area">
+                    <file-upload [btnText]="'Load JSON...'" [btnClass]="'admin-action-btn btn'"
+                                 [onFileChange]="updateJSON.bind(this)"
+                                 [uniqueId]="'hidden-process-upload'"></file-upload>
+                </div>
+                <div class="admin-action-area">
+                    <button type="button" class="admin-action-btn btn" (click)="testerOpen = !testerOpen">
+                        Test/Validate...
+                    </button>
+                </div>
+                <tester *ngIf="testerOpen" [testProcess]="this.processJSON" [appInfo]="this.currAppData"
+                        [appId]="appId"></tester>
+                <hr/>
+                <div class="admin-action-area">
+                    <input type="submit" value="Publish" class="admin-major-action admin-action-btn btn"/>
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                <div *ngIf="this.processJSONField.invalid && (this.processJSONField.dirty || this.processJSONField.touched || processForm.touched)"
+                     class="alert alert-danger">
+                    <div *ngIf="this.processJSONField.errors.required">Please load/enter the process.</div>
+                </div>
+                <button *ngIf="editingProcess" class="btn btn-outline-primary pull-right mb-2" type="button"
+                        (click)="editingProcess=false">
+                    <span *ngIf="editingProcess">Done</span>
+                </button>
+                <button *ngIf="!editingProcess" class="btn btn-outline-primary pull-right mb-2" type="button"
+                        (click)="editingProcess=true">
+                    <span>Edit</span>
+                </button>
+                <textarea [readonly]="!editingProcess" class="editor form-control form-control" rows="25" title="editor"
+                          formControlName="processJSON" required>
+                </textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+

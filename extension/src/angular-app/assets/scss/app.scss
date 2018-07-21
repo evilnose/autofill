@@ -6,6 +6,8 @@ $fa-font-path: "~font-awesome/fonts" !default;
 $admin: #ffbb00;
 $admin-darker: darken($admin, 8);
 $primary-darker: darken($primary, 8);
+$root-navbar-ht: 65px;
+$contrib-navbar-ht: 60px;
 /*
 @font-face {
   font-family: sans-serif;
@@ -59,11 +61,10 @@ p {
 
 .admin-action-area {
   display: block;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 2em;
+  margin-bottom: 2em;
   margin-left: 1em;
   width: 40% !important;
-  height: 5em;
 }
 
 .admin-major-action {
@@ -81,9 +82,11 @@ p {
 
 }
 
-.bot-align {
+.bot-abs {
   position: absolute;
+  left: 0;
   bottom: 0;
+  width: 100%;
 }
 
 /* sign in */
@@ -113,7 +116,7 @@ p {
 
 .root {
   // Fixed top navbar demands padding
-  padding-top: 65px;
+  padding-top: $root-navbar-ht;
   font-family: sans-serif;
 }
 
@@ -175,4 +178,29 @@ p {
   background-color: inherit;
   border: none;
   color: gray;
+}
+
+.align-text-w-btn {
+  position: absolute;
+  margin-top: 0.5em;
+}
+
+.fixed-top-padded {
+  position: fixed;
+  top: $root-navbar-ht;
+  right: 0;
+  left: 0;
+}
+
+.contrib-root {
+  padding-top: $contrib-navbar-ht;
+  height: 90vh;
+}
+
+.contrib-nav-item {
+  font-size: 1.5em;
+}
+
+.btn-fixed-width {
+  width: 10em;
 }

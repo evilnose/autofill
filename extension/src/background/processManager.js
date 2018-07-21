@@ -9,18 +9,16 @@ export default class ProcessManager {
         this.sess = new Session(processComplete, processFailure);
     }
 
-    startProcess(appKey, userKey, auth, skipLogin) {
+    startProcess(process, userInfo, auth, skipLogin, debug) {
         if (!auth && !skipLogin) {
             console.error("User requested login but no app auth is provided.");
+            skipLogin = true; // fallback
         }
-
-        // Initial condition: user has logged in and is at the home url
-        console.log("Starting user-form-filling process...");
-        this.sess.startOver(appKey, userKey, auth, skipLogin);
+        this.sess.startOver(process, userInfo, auth, skipLogin, debug);
     }
 
     endProcess() {
-        this.sess.stopSession();
+        this.sess.interrupt();
     }
 }
 
@@ -41,7 +39,7 @@ function processFailure(sum, reason, implication) {
             break;
     }
     console.log(sum);
-    console.warn("Since the process failed, the last few field values may not" +
+    console.warn("Since the process failed, the last few field values may not " +
         "have been sent.");
     processCleanup();
 }
