@@ -59,7 +59,14 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
         return label.toLowerCase().includes(query.toLowerCase());
     }
 
-    @Input() public options: SelectOption[] | Promise<SelectOption[]>;
+    private _options: SelectOption[] | Promise<SelectOption[]>;
+    @Input()
+    public set options(value: SelectOption[] | Promise<SelectOption[]>) {
+        if (value) {
+            this._options = value;
+            this.reloadContent();
+        }
+    }
     @Input() public btnText: string;
     @Input() public btnClass: string;
     @Input() public fullClass: string;
@@ -102,7 +109,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
         this.searchText = "Loading...";
 
         const self = this;
-        Promise.resolve(this.options)
+        Promise.resolve(this._options)
             .then((options) => {
                 if (Array.isArray(options) && options.length) {
                     self.allOptions = self.filteredOptions = options;

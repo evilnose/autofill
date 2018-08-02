@@ -2,12 +2,12 @@ export class Table {
     private readonly head2I: object;
     private readonly editables: object;
 
-    constructor(public headingAliases: string[], public colNamesToKeep: string[] | null, private rows: string[][],
+    constructor(public headingAliases: string[], public originalColNames: string[] | null, private rows: string[][],
                 private editableList: number[] | null) {
         this.head2I = {};
-        if (colNamesToKeep === null) {
+        if (originalColNames === null) {
             // if no column names have to be kept, name them the same as headings
-            this.colNamesToKeep = headingAliases.slice();
+            this.originalColNames = headingAliases.slice();
         }
         for (let i = 0; i < headingAliases.length; i++) {
             this.head2I[headingAliases[i]] = i;
@@ -30,7 +30,7 @@ export class Table {
         for (const l of this.rows) {
             newRows.push(l.slice());
         }
-        return new Table(this.headingCopy(), this.colNamesToKeep, newRows, this.editableList.slice());
+        return new Table(this.headingCopy(), this.originalColNames, newRows, this.editableList.slice());
     }
 
     public headingCopy(): string[] {
@@ -41,8 +41,8 @@ export class Table {
         const list = [];
         for (const row of this.rows) {
             const obj = {};
-            for (let i = 0; i < this.colNamesToKeep.length; i++) {
-                obj[this.colNamesToKeep[i]] = row[i];
+            for (let i = 0; i < this.originalColNames.length; i++) {
+                obj[this.originalColNames[i]] = row[i];
             }
             list.push(obj);
         }

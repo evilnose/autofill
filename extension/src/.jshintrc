@@ -1,9 +1,9 @@
 {
-	"esnext": "true",
-	"node": true,
-	"strict": "implied",
-	"globals": {
-		"window": true,
-		"chrome": true
-	}
+  "esnext": "true",
+  "node": true,
+  "strict": "implied",
+  "globals": {
+    "window": true,
+    "chrome": true
+  }
 }

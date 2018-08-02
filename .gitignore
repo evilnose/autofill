@@ -39,5 +39,4 @@ Thumbs.db
 # Distribution directory #
 ##########################
 extension/dist/
-api/
 extension/node_modules/

@@ -1,4 +1,7 @@
 /* global chrome */
+/*
+Handles the execution of parsed commands.
+ */
 
 import Messaging from "../messaging";
 
@@ -7,7 +10,6 @@ const getElement = require('./getElement.js');
 const constants = require('./constants.js');
 
 module.exports = {
-
     // Runs the given command
     runCommand: function (cmd) {
         // if (Array.isArray(cmd))
@@ -21,26 +23,25 @@ module.exports = {
                 }
                 break;
             case 'wait':
-                getDelayPromise(cmd.target || constants.DEFAULT_WAIT_DELAY)
+                const delay = cmd.target || constants.DEFAULT_WAIT_DELAY;
+                getDelayPromise(delay)
                     .then(handleActionSuccess)
                     .catch(handleActionFailure);
                 break;
             default:
                 getFindElementRetryPromise(cmd.target)
                     .then(ele => getActionRetryPromise(getCommandFn(cmd.action), ele, cmd))
-                    .then(handleActionSuccess) // clear penalty on successful action
+                    .then(handleActionSuccess)
                     .catch(handleActionFailure);
         }
     }
 };
 
 function handleActionSuccess() {
-    console.log("Action successful. Sending signal back...");
     sendStateMessage('next');
 }
 
 function handleActionFailure(rsn) {
-    console.log("Action failed. Sending signal back...");
     sendStateMessage('failed', {reason: rsn});
 }
 
@@ -54,7 +55,7 @@ function getFindElementRetryPromise(path) {
 function retryFindElement(path, dIdx, resolve, reject) {
     if (dIdx === constants.FIND_ELE_DELAYS.length) {
         console.log("Failed to find ele by path. REJECTING...");
-        reject('Failed to find element.');
+        reject('Failed to find element');
         return;
     }
 
@@ -78,7 +79,7 @@ function getActionRetryPromise(actionFn, ele, cmd) {
 function retryAction(actionFn, ele, cmd, dIdx, resolve, reject) {
     if (dIdx === constants.ACTION_DELAYS.length) {
         console.log(`Failed to do ${cmd.action}. REJECTING...`);
-        reject('Failed to perform action.');
+        reject(`Failed to perform action ${cmd.action}`);
         return;
     }
 
@@ -99,15 +100,11 @@ function getDelayPromise(delay) {
 }
 
 function doTry(tries) {
-    let t;
-    for (let i = 0; i < tries.length; i++) {
-        t = tries[i];
+    for (const t of tries) {
         if (!getCommandFn(t.action)(t.target, t.val)) {
-            console.log("Try failed.");
             return false;
         }
     }
-    console.log("Try succeeded.");
     return true;
 }
 

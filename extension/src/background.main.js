@@ -1,10 +1,8 @@
 /* global chrome */
-import ProcessManager from './background/processManager';
+import Session from './background/session';
 import Messaging from "./messaging";
 
 const constants = require('./background/constants.js');
-
-const manager = new ProcessManager();
 
 /*** Main message listener ***/
 chrome.runtime.onMessage.addListener(
@@ -14,14 +12,21 @@ chrome.runtime.onMessage.addListener(
         }
         switch (request.action) {
             case 'start':
-                manager.startProcess(
+                Session.getInstance().startOver(
                     request.processObj, request.userInfo, request.authObj, request.skipLogin, request.debug);
                 break;
             case 'end':
-                manager.endProcess();
+                Session.getInstance().interrupt();
                 break;
             case 'bad-login':
                 // TODO Handle user failed login
+                break;
+            case 'fetch_status':
+                chrome.runtime.sendMessage({
+                    _source: Messaging.Source.BACKGROUND,
+                    action: 'update_status',
+                    sessionInfo: Session.getInstance().sessionInfo,
+                });
                 break;
             default:
                 console.log(`ERROR: Do not recognize action message '${request.action}'.`);

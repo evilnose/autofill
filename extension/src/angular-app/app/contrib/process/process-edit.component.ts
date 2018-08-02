@@ -55,7 +55,7 @@ export class ProcessEditComponent {
                 return null;
             });
 
-        this.dbService.getApps()
+        this.dbService.getAppMap()
             .then((appMap) => {
                 this.appMap = appMap;
             });

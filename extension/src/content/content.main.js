@@ -1,5 +1,5 @@
 /* global chrome */
-const actionProcessor = require('./actionProcessor');
+const actionProcessor = require('./runtime');
 import Messaging from '../messaging';
 
 chrome.runtime.onMessage.addListener(
@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener(
         if (request._source !== Messaging.Source.BACKGROUND) {
             return;
         }
-        console.log("Message received.");
+        console.log("Message received from background.");
         switch (request.action) {
             case 'run_cmd':
                 actionProcessor.runCommand(request.command, sendResponse);

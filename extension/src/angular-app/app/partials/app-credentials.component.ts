@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SubmitStatus} from "../contrib/process/process-edit.component";
 import {AppCredential} from "../models/Info";
@@ -29,8 +29,8 @@ import {DbService} from "../services/db.service";
             <div>
                <span>
                    You may <a href="javascript:void(0)" (click)="this.skipLogin=true">skip this step</a> if you have 
-                   logged into "{{appFullName}}" in the last 30 minutes in this browser and your session is still 
-                   active.</span>
+                   logged into "{{appFullName}}" in the last 30 minutes in this browser (i.e. your session is still 
+                   active.)</span>
             </div>
         </div>
         <div *ngIf="this.skipLogin">
@@ -88,7 +88,7 @@ import {DbService} from "../services/db.service";
         </ng-template>
     `,
 })
-export class AppCredentialsComponent {
+export class AppCredentialsComponent implements OnInit {
     @Input() private appFullName: string;
     @Input() private isContrib: boolean;
     @Output() private changed: EventEmitter<AppCredential | boolean> = new EventEmitter<AppCredential | boolean>();
@@ -106,13 +106,16 @@ export class AppCredentialsComponent {
     private SubmitStatusRef = SubmitStatus;
 
     constructor(public dbService: DbService) {
-        this.reinitialize();
         this.formGroup = new FormGroup({
             username: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required),
             appId: new FormControl(this._appId, Validators.required),
             remember: new FormControl(),
         });
+    }
+
+    ngOnInit() {
+        this.reinitialize();
     }
 
     private set skipLogin(b: boolean) {

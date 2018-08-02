@@ -11,9 +11,9 @@ exports.processForms = function (process, user, appAuth, skipLogin) {
     let info = $.extend({}, process);
     // Clear process array
     info.process = [];
+    info.fieldCount = 0;
     let totalProcess = skipLogin ? process.process : process.login_process.concat(process.process);
     handleProcesses(info, user, totalProcess, process.login_process ? process.login_process.length : 0);
-    console.log("Process: " + JSON.stringify(info.process));
     info.alt_mapping = process.alt_mapping;
     return info;
 };
@@ -22,54 +22,66 @@ function handleOneProcess(info, user, c, imp) {
     pushToProcess(info, parseProcessStr(info, user, c, imp));
 }
 
-function parseProcessStr(info, user, cStr, imp) {
-    let c = splitCommand(cStr);
-    c.implication = imp;
+function parseProcessStr(info, user, cmdStr, imp) {
+    let cmd = splitCommand(cmdStr);
+    /* Command attributes:
+     * action: a string that indicates what action to take; simple enough.
+     * flag: a special attribute of the action that deserves attention
+     * target: usually specifies how the DOM element can be found
+     * val: (usually) the value for input; starts off as a key and later replaced with value from user object. For click
+     * actions, val is omitted unless interpolation is needed, in which case val is the user value to interpolate
+     * field: the practical field that this action promises to fill, for debugging and user-friendly purposes. TODO confirm
+     */
+    cmd.implication = imp;
 
     let userVal;
     // Handle actions
-    switch (c.action) {
+    switch (cmd.action) {
         case 'open':
         case 'wait':
         case 'warn':
-            return c;
+            return cmd;
         case 'assertElementPresent':
         case 'waitForElementPresent':
-            if (c.target.includes(constants.INTP_IND)) {
-                c.target = interpolate(c.target, getVal(user, c.val), info.alt_mapping);
-                if (!c.target) {
-                    console.log(`Command skipped since no userVal (interp): ${c.target}`);
+            if (cmd.target.includes(constants.INTP_IND)) {
+                cmd.target = interpolate(cmd.target, getVal(user, cmd.val), info.alt_mapping);
+                if (!cmd.target) {
+                    console.log(`Command skipped since no userVal (interp): ${cmd.target}`);
                     return;
                 }
             }
-            return c;
+            return cmd;
         case 'click':
-            if (c.target.includes(constants.INTP_IND)) {
-                c.target = interpolate(c.target, getVal(user, c.val), info.alt_mapping);
-                c.field = c.val;
-                if (!c.target) {
-                    console.log(`Command skipped since no userVal (interp): ${c.target}`);
+            if (cmd.target.includes(constants.INTP_IND)) {
+                cmd.target = interpolate(cmd.target, getVal(user, cmd.val), info.alt_mapping);
+                cmd.field = getFieldFromKey(cmd.val);
+                if (!cmd.target) {
+                    console.log(`Command skipped since no userVal (interp): ${cmd.target}`);
                     return;
                 }
-            } else if (c.val && !(c.field = getVal(user, c.val)))
-            // assign c.val to field if it exists; if not, return.
+            } else if (cmd.val && !(cmd.field = getVal(user, cmd.val)))
+            // What this does: assign c.val to field if it exists; if not, return nothing. (I know, I know.)
                 return;
-
-            return c;
+            if (cmd.field)
+                info.fieldCount++;
+            return cmd;
         case 'type':
-            if (!!(userVal = getVal(user, c.val))) {
-                c.field = c.val;
-                c.val = userVal;
-                return c;
+            if (!!(userVal = getVal(user, cmd.val))) {
+                if (cmd.val !== '@username' && cmd.val !== '@password') {
+                    cmd.field = getFieldFromKey(cmd.val);
+                    info.fieldCount++;
+                }
+                cmd.val = userVal;
+                return cmd;
             }
-            console.log(`Command skipped since no userVal: ${c.target}`);
+            console.log(`Command skipped since no userVal: ${cmd.field}`);
             return;
         // case 'sendKeys':
         //   // userKey is the key string in this case
         //   pushToProcess(info, i, action, target, userKey);
         //   break;
         default:
-            console.error(`Do not recognize action: ${c.action}`);
+            console.error(`Do not recognize action: ${cmd.action}`);
             return;
     }
 }
@@ -80,7 +92,7 @@ function interpolate(target, userVal, altMapping) {
         let newVal = altMapping[userVal] || userVal;
         return target.replace(constants.INTP_IND, newVal);
     } else {
-        console.error(`Interpolation failed: No userVal. Target: ${target}`);
+        console.log(`Interpolation aborted: No userVal. Target: ${target}`);
         return null;
     }
 }
@@ -103,6 +115,11 @@ function handleCommand(info, user, cmd, imp) {
         handleOneProcess(info, user, cmd, imp);
     else
         handleConditional(info, user, cmd);
+}
+
+function getFieldFromKey(key) {
+    // simply remove format stuff for now
+    return key.split(constants.FORMAT_IND)[0]
 }
 
 // function handleBlock(info, user, b) {
@@ -184,8 +201,8 @@ function splitCommand(c) {
     let [action, target, userKey, imp] = c.split(constants.OPT_SEP);
     let flag;
     if (action.startsWith(constants.FLAG_IND)) {
-        flag = c[1];
-        action = c.substr(3);
+        flag = action[1];
+        action = action.substr(3);
     }
 
     return {
@@ -235,8 +252,10 @@ function getUserVal(user, userKey) {
     }
 
     let pathArr = userKey.split('.');
-    let item = user.profile;
+    let item = user;
     for (let i = 0; i < pathArr.length; ++i) {
+        if (item === undefined)
+            return null;
         item = item[pathArr[i]];
     }
     return item;
@@ -244,7 +263,7 @@ function getUserVal(user, userKey) {
 
 function formatVal(val, format) {
     if (!val) {
-        console.error("Formatting failed: cannot find value");
+        console.log("Formatting aborted: cannot find value");
         return;
     } else if (!format) {
         return val;

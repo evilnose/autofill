@@ -8,18 +8,13 @@ import {SelectOption} from "../partials/dropdown.component";
 import {AuthService} from "./auth.service";
 import {User} from "firebase";
 import FormField from "../models/FormField";
+import {DataFormatService} from "./data-format.service";
 
 @Injectable()
 export class DbService {
-    public static getCollByRef(coll: AngularFirestoreCollection): Promise<object> {
+    public getCollAsMap(coll: AngularFirestoreCollection): Promise<object> {
         return coll.ref.get()
-            .then((querySnapshot: any) => {
-                const docMap: object = {};
-                querySnapshot.forEach((doc: any) => {
-                    docMap[doc.id] = doc.data();
-                });
-                return docMap;
-            });
+            .then(this.formatService.formatQuerySnapshotAsMap);
     }
 
     public static getDocByRef(afsDoc: AngularFirestoreDocument, onError: (err: any) => any | null): Promise<any> {
@@ -45,7 +40,7 @@ export class DbService {
         return `official_processes/${appId}`;
     }
 
-    public isUserContrib: boolean;
+    public isAdmin: boolean;
     private readonly userColl: AngularFirestoreCollection;
     private readonly appColl: AngularFirestoreCollection;
     private readonly officialProcessColl: AngularFirestoreCollection;
@@ -53,7 +48,7 @@ export class DbService {
     private readonly formFieldColl: AngularFirestoreCollection;
     private readonly processColl: AngularFirestoreCollection;
 
-    constructor(private db: AngularFirestore, private authService: AuthService) {
+    constructor(private db: AngularFirestore, private authService: AuthService, private formatService: DataFormatService) {
         this.userColl = db.collection("users");
         this.appColl = db.collection("apps");
         this.officialProcessColl = db.collection("official_processes");
@@ -61,27 +56,31 @@ export class DbService {
         this.formFieldColl = db.collection("official_fields");
         this.processColl = db.collection("processes");
 
-        this.isUserContrib = false;
+        this.isAdmin = false;
         const self = this;
         authService.onStateChange((user: User) => {
             self.updateUserStatus();
         });
     }
 
-    public getContribStatus(): Promise<boolean> {
+    private getUserAdminStatus(): Promise<boolean> {
         return this.getPermissions().then((perm) => perm.isAdmin);
     }
 
     public updateUserStatus(): void {
-        this.getContribStatus().then((isCtrb) => this.isUserContrib = isCtrb);
+        this.getUserAdminStatus().then((isAdm) => this.isAdmin = isAdm);
     }
 
     public getAppListOptions(): Promise<SelectOption[]> {
         return this.getCollectionAsOptionsRef(this.appColl, "fullName");
     }
 
-    public getApps(): Promise<object> {
-        return DbService.getCollByRef(this.appColl);
+    public getAppMap(): Promise<object> {
+        return this.getCollAsMap(this.appColl);
+    }
+
+    public getAppCollection(): Promise<any> {
+        return this.appColl.ref.get();
     }
 
     public getFixtureListOptions(): Promise<SelectOption[]> {
@@ -94,10 +93,10 @@ export class DbService {
     // }
 
     public getFixtures(): Promise<object> {
-        return DbService.getCollByRef(this.officialFixtureColl);
+        return this.getCollAsMap(this.officialFixtureColl);
     }
 
-    public getOfficialProcess(id: string): Promise<object> {
+    public getOfficialProcess(id: string): Promise<string> {
         return this.getDocByPath(DbService.officialProcessPath(id), null).then((data) => data.process);
     }
 
@@ -115,21 +114,10 @@ export class DbService {
         return DbService.getDocByRef(this.officialFixtureColl.doc(id), onError);
     }
 
-    public getCollectionAsOptions(path: string, labelName: string): Promise<SelectOption[]> {
-        return this.getCollectionAsOptionsRef(this.db.collection(path), labelName);
-    }
-
     public getCollectionAsOptionsRef(collection: AngularFirestoreCollection,
                                      labelName: string): Promise<SelectOption[]> {
         return collection.ref.get()
-            .then((querySnapshot: any) => {
-                const options: SelectOption[] = [];
-                querySnapshot.forEach((doc: any) => {
-                    const data = doc.data();
-                    options.push(new SelectOption(data[labelName], doc.id));
-                });
-                return options;
-            });
+            .then((qs) => this.formatService.formatQuerySnapshotAsOptions(qs, labelName));
     }
 
     public setOfficialFixture(id: string, fixtureData: string): Promise<void> {
@@ -150,7 +138,6 @@ export class DbService {
     }
 
     public getCredentials(appId: string, isContrib: boolean): Promise<AppCredential> {
-        // TODO
         return this.queryCredentials(appId, isContrib)
             .then((querySnapshot) => {
                 if (querySnapshot.docs.length === 0) {

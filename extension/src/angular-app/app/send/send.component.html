@@ -1,2 +1,52 @@
-<h2>#TODO: Send page. {{testy}}</h2>
-<button class="btn btn-primary" (click)="sendForm()">Click to Send</button>
+<div class="container-fluid">
+    <h2>Auto-Fill Your Form</h2>
+    <p>If you have finished filling in your form, you are ready to Auto-Fill college applications with it. Double-check
+        your <a routerLink="/form">form</a> (you should also do that after Auto-Fill is done) and go through the
+        following steps.</p>
+    <ol>
+        <li>Select an App to send to. After you select an App, we will download the corresponding template file from
+            our server. That template contains the instructions that AutoFill+ will soon follow to navigate the App
+            website
+            and fill in fields.
+        </li>
+        <li>Enter your credentials for this App. AutoFill+ needs your credentials to log into the App website. You may
+            also login manually right now to skip this step. More details below.
+        </li>
+        <li>Click "Send Now" to start sending your form. Enjoy!</li>
+    </ol>
+
+    <div class="container-fluid dots-container mt-3 mb-5">
+        <div class="row">
+            <div class="col-md-4">
+                <status-dot [textMap]="userInfoStatusTexts" [status]="userInfoStatus"></status-dot>
+            </div>
+            <div class="col-md-4">
+                <status-dot [textMap]="appStatusTexts" [status]="appStatus"></status-dot>
+            </div>
+            <div class="col-md-4">
+                <status-dot [textMap]="credentialsStatusTexts" [status]="credentialsStatus"></status-dot>
+            </div>
+        </div>
+    </div>
+    <div class="row" [formGroup]="sendForm">
+        <div class="col-md-3">
+            <dropdown-search [options]="appOptions" [btnClass]="'btn btn-primary btn-block'"
+                             [btnText]="'Select App...'" formControlName="appId"
+                             dropdownRequired>
+
+            </dropdown-search>
+        </div>
+        <div class="col-md-4">
+            <div *ngIf="userInfo && this.currAppId" class="col-md-6">
+                <app-credential [appFullName]="this.appFullName" [appId]="this.currAppId"
+                                (changed)="onCredChanged($event)"
+                                [isContrib]="false"></app-credential>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <progress-display [process]="process" [userInfo]="userInfo"
+                              [skipLogin]="skipLogin" [appAuth]="appAuth"
+                              [forAdmin]="false"></progress-display>
+        </div>
+    </div>
+</div>

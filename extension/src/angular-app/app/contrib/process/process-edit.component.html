@@ -1,20 +1,23 @@
 <div class="title-container">
     <h2>Contribute to the College App Struggle</h2>
     <p>
-        Don't see the app that you need? Need more support for one of the existing apps? You can contribute
-        to AutoFill+ by writing a custom, automated AutoFill process. Here, you may upload, test, and share your
-        solutions for other applicants to use as well.
+        Don't see the app that you need? Need more support for one of the existing apps? You can help AutoFill+ by
+        writing a custom, automated AutoFill process. Here, you may upload, test, and share your solutions for other
+        applicants to use.
     </p>
 </div>
 <p>Go to the link <a href="#">here</a> to learn how to write one of our AutoFill processes. It is simple and intuitive.
 </p>
 <div class="container-fluid mt-5 p-3 admin-dashboard">
     <form [formGroup]="processForm" (ngSubmit)="submitProcess()">
-        <div *ngIf="submitStatus == SubmitStatusRef.SUBMITTING" class="alert alert-info">
+        <div *ngIf="submitStatus === SubmitStatusRef.SUBMITTING" class="alert alert-info">
             Submitting process...
         </div>
-        <div *ngIf="submitStatus == SubmitStatusRef.DONE" class="alert alert-success">
+        <div *ngIf="submitStatus === SubmitStatusRef.DONE" class="alert alert-success">
             Process submitted successfully!
+        </div>
+        <div *ngIf="submitStatus === SubmitStatusRef.FAILED" class="alert alert-danger">
+            Failed to submit process.
         </div>
         <div class="row">
             <div class="col-md-6 form-group">

@@ -6,17 +6,17 @@ import {DbService} from "../services/db.service";
     selector: "edi-table",
     styleUrls: ["./table.component.scss", "../../assets/scss/app.scss"],
     template: `
-        <div *ngIf="_table">
+        <div *ngIf="_table" style="height: 70vh; overflow: auto;">
             <table>
                 <tr>
                     <th *ngFor="let h of _table.headingAliases"
-                        class="{{_table.editableAt(h) ? 'editable-row' : 'normal-row'}}"
+                        class="{{_table.editableAt(h) ? 'editable-header' : 'normal-header'}}"
                         [style.width]="getWidth(h)">
                         {{h}}
                     </th>
                 </tr>
                 <tr *ngFor="let r of range(_table.len)">
-                    <td *ngFor="let h of _table.headingAliases">
+                    <td *ngFor="let h of _table.headingAliases" class="{{_table.editableAt(h) ? 'editable-td' : 'td'}}">
                         <input *ngIf="_table.editableAt(h)" type="text" [value]="_table.at(h, r)"
                                (change)="inputChange(h, r, $event.target.value)"/>
                         <div *ngIf="!_table.editableAt(h)">

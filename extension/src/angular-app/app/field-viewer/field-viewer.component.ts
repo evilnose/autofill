@@ -16,8 +16,8 @@ import {DbService} from "../services/db.service";
             <div class="alert alert-success" *ngIf="saveStatus == SubmitStatusRef.DONE">Save successful!</div>
             <div class="alert alert-error" *ngIf="saveStatus == SubmitStatusRef.FAILED">Save Failed. Please check your
                 internet connection and try again.
+                <!-- TODO bug report link -->
             </div>
-            <!-- TODO bug report link -->
             <div class="row">
                 <div class="col-md-2">
                     <file-upload [btnText]="'Upload CSV'" [btnClass]="'btn btn-primary btn-fixed-width'"
@@ -29,6 +29,9 @@ import {DbService} from "../services/db.service";
                             (click)="saveTable()" [disabled]="saveStatus == SubmitStatusRef.SUBMITTING">Save
                     </button>
                 </div>
+            </div>
+            <div>
+                *The CSV file should be in format of "field_name,description,displayed_name". Do not include headers.
             </div>
             <edi-table [initialTable]="tbl" [columnWidths]="[0.3, 0.4, 0.3]"></edi-table>
         </div>
@@ -60,7 +63,15 @@ export default class FieldViewerComponent {
     private fileChanged(csvStr: string) {
         const lines = csvStr.split("\n");
         this.tableUpToDate = false;
-        this.updateTable(lines.map((line: string) => line.split(",")));
+        const rows = [];
+        for (const line of lines) {
+            const split = line.split(",");
+            if (split[0]) {
+                // only push if field name exists
+                rows.push(split);
+            }
+        }
+        this.updateTable(rows);
     }
 
     private saveTable() {

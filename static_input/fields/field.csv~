@@ -23,4 +23,4 @@ mailing_address.line3,The third line of your mailing address (if applicable),Mai
 zip_code,The zip code of your mailing address,Mailing Address - Zip Code
 primary_phone_country_code,The country code for your primary phone (+1 for US),Primary Phone - Country Code
 primary_phone_number,Your primary phone number (excluding country code),Primary Phone Number
-primary_phone_type,i.e. home/mobile/etc. (you may enter this manually in the app if you're unsure),Primary Phone - Type
+primary_phone_type,E.g. home/mobile (you may enter this manually in the app if you're unsure),Primary Phone - Type

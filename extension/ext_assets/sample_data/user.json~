@@ -8,7 +8,7 @@
   "sex": "female",
   "gender": "sausage person",
   "birth_date": "2001-01-01",
-  "home_address": {
+  "permanent_address": {
     "country": "China, People's Republic of",
     "line_1": "939 501",
     "line_2": "",

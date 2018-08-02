@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
             return false;
         } else if (url === "/contribute") {
             // Check if user is a registered contributor (or admin, as of now)
-            return this.dbService.getContribStatus();
+            return this.dbService.isAdmin;
         } else {
             return true;
         }

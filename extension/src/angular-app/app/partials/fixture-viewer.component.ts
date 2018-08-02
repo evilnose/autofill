@@ -93,9 +93,15 @@ export class FixtureViewerComponent {
     private saveToCurr() {
         // TODO non-official for contrib
         if (confirm(`Overwrite this fixture "${this.fixtureMap[this.currFixtureId].display_name}"?`)) {
-            this.dbService
-                .setOfficialFixture(this.currFixtureId, this.fixtureData.value)
-                .then(this.reinitialize.bind(this));
+            if (this.dbService.isAdmin) {
+                this.dbService
+                    .setOfficialFixture(this.currFixtureId, this.fixtureData.value)
+                    .then(this.reinitialize.bind(this));
+            } else {
+            //     this.dbService
+            //         .setFixture(this.currFixtureId, this.fixtureData.value)
+            //         .then(this.reinitialize.bind(this));
+            }
         }
     }
 

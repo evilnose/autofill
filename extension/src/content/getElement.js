@@ -15,8 +15,9 @@ module.exports = function getElement(path) {
             return $("#" + target);
         case 'css':
             console.log(`Finding element by css: ${target}`);
-            console.log($(target));
             return $(target);
+        case 'xpath':
+            return getElementByXPath(target);
         default:
             return getElementByXPath(path);
     }

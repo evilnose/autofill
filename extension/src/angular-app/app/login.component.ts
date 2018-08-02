@@ -48,15 +48,13 @@ export class LoginComponent {
         if (this.authService.redirectUrl === "/contribute") {
             this.redirecting = true;
             // need to test for admin identity
-            this.dbService.getContribStatus()
-                .then((isContrib) => {
-                    if (isContrib) {
-                        this.redirectTo(this.authService.redirectUrl);
-                    } else {
-                        this.redirectTo(this.FALLBACK_URL);
-                    }
-                });
+            if (this.dbService.isAdmin) {
+                this.redirectTo(this.authService.redirectUrl);
+            } else {
+                this.redirectTo(this.FALLBACK_URL);
+            }
         } else {
+            console.log("redirecting to", this.authService.redirectUrl);
             this.redirectTo(this.authService.redirectUrl || this.FALLBACK_URL);
         }
     }

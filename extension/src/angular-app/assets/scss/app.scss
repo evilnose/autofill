@@ -1,7 +1,7 @@
 $fa-font-path: "~font-awesome/fonts" !default;
-@import "custom";
 @import "../bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
+@import "custom";
 
 $admin: #ffbb00;
 $admin-darker: darken($admin, 8);
@@ -29,14 +29,17 @@ p {
 
 /* admin dashboard */
 .link-admin {
-  color: #ffdd82 !important;
+  color: transparentize($admin, 0.2) !important;
   &:hover {
-    color: #ffd35e !important;
+    color: transparentize($admin, 0.1) !important;
   }
 }
 
 .active-link-admin {
   color: $admin !important;
+  &:hover {
+    color: $admin !important;
+  }
 }
 
 .admin-dashboard {
@@ -190,6 +193,7 @@ p {
   top: $root-navbar-ht;
   right: 0;
   left: 0;
+  z-index: 1030; /* same as bootstrap */
 }
 
 .contrib-root {
