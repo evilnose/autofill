@@ -1,0 +1,39 @@
+{
+  "allowed_hosts": [
+    "collegenet.com"
+  ],
+  "base": "https://www.mycoalition.org",
+  "login_process": [
+    "open;/app",
+    [
+      {
+        "try": [
+          "assertElementPresent;id=j_username"
+        ],
+        "commands": [
+          "type;id=j_username;@username",
+          "type;id=j_password;@password",
+          "click;$=[name='_eventId_proceed']"
+        ]
+      }
+    ]
+  ],
+  "process": [
+    "open;/app#/profile",
+    "waitForElementPresent;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Privacy Information'])[1]/following::h1[1]",
+    [
+      {
+        "try": [
+          "assertElementPresent;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Coalition Account ID'])[1]/following::a[1]"
+        ],
+        "commands": [
+          "-n-click;xpath=//dt/a",
+          "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Personal Info'])[2]/following::a[1]",
+          "type;id=firstName;first_name",
+          "type;id=lastName;last_name",
+          "type;id=date-input;birth_date>MM/DD/YYYY"
+        ]
+      }
+    ]
+  ]
+}

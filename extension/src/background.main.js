@@ -1,6 +1,6 @@
 /* global chrome */
 import Session from './background/session';
-import Messaging from "./messaging";
+import Messaging from "./common/messaging";
 
 const constants = require('./background/constants.js');
 

@@ -101,9 +101,22 @@ export class DbService {
     }
 
     public submitOfficialProcess(pcsId: string, processStr: string): Promise<any> {
-        return this.officialProcessColl.doc(pcsId).ref.update({
-            process: processStr,
-        });
+        const docRef = this.officialProcessColl.doc(pcsId).ref;
+        return docRef.get()
+            .then((doc: any) => {
+                return doc.exists;
+            })
+            .then((exists: any) => {
+                if (exists) {
+                    return docRef.update({
+                        process: processStr,
+                    });
+                } else {
+                    return docRef.set({
+                        process: processStr,
+                    });
+                }
+            });
     }
 
     public getDocByPath(path: string, onError: (err: any) => any | null): Promise<any> {

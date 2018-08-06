@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import Messaging from "../../../messaging";
+import Messaging from "../../../common/messaging";
 import {AppCredential, IProcess, IUserData} from "../models/Info";
 import {MessengerService} from "../services/messenger.service";
 import {interval} from "rxjs";
@@ -89,7 +89,7 @@ export class ProgressDisplayComponent implements OnInit {
                     this.inSession = false;
                     this.readyToStart = true;
                     if (this.forAdmin === info.debugging) {
-                        this.sessionStatus = (info.status === Messaging.SessionStatus.SUCCEEDED) ? "Session Success" : "Session Failed";
+                        this.sessionStatus = (info.status === Messaging.SessionStatus.SUCCEEDED) ? "Success" : "Session Failed";
                         this.logs = info.logs;
                     } else {
                         this.sessionStatus = "Ready to start.";

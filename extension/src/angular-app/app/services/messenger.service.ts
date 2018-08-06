@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from "@angular/core";
-import Messaging from "../../../messaging";
+import Messaging from "../../../common/messaging";
 
 @Injectable()
 export class MessengerService {

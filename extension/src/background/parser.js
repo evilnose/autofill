@@ -8,15 +8,28 @@ import $ from 'jquery';
  */
 exports.processForms = function (process, user, appAuth, skipLogin) {
     user.appAuth = appAuth;
+    process.process = process.process || [];
     let info = $.extend({}, process);
     // Clear process array
     info.process = [];
     info.fieldCount = 0;
     let totalProcess = skipLogin ? process.process : process.login_process.concat(process.process);
-    handleProcesses(info, user, totalProcess, process.login_process ? process.login_process.length : 0);
+    handleProcesses(info, user, totalProcess);
+    console.log("Parsed succesfully!");
     info.alt_mapping = process.alt_mapping;
     return info;
 };
+
+class Parser {
+    constructor(info, user) {
+        this.info = info;
+        this.user = user;
+    }
+
+    parse() {
+
+    }
+}
 
 function handleOneProcess(info, user, c, imp) {
     pushToProcess(info, parseProcessStr(info, user, c, imp));
@@ -97,15 +110,9 @@ function interpolate(target, userVal, altMapping) {
     }
 }
 
-function handleProcesses(info, user, process, endOfLogin) {
-    let pLen = process.length;
-
-    if (!endOfLogin) endOfLogin = 0;
-    for (let i = 0; i < endOfLogin; ++i) {
-        handleCommand(info, user, process[i]);
-    }
-    handleCommand(info, user, process[endOfLogin], 'bl'); // if this command fails it is likely that login was unsuccessful
-    for (let i = endOfLogin + 1; i < pLen; ++i) {
+function handleProcesses(info, user, process) {
+    const pLen = process.length;
+    for (let i = 0; i < pLen; ++i) {
         handleCommand(info, user, process[i]);
     }
 }
@@ -119,7 +126,7 @@ function handleCommand(info, user, cmd, imp) {
 
 function getFieldFromKey(key) {
     // simply remove format stuff for now
-    return key.split(constants.FORMAT_IND)[0]
+    return key.split(constants.FORMAT_IND)[0];
 }
 
 // function handleBlock(info, user, b) {

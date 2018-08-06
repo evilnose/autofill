@@ -1,5 +1,5 @@
 /* global chrome */
-import Messaging from "../messaging";
+import Messaging from "../common/messaging";
 import {WarningMap} from "./codeToText";
 
 const helpers = require('./helpers');
@@ -122,7 +122,7 @@ export default class Session {
     }
 
     appendLogs(logStr, contribOnly, omitNewLine) {
-        if (!contribOnly || this.sessionInfo.debug) {
+        if (!contribOnly || this.debug) {
             // Only update logs if this message is not intended for contributors only OR if this is a debug session
             // (which is prob run by a contributor)
             this.sessionInfo.logs += logStr + (omitNewLine ? "" : "\n");
@@ -148,6 +148,7 @@ export default class Session {
         this.totalFields = [];
         this.completedFields = [];
         this.newPageLoading = false;
+        this.needToInject = false;
 
         this.startCheckingTimeout();
         chrome.runtime.onMessage.addListener(this.getMessageHandler());
@@ -195,16 +196,25 @@ export default class Session {
                 this.appendLogs(`\nNew page loading.. (URL: ${changeInfo.url}) `, true, true);
                 if (!helpers.isOfDomain(changeInfo.url, this.info.base)) {
                     // New domain; fail for safety
-                    this.handleFailure('A url not of specified domain' + this.info.base + 'is reached. ' +
-                        'Terminated for safety. This is most likely caused by a faulty template or a change' +
-                        'in App website layout. Please report this incidence if possible, thanks!');
-                    return;
+                    let allowed = false;
+                    if (this.info.allowed_hosts) {
+                        allowed = this.info.allowed_hosts.reduce((prev, curr) => {
+                            return prev || helpers.isOfDomain(changeInfo.url, curr);
+                        }, false);
+                    }
+
+                    if (!allowed) {
+                        this.handleFailure('A url not of specified domain' + this.info.base + 'is reached. ' +
+                            'Terminated for safety. This is most likely caused by a faulty template or a change' +
+                            'in App website layout. Please report this incidence if possible, thanks!');
+                        return;
+                    }
                 }
                 this.newPageLoading = true;
             }
 
             if (this.newPageLoading && changeInfo.status === 'complete') {
-                this.appendLogs("New page loaded.", false, true);
+                this.appendLogs("New page loaded.");
                 this.newPageLoading = false;
 
                 if (this.waitingFor === WaitingFor.NEW_PAGE_LOAD) {
@@ -222,23 +232,21 @@ export default class Session {
         }
         switch (request.state) {
             case 'try_met':
-                // Remove conditionals to jump to queue in getNextCommand()
                 this.appendLogs("Conditions met.", true);
+                // Remove conditionals to jump to queue in getNextCommand()
                 this.conditionals = [];
-            /* falls through */
+                break;
             case 'next':
                 this.appendLogs("Done.");
                 if (this.pendingField)
                     this.completedFields.push(this.pendingField);
-            /* falls through */
+                this.tryRunNextCmd();
+                break;
             case 'try_unmet':
                 this.appendLogs("Conditions not met.", true);
-                if (this.waitingFor === WaitingFor.MESSAGE) {
-                    this.runNextCommandWithDelay();
-                } else {
-                    console.error("Expected waitingFor to be MESSAGE but got " +
-                        this.waitingFor + " instead.");
-                }
+                this.queue = []; // clear queue since condition is not met
+                this.idx++;
+                this.tryRunNextCmd();
                 break;
             case 'injected':
                 this.appendLogs("Script has been injected.", true);
@@ -254,9 +262,20 @@ export default class Session {
         this.lastImplication = null;
     }
 
+    tryRunNextCmd() {
+        if (this.waitingFor === WaitingFor.MESSAGE) {
+            this.runNextCommandWithDelay();
+        } else {
+            console.error("Expected waitingFor to be MESSAGE but got " +
+                this.waitingFor + " instead.");
+        }
+    }
+
     runNextCommand() {
         if (this.idx >= this.info.process.length && this.queue.length === 0 &&
             this.conditionals.length === 0) {
+            console.log(this.idx);
+            console.log(this.info.process);
             this.appendLogs("All commands have been run; finishing...");
             this.handleSuccess();
             return;
@@ -295,6 +314,7 @@ export default class Session {
                     this.appendLogs(`* Creating new tab with URL: ${cmd.target}.. `, false, true);
                     helpers.newTab(this.getFullUrl(cmd.target),
                         tabId => {
+                            console.log(`New tab loaded. ID: ${tabId}`);
                             this.tabId = tabId;
                         });
                 } else {
@@ -312,7 +332,6 @@ export default class Session {
                 } else {
                     this.appendLogs("* Sending command to delay.. ", false, true);
                 }
-
                 helpers.sendCommand(this.tabId, cmd);
                 this.waitingFor = WaitingFor.MESSAGE;
                 break;

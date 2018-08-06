@@ -3,7 +3,7 @@
 Handles the execution of parsed commands.
  */
 
-import Messaging from "../messaging";
+import Messaging from "../common/messaging";
 
 const getCommandFn = require('./getCommandFn.js');
 const getElement = require('./getElement.js');
@@ -14,11 +14,13 @@ module.exports = {
     runCommand: function (cmd) {
         // if (Array.isArray(cmd))
         //   return getConditionalPromise(cmd);
+        console.log("Got command:", cmd);
         switch (cmd.action) {
             case 'try':
                 if (doTry(cmd.try)) {
                     sendStateMessage('try_met');
                 } else {
+                    console.log("Try failed", cmd);
                     sendStateMessage('try_unmet', {message: cmd.message});
                 }
                 break;

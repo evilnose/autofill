@@ -110,6 +110,7 @@ export class ProcessEditComponent {
                     .then(() => this.submitStatus = SubmitStatus.DONE)
                     .catch((err) => {
                         // TODO handle error
+                        this.submitStatus = SubmitStatus.FAILED;
                         console.error(err);
                     });
             }

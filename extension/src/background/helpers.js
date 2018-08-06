@@ -1,6 +1,6 @@
 /* global chrome */
 
-import Messaging from "../messaging";
+import Messaging from "../common/messaging";
 
 const constants = require('./constants');
 
@@ -16,6 +16,7 @@ module.exports = {
     },
 
     sendCommand: function (tabId, command, callback) {
+        console.log("Sending command:", command);
         setTimeout(() => {
             module.exports.sendMsg(tabId, {
                 _source: Messaging.Source.BACKGROUND,
@@ -26,7 +27,7 @@ module.exports = {
     },
 
     inject: function (tabId, fileNames, callback) {
-        console.log("Injecting and sending scripts...");
+        console.log("Injecting and sending scripts..." + tabId);
         if (Array.isArray(fileNames)) {
             exports.executeScripts(tabId, fileNames, callback);
         } else {
@@ -51,7 +52,6 @@ module.exports = {
             console.error("The given url is null.");
             return;
         }
-        console.log(`Creating new tab (url: ${url})...`);
         chrome.tabs.create({url: url}, tab => {
             callback(tab.id);
         });

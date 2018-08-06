@@ -77,7 +77,7 @@ import {DbService} from "../services/db.service";
                             <label class="form-check-label" for="check">Remember these credentials</label>
                         </div>
                     </div>
-                    <div *ngIf="savedCredentials.username" class="col-md-2">
+                    <div *ngIf="savedCredentials && savedCredentials.username" class="col-md-2">
                         <a href="javascript:void(0)" (click)="modifying=false" class="align-text-w-btn">Cancel</a>
                     </div>
                     <div class="col-md-3">
@@ -149,6 +149,7 @@ export class AppCredentialsComponent implements OnInit {
                 .then(() => {
                     this.modifying = false;
                     this.submitStatus = SubmitStatus.DONE;
+                    this.updateDisplay();
                 })
                 .catch((reason) => {
                     console.error(reason);
@@ -169,7 +170,8 @@ export class AppCredentialsComponent implements OnInit {
         );
     }
 
-    private updateDisplayById(id: string): void {
+    private updateDisplay(): void {
+        const id: string = this.formGroup.get("appId").value;
         this.dbService.getCredentials(id, true)
             .then((creds: AppCredential) => {
                 this.changed.emit(creds);
@@ -187,7 +189,7 @@ export class AppCredentialsComponent implements OnInit {
     public set appId(value: string) {
         if (value && value !== this._appId) {
             this.formGroup.get("appId").setValue(value);
-            this.updateDisplayById(value);
+            this.updateDisplay();
         }
     }
 }

@@ -18,6 +18,8 @@ module.exports = function getElement(path) {
             return $(target);
         case 'xpath':
             return getElementByXPath(target);
+        case '$':
+            return $(target);
         default:
             return getElementByXPath(path);
     }
