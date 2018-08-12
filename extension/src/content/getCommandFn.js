@@ -27,14 +27,14 @@ const Commands = {
     },
 
     doWaitForElementPresent: function (ele) {
-        // getElement has already ensured the existense of element
+        // getElement has already ensured the existence of element
         return !!ele;
     },
 
     // This is an immediately invoked function (without retries)
-    doAssertElementPresent: function (target) {
+    doAssertElementPresent: function (ele) {
         // jquery element does not exist when the array is empty
-        return !!(getElement(target).length);
+        return !!ele;
     },
 };
 

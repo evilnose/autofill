@@ -1,8 +1,11 @@
 /* global chrome */
 import Messaging from "../common/messaging";
 import {WarningMap} from "./codeToText";
+import {isBool, NodeType} from "../common/utils";
 
-const helpers = require('./helpers');
+import {StatusLogger} from "./helpers";
+import * as helpers from "./helpers";
+
 const parser = require('./parser');
 const constants = require('./constants');
 
@@ -15,10 +18,8 @@ export default class Session {
     constructor() {
         this.inSession = false;
 
-        this.sessionInfo = {
-            logs: "",
-        };
-        this.updateInfo({
+        this.logger = new StatusLogger();
+        this.logger.updateInfo({
             status: Messaging.SessionStatus.IDLE,
             logs: "Session ready. Standing by.",
             debugging: false,
@@ -26,23 +27,22 @@ export default class Session {
     }
 
     handleSuccess() {   // HA
-        this.sessionInfo.status = Messaging.SessionStatus.SUCCEEDED;
-        this.updateInfo({
+        this.logger.updateInfo({
             status: Messaging.SessionStatus.SUCCEEDED,
             logs: "Session finished successfully.",
         });
         this._stopSession();
-        this.appendLogs(this.getSummaryStr());
+        this.logger.appendLogs(this.getSummaryStr());
     }
 
     handleFailure(errReason) {
         // I need to learn this trick
-        this.updateInfo({
+        this.logger.updateInfo({
             status: Messaging.SessionStatus.FAILED,
             logs: "\nSession did not complete successfully. However, your form could still be partially sent. See below for details.",
         });
         this._stopSession();
-        this.appendLogs(`The recorded reason for failure is: ${errReason}.`);
+        this.logger.appendLogs(`The recorded reason for failure is: ${errReason}.`);
         let implicationMessage = null;
         switch (this.lastImplication) {
             case constants.Message.Implication.BAD_LOGIN:
@@ -50,9 +50,9 @@ export default class Session {
                 break;
         }
         if (implicationMessage) {
-            this.appendLogs(`Additionally, the failure could possibly be caused by ${implicationMessage}.`);
+            this.logger.appendLogs(`Additionally, the failure could possibly be caused by ${implicationMessage}.`);
         }
-        this.appendLogs(this.getSummaryStr());
+        this.logger.appendLogs(this.getSummaryStr());
     }
 
     static getInstance() {
@@ -69,8 +69,8 @@ export default class Session {
         }
         this.debug = debug;
         this.inSession = true;
-        const info = parser.processForms(process, userInfo, auth, skipLogin);
-        this.updateInfo({
+        const info = parser.processForms(process, userInfo, auth, skipLogin, this.logger);
+        this.logger.updateInfo({
             status: Messaging.SessionStatus.IN_PROGRESS,
             logs: `Starting session... Will attempt to send ${info.fieldCount} fields.`,
             debugging: debug,
@@ -92,10 +92,10 @@ export default class Session {
 
     getSummaryStr() {
         let finalStr = "\n----SESSION SUMMARY----\n\n";
-        finalStr += `Fields ${this.completedFields.length}/${this.info.fieldCount} completed.\n`;
-        if (this.completedFields.length > 0) {
+        finalStr += `Fields ${this.completedFieldList.length}/${this.totalFieldSet.size} completed.\n`;
+        if (this.completedFieldList.length > 0) {
             finalStr += "Completed fields:\n";
-            for (const f of this.completedFields) {
+            for (const f of this.completedFieldList) {
                 finalStr += "\t" + f + "\n";
             }
         }
@@ -110,57 +110,28 @@ export default class Session {
         return finalStr;
     }
 
-    updateInfo(update, replaceLogs) {
-        update.logs += "\n";
-        if (replaceLogs) {
-            Object.assign(this.sessionInfo, update);
-        } else {
-            update.logs = this.sessionInfo.logs + update.logs;
-            this.updateInfo(update, true);
-        }
-        this.sendInfo();
-    }
-
-    appendLogs(logStr, contribOnly, omitNewLine) {
-        if (!contribOnly || this.debug) {
-            // Only update logs if this message is not intended for contributors only OR if this is a debug session
-            // (which is prob run by a contributor)
-            this.sessionInfo.logs += logStr + (omitNewLine ? "" : "\n");
-        }
-        this.sendInfo();
-    }
-
-    sendInfo() {
-        chrome.runtime.sendMessage({
-            _source: Messaging.Source.BACKGROUND,
-            action: "update_status",
-            sessionInfo: this.sessionInfo,
-        });
-    }
-
     runFormSeq(info) {
         this.info = info;
-        this.idx = 0;
         this.waitFor = 'tab_load';
-        this.queue = [];
-        this.conditionals = [];
+        this.dedicatedTabCreated = false;
         this.warnings = [];
-        this.totalFields = [];
-        this.completedFields = [];
+        this.totalFieldSet = new Set();
+        this.completedFieldList = [];
         this.newPageLoading = false;
         this.needToInject = false;
 
         this.startCheckingTimeout();
         chrome.runtime.onMessage.addListener(this.getMessageHandler());
         chrome.tabs.onUpdated.addListener(this.getTabLoadHandler());
-        this.appendLogs("Message and tabLoad handlers added. Background and content scripts now communicate.", true);
+        this.logger.appendLogs("Message and tabLoad handlers added. Background and content scripts now communicate.", true);
 
-        this.runNextCommand();
+        this.pendingNode = info.initialNode;
+        this.runCurrNode();
     }
 
     startCheckingTimeout() {
         this.lastTimeActive = Date.now();
-        let end = () => this.handleFailure.call(this, "timeout");
+        let end = () => this.handleFailure("timeout");
 
         let checkTimeout = function () {
             if (Date.now() - this.lastTimeActive > constants.MAX_ACTION_TIMEOUT) {
@@ -193,7 +164,7 @@ export default class Session {
         if (tabId === this.tabId) {
             // Make sure the tab's url has changed.
             if (changeInfo.url) {
-                this.appendLogs(`\nNew page loading.. (URL: ${changeInfo.url}) `, true, true);
+                this.logger.appendLogs(`\nNew page loading.. (URL: ${changeInfo.url}) `, true, true);
                 if (!helpers.isOfDomain(changeInfo.url, this.info.base)) {
                     // New domain; fail for safety
                     let allowed = false;
@@ -214,11 +185,11 @@ export default class Session {
             }
 
             if (this.newPageLoading && changeInfo.status === 'complete') {
-                this.appendLogs("New page loaded.");
+                this.logger.appendLogs("New page loaded.");
                 this.newPageLoading = false;
 
                 if (this.waitingFor === WaitingFor.NEW_PAGE_LOAD) {
-                    this.runNextCommandWithDelay();
+                    this.runCurrCommandWithDelay();
                 } else {
                     console.warn("A new path is loaded, but the script is still there.");
                 }
@@ -232,25 +203,24 @@ export default class Session {
         }
         switch (request.state) {
             case 'try_met':
-                this.appendLogs("Conditions met.", true);
-                // Remove conditionals to jump to queue in getNextCommand()
-                this.conditionals = [];
+                this.logger.appendLogs("Conditions met.", true);
+                this.pendingNode = this.pendingNode.altNext;
+                this.tryRunCurrCmd();
                 break;
             case 'next':
-                this.appendLogs("Done.");
+                this.logger.appendLogs("Done.");
                 if (this.pendingField)
-                    this.completedFields.push(this.pendingField);
-                this.tryRunNextCmd();
+                    this.completedFieldList.push(this.pendingField);
+                this.tryRunCurrCmd();
                 break;
             case 'try_unmet':
-                this.appendLogs("Conditions not met.", true);
-                this.queue = []; // clear queue since condition is not met
-                this.idx++;
-                this.tryRunNextCmd();
+                this.logger.appendLogs("Conditions not met.", true);
+                this.pendingNode = this.pendingNode.next;
+                this.tryRunCurrCmd();
                 break;
             case 'injected':
-                this.appendLogs("Script has been injected.", true);
-                this.runNextCommandWithDelay();
+                this.logger.appendLogs("Script has been injected.", true);
+                this.runCurrCommandWithDelay();
                 break;
             case 'failed':
                 this.handleFailure(request.reason);
@@ -262,75 +232,95 @@ export default class Session {
         this.lastImplication = null;
     }
 
-    tryRunNextCmd() {
+    tryRunCurrCmd() {
         if (this.waitingFor === WaitingFor.MESSAGE) {
-            this.runNextCommandWithDelay();
+            this.runCurrCommandWithDelay();
         } else {
-            console.error("Expected waitingFor to be MESSAGE but got " +
-                this.waitingFor + " instead.");
+            console.error("Expected waitingFor to be MESSAGE but is TAB_LOAD instead.");
         }
     }
 
-    runNextCommand() {
-        if (this.idx >= this.info.process.length && this.queue.length === 0 &&
-            this.conditionals.length === 0) {
-            console.log(this.idx);
-            console.log(this.info.process);
-            this.appendLogs("All commands have been run; finishing...");
+    runCurrNode() {
+        while (this.pendingNode && this.pendingNode.type === NodeType.PASS) {
+            this.pendingNode = this.pendingNode.next;
+        }
+
+        if (!this.pendingNode) {
+            this.logger.appendLogs("All commands have been run; finishing...");
             this.handleSuccess();
             return;
         }
 
         if (this.needToInject) {
-            // Fresh page; need to inject script
-            this.appendLogs("A new page has loaded; injecting content script...", true);
+            // Fresh page; need to inject script TODO or maybe we don't need to do that
+            this.logger.appendLogs("A new page has loaded; injecting content script...", true);
             this.needToInject = false;
             helpers.inject(this.tabId, constants.CONTENT_JS_PATH);
             return;
         }
 
-        let cmd = this.getNextCommand();
+        switch (this.pendingNode.type) {
+            case NodeType.COMMAND:
+                this.runCommand(this.pendingNode.command);
+                this.pendingNode = this.pendingNode.next;
+                break;
+            case NodeType.CONDITIONAL:
+                let condCmd = Session.evalCondition(this.pendingNode.condition);
+                if (isBool(condCmd)) {
+                    this.pendingNode = condCmd ? this.pendingNode.altNext : this.pendingNode.next;
+                    setTimeout(this.runCurrNode.bind(this)); // call async to avoid recursion
+                } else {
+                    this.runCommand(condCmd, true);
+                }
+                break;
+            default:
+                throw new Error(`Unrecognized node type: ${this.pendingNode.type} of node: ${JSON.stringify(this.pendingNode)}`);
+        }
+    }
 
-        if (!cmd.action)
+    runCommand(cmd, toTest) {
+        if (!cmd.action) {
             this.handleFailure(`Command has no action attribute: ${JSON.stringify(cmd)}`);
+        }
+
+        cmd.toTest = toTest;
 
         // For summary and analytics
-        if (cmd.field) {
-            this.totalFields.push(cmd.field);
+        if (cmd.field && !this.totalFieldSet.has(cmd.field)) {
+            this.totalFieldSet.add(cmd.field);
             this.pendingField = cmd.field;
         } else {
             this.pendingField = null;
         }
 
-        this.lastImplication = cmd.implication;
-
         switch (cmd.action) {
             case 'open':
                 this.needToInject = true;
                 this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
-                if (this.idx === 1 && this.queue.length === 0) {
+                if (!this.dedicatedTabCreated) {
                     // If first command (since idx is incremented before)
                     this.newPageLoading = true;
-                    this.appendLogs(`* Creating new tab with URL: ${cmd.target}.. `, false, true);
+                    this.logger.appendLogs(`* Creating new tab with URL: ${cmd.target}.. `, false, true);
                     helpers.newTab(this.getFullUrl(cmd.target),
                         tabId => {
+                            this.dedicatedTabCreated = true;
                             console.log(`New tab loaded. ID: ${tabId}`);
                             this.tabId = tabId;
                         });
                 } else {
-                    this.appendLogs(`* Going to URL: ${cmd.target}.. `, false, true);
+                    this.logger.appendLogs(`* Going to URL: ${cmd.target}.. `, false, true);
                     helpers.open(this.tabId, this.getFullUrl(cmd.target));
                 }
                 break;
             case 'warn':
                 this.warnings.push(cmd.target);
-                this.runNextCommandWithDelay();
+                this.runCurrCommandWithDelay();
                 break;
             case 'wait':
                 if (cmd.target) {
-                    this.appendLogs(`* Sending command to delay ${cmd.target} milliseconds.. `, false, true);
+                    this.logger.appendLogs(`* Sending command to delay ${cmd.target} milliseconds.. `, false, true);
                 } else {
-                    this.appendLogs("* Sending command to delay.. ", false, true);
+                    this.logger.appendLogs("* Sending command to delay.. ", false, true);
                 }
                 helpers.sendCommand(this.tabId, cmd);
                 this.waitingFor = WaitingFor.MESSAGE;
@@ -349,74 +339,52 @@ export default class Session {
         this.lastTimeActive = Date.now();
     }
 
+    static evalCondition(cond) {
+        if (typeof cond === 'boolean')
+            return cond;
+        return cond;
+    }
+
     logCommand(cmd) {
         switch (cmd.action) {
             case 'try':
-                this.appendLogs(`* Testing conditions for command 'try' (Conditions: ${JSON.stringify(cmd.try)}).. `, true, true);
+                this.logger.appendLogs(`* Testing conditions for command 'try' (Conditions: ${JSON.stringify(cmd.try)}).. `, true, true);
                 break;
             case 'type':
                 if (cmd.field)
-                    this.appendLogs(`* Entering value for field '${cmd.field}'.. `, false, true);
+                    this.logger.appendLogs(`* Entering value for field '${cmd.field}'... `, false, true);
                 else
-                    this.appendLogs("* Entering some value.. ", false, true);
-                this.appendLogs(`(action: type, target: ${cmd.target}) `, true, true);
+                    this.logger.appendLogs("* Entering some value... ", false, true);
+                this.logger.appendLogs(`(action: type, target: ${cmd.target}) `, true, true);
                 break;
             case 'click':
                 if (cmd.field)
-                    this.appendLogs(`* Selecting (clicking) value for field '${cmd.field}'.. `, false, true);
+                    this.logger.appendLogs(`* Selecting (clicking) value for field '${cmd.field}'... `, false, true);
                 else
-                    this.appendLogs("* Clicking for navigation.. ", false, true);
-                this.appendLogs(`(action: click, target: ${cmd.target} `, true, true);
+                    this.logger.appendLogs("* Clicking for navigation.. ", false, true);
+                this.logger.appendLogs(`(action: click, target: ${cmd.target} `, true, true);
                 break;
             case 'waitForElementPresent':
-                this.appendLogs(`* Waiting for element '${cmd.target}' to show up.. `, true, true);
+                this.logger.appendLogs(`* Waiting for element '${cmd.target}' to show up... `, true, true);
                 break;
         }
     }
 
-    runNextCommandWithDelay() {
-        setTimeout(() => this.runNextCommand(), constants.DEFAULT_DELAY);
-    }
-
-    getNextCommand() {
-        if (this.conditionals && this.conditionals.length > 0) {
-            return this.getNextTry();
-        } else if (this.queue.length > 0) {
-            // queue is about to be empty
-            if (this.queue.length === 1)
-                this.idx++;
-            return this.queue.splice(0, 1)[0];
-        } else {
-            let cmd = this.info.process[this.idx];
-            if (Array.isArray(cmd)) {
-                console.assert(cmd[0].try, "Command is array but has no try");
-                // Conditional; store all tries
-                this.conditionals = cmd;
-                return this.getNextTry();
-            } else {
-                this.idx++;
-                return cmd;
-            }
-        }
-    }
-
-    getNextTry() {
-        // Record commands of conditional to queue
-        let cond = this.conditionals.splice(0, 1)[0];
-        this.queue = cond.commands;
-        return {
-            action: 'try',
-            try: cond.try,
-        };
+    runCurrCommandWithDelay() {
+        setTimeout(() => this.runCurrNode(), constants.DEFAULT_DELAY);
     }
 
     getFullUrl(path) {
         return helpers.getUrl(this.info.base, path);
     }
+
+    get sessionInfo() {
+        return this.logger.sessionInfo;
+    }
 }
 
-function bindMethods(context, props) {
-    props.forEach(prop => {
-        context[prop].bind(context);
-    });
-}
+// function bindMethods(context, props) {
+//     props.forEach(prop => {
+//         context[prop].bind(context);
+//     });
+// }

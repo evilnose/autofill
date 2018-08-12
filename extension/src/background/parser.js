@@ -1,106 +1,299 @@
+import {CommandNode, ConditionalNode, isStr, isArr, isBool, ConnectorNode} from "../common/utils";
 const constants = require('./constants.js');
 const moment = require('moment');
-import $ from 'jquery';
 
 /* NOTE that this is somewhat redundant as it parses the file once in background.js
  * then it parses it again in injected.js, but this ensures that only the required
  * user vals are passed into injected.js
  */
-exports.processForms = function (process, user, appAuth, skipLogin) {
+exports.processForms = function (processObj, user, appAuth, skipLogin, logger) {
     user.appAuth = appAuth;
-    process.process = process.process || [];
-    let info = $.extend({}, process);
-    // Clear process array
-    info.process = [];
-    info.fieldCount = 0;
-    let totalProcess = skipLogin ? process.process : process.login_process.concat(process.process);
-    handleProcesses(info, user, totalProcess);
-    console.log("Parsed succesfully!");
-    info.alt_mapping = process.alt_mapping;
+    processObj.process = processObj.process || [];
+
+    // handleProcesses(info, user, totalProcess);
+    const parser = new Parser(user);
+    const info = parser.parse(processObj, skipLogin);
+    logger.appendLogs("Parsed succesfully!");
     return info;
 };
 
 class Parser {
-    constructor(info, user) {
-        this.info = info;
+    constructor(user) {
         this.user = user;
     }
 
-    parse() {
+    parse(processObj, skipLogin) {
+        this.info = Object.assign({}, processObj); // store all meta process info in info.
+        this.info.fieldCount = 0;
+        delete this.info.process; // delete the juicy stuff to avoid confusion.
+        delete this.info.login_process;
+        const totalProcess = skipLogin ? processObj.process : processObj.login_process.concat(processObj.process);
 
+        this.info.initialNode = this.chainList(totalProcess).first;
+        return this.info;
     }
-}
 
-function handleOneProcess(info, user, c, imp) {
-    pushToProcess(info, parseProcessStr(info, user, c, imp));
-}
-
-function parseProcessStr(info, user, cmdStr, imp) {
-    let cmd = splitCommand(cmdStr);
-    /* Command attributes:
-     * action: a string that indicates what action to take; simple enough.
-     * flag: a special attribute of the action that deserves attention
-     * target: usually specifies how the DOM element can be found
-     * val: (usually) the value for input; starts off as a key and later replaced with value from user object. For click
-     * actions, val is omitted unless interpolation is needed, in which case val is the user value to interpolate
-     * field: the practical field that this action promises to fill, for debugging and user-friendly purposes. TODO confirm
+    /*
+     * Note that all methods starting with chain take a list and an outer scope node as arguments, convert the list
+     * to a linked list (sometimes doubly-linked with logic), and return the last node of the linked list. TODO this
+     * description is not up to date
      */
-    cmd.implication = imp;
-
-    let userVal;
-    // Handle actions
-    switch (cmd.action) {
-        case 'open':
-        case 'wait':
-        case 'warn':
-            return cmd;
-        case 'assertElementPresent':
-        case 'waitForElementPresent':
-            if (cmd.target.includes(constants.INTP_IND)) {
-                cmd.target = interpolate(cmd.target, getVal(user, cmd.val), info.alt_mapping);
-                if (!cmd.target) {
-                    console.log(`Command skipped since no userVal (interp): ${cmd.target}`);
-                    return;
+    // "private" method; recursive.
+    chainList(process) {
+        const firstOne = new ConnectorNode();
+        let lastOne = firstOne;
+        process = isArr(process) ? process : [process];
+        for (let i = 0; i < process.length; i++) {
+            const cmd = process[i];
+            if (isStr(cmd)) {
+                const parsedCmd = this.parseCommandStr(cmd);
+                // parsedCmd is undefined when cmd shouldn't be executed due to missing user information
+                if (!parsedCmd)
+                    continue;
+                const temp = new CommandNode(parsedCmd);
+                lastOne.next = temp;
+                lastOne = temp;
+            } else if (cmd.if) {
+                // Get the entire conditional (i.e. if, elif, else)
+                let condList = [{
+                    condition: cmd.if,
+                    then: cmd.then,
+                }];
+                i++;
+                for (; i < process.length; i++) {
+                    const cond = process[i];
+                    if (cond.elif) {
+                        condList.push({
+                            condition: cond.elif,
+                            then: cond.then,
+                        });
+                    } else if (cond.else) {
+                        condList.push({
+                            condition: true,
+                            then: cond.else,
+                        });
+                        break;
+                    } else {
+                        // overshot, decrement index to counter the i++ by the outer loop
+                        i--;
+                        break;
+                    }
                 }
+                const condLinkedList = this.chainConditionalList(condList);
+                lastOne.next = condLinkedList.first;
+                lastOne = condLinkedList.last;
+            } else {
+                throw new ParseError(`Expected a string or a conditional block but got ${JSON.stringify(cmd)} instead.`);
             }
-            return cmd;
-        case 'click':
-            if (cmd.target.includes(constants.INTP_IND)) {
-                cmd.target = interpolate(cmd.target, getVal(user, cmd.val), info.alt_mapping);
-                cmd.field = getFieldFromKey(cmd.val);
-                if (!cmd.target) {
-                    console.log(`Command skipped since no userVal (interp): ${cmd.target}`);
-                    return;
-                }
-            } else if (cmd.val && !(cmd.field = getVal(user, cmd.val)))
-            // What this does: assign c.val to field if it exists; if not, return nothing. (I know, I know.)
-                return;
-            if (cmd.field)
-                info.fieldCount++;
-            return cmd;
-        case 'type':
-            if (!!(userVal = getVal(user, cmd.val))) {
-                if (cmd.val !== '@username' && cmd.val !== '@password') {
-                    cmd.field = getFieldFromKey(cmd.val);
-                    info.fieldCount++;
-                }
-                cmd.val = userVal;
-                return cmd;
-            }
-            console.log(`Command skipped since no userVal: ${cmd.field}`);
-            return;
-        // case 'sendKeys':
-        //   // userKey is the key string in this case
-        //   pushToProcess(info, i, action, target, userKey);
-        //   break;
-        default:
-            console.error(`Do not recognize action: ${cmd.action}`);
-            return;
+        }
+        return {
+            first: firstOne,
+            last: lastOne,
+        };
     }
+
+    chainConditionalList(condList) {
+        const firstOne = new ConnectorNode();
+        const exitToOuter = new ConnectorNode(); // aggregator that connects all then's to the outer scope
+        let lastOne = firstOne;
+        for (const cond of condList) {
+            // link lastOne to the boolean conditions of the current node, and then assign current failed node to lastOne.
+            const boolLinkedList = this.chainBoolListAND(cond.condition); // link failAggregator to the test evaluated next
+            if (isBool(boolLinkedList) && !boolLinkedList) {
+                continue; // If false, simply skip this one.
+            }
+            const thenLinkedList = this.chainList(cond.then);
+            lastOne.next = boolLinkedList.first;
+            lastOne = boolLinkedList.failed; // if failed, then evaluate the next condition
+            boolLinkedList.last.altNext = thenLinkedList.first;
+            thenLinkedList.last.next = exitToOuter;
+        }
+        lastOne.next = exitToOuter; // if all statements are evaluated to false and skipped, go to the outer scope
+        return {
+            first: firstOne,
+            last: exitToOuter,
+        };
+    }
+
+    // handles the content immediately after "if" and "elif" (i.e. condition test), chaining them into a linked list.
+    //  assumed all statements to AND each other
+    chainBoolListAND(testList) {
+        let tests = testList;
+        if (!isArr(tests)) {
+            tests = [testList];
+        }
+        if (tests.length === 0)
+            throw new ParseError("Received condition statement of length 0.");
+
+        const failedAggregator = new ConnectorNode();
+        let condition = this.parseGeneralCondition(tests[0]);
+        if (isBool(condition) && !condition)
+            return false; // return false now to avoid recording fields that won't be attempted
+        const firstOne = new ConditionalNode(condition);
+        let lastOne = firstOne;
+        lastOne.next = failedAggregator;
+        for (let i = 1; i < tests.length; i++) {
+            const currNode = new ConditionalNode(this.parseGeneralCondition(tests[i]));
+            currNode.next = failedAggregator;
+            lastOne.altNext = currNode; // if the last one passed, evaluate the next test
+            lastOne = currNode;
+        }
+        lastOne.next = failedAggregator;
+        return {
+            first: firstOne,
+            failed: failedAggregator,
+            last: lastOne,
+        };
+    }
+
+    parseCommandStr(cmdStr) {
+        let cmd = splitCommand(cmdStr);
+        /* Command attributes:
+         * action: a string that indicates what action to take; simple enough.
+         * flag: a special attribute of the action that deserves attention
+         * target: usually specifies how the DOM element can be found
+         * val: (usually) the value for input; starts off as a key and later replaced with value from user object. For click
+         * actions, val is omitted unless interpolation is needed, in which case val is the user value to interpolate
+         * field: the practical field that this action promises to fill, for debugging and user-friendly purposes. TODO confirm
+         */
+
+        let userVal;
+        // Handle actions
+        switch (cmd.action) {
+            case 'open':
+            case 'wait':
+            case 'warn':
+                return cmd;
+            case 'assertElementPresent':
+            case 'waitForElementPresent':
+                if (cmd.target.includes(constants.INTP_IND)) {
+                    cmd.target = interpolate(cmd.target, this.getValAndFormat(cmd.val), this.info.alt_mapping);
+                    if (!cmd.target) {
+                        console.log(`Command skipped since no userVal (interp): ${cmdStr}`);
+                        return;
+                    }
+                }
+                return cmd;
+            case 'click':
+                if (cmd.target.includes(constants.INTP_IND)) {
+                    cmd.target = interpolate(cmd.target, this.getValAndFormat(cmd.val), this.info.alt_mapping);
+                    cmd.field = getFieldFromKey(cmd.val); // get the field name from a key string
+                    if (!cmd.target) {
+                        console.log(`Command skipped since no userVal (interp): ${cmdStr}`);
+                        return;
+                    }
+                } else if (cmd.val && !(cmd.field = this.getValAndFormat(cmd.val)))
+                // What this does: assign c.val to field if it exists; if not, return nothing. (I know, I know.)
+                    return;
+                if (cmd.field)
+                    this.info.fieldCount++;
+                return cmd;
+            case 'type':
+                if (!!(userVal = this.getValAndFormat(cmd.val))) {
+                    if (cmd.val !== '@username' && cmd.val !== '@password') {
+                        cmd.field = getFieldFromKey(cmd.val);
+                        this.info.fieldCount++;
+                        console.log(cmd.field);
+                    }
+                    cmd.val = userVal;
+                    return cmd;
+                }
+                console.log(`Command skipped since no userVal: ${cmdStr}`);
+                return;
+            default:
+                throw ParseError(`Unrecognized action: ${cmdStr}`);
+        }
+    }
+
+    // Parse one condition in the AND list
+    parseGeneralCondition(condition) {
+        if (isStr(condition)) {
+            return this.parseConditionStr(condition);
+        } else if (isBool(condition)) {
+            return condition;
+        } else {
+            throw new ParseError(`Expected condition to have type string or boolean but got '${typeof condition}' instead.`);
+        }
+    }
+
+    parseConditionStr(condStr) {
+        let cmd = splitCommand(condStr);
+        switch (cmd.action) {
+            case 'assertElementPresent':
+            case 'waitForElementPresent':
+                if (cmd.target.includes(constants.INTP_IND)) {
+                    cmd.target = interpolate(cmd.target, this.getValAndFormat(cmd.val), this.info.alt_mapping);
+                    if (!cmd.target) {
+                        console.log(`Command skipped since no userVal (interp): ${condStr}`);
+                        return;
+                    }
+                }
+                return cmd;
+        }
+
+        // Not ordinary command but condition expression.
+        const sides = condStr.split(constants.SEL_SEP);
+
+        if (sides.length === 1) {
+            // no equals sign; return whether the data exists
+            return !!this.getValAndFormat(sides[0], true);
+        }
+
+        const getSideVal = (sideStr) => sideStr.startsWith(constants.USER_DATA_REF) ? this.getValAndFormat(sideStr, true) : sideStr;
+        let lastVal = getSideVal(sides[0]);
+        for (let i = 1; i < sides.length; i++) {
+            const tempVal = getSideVal(sides[i]);
+
+            if (lastVal !== tempVal)
+                return false;
+            lastVal = tempVal;
+        }
+        return true;
+    }
+
+    // if requireExplicit is true, userKey is required to have constants.USER_DATA_REF as a prefix
+    getValAndFormat(userKey, requireExplicit) {
+        if (!userKey) {
+            return null;
+        }
+
+        if (requireExplicit) {
+            if (!userKey.startsWith(constants.USER_DATA_REF)) {
+                throw new ParseError(`reference to user data in conditions requires the explicit prefix ${constants.USER_DATA_REF}`);
+            }
+            userKey = userKey.substr(constants.USER_DATA_REF.length + 1); // + 1 for the dot that comes after it
+        }
+
+        if (userKey.includes(constants.FORMAT_IND)) {
+            let [newKey, format] = userKey.split(constants.FORMAT_IND);
+            return formatVal(this.getUserVal(newKey), format);
+        } else {
+            return this.getUserVal(userKey);
+        }
+
+    }
+
+    getUserVal(userKey) {
+        if (userKey.startsWith(constants.APP_AUTH_IND)) {
+            return this.user.appAuth[userKey.substr(1)];
+        }
+
+        let pathArr = userKey.split('.');
+        let item = this.user;
+        for (let i = 0; i < pathArr.length; ++i) {
+            if (!item)
+                return null;
+            item = item[pathArr[i]];
+        }
+        return item;
+    }
+
+    // _parseBooleanExpr(boolStr) {
+    //     // TODO in a later time (recursively parse a boolean string into a binary tree)
+    // }
 }
 
 function interpolate(target, userVal, altMapping) {
-    // OPTIMIZE use indexOf to save from searching twice
     if (userVal) {
         let newVal = altMapping[userVal] || userVal;
         return target.replace(constants.INTP_IND, newVal);
@@ -110,98 +303,8 @@ function interpolate(target, userVal, altMapping) {
     }
 }
 
-function handleProcesses(info, user, process) {
-    const pLen = process.length;
-    for (let i = 0; i < pLen; ++i) {
-        handleCommand(info, user, process[i]);
-    }
-}
-
-function handleCommand(info, user, cmd, imp) {
-    if (typeof cmd === 'string')
-        handleOneProcess(info, user, cmd, imp);
-    else
-        handleConditional(info, user, cmd);
-}
-
 function getFieldFromKey(key) {
-    // simply remove format stuff for now
     return key.split(constants.FORMAT_IND)[0];
-}
-
-// function handleBlock(info, user, b) {
-//   var prc;
-//   if (meetsReq(user, b.conditions)) {
-//     prc = b.main;
-//   } else {
-//     prc = b.alt;
-//   }
-
-//   if (!prc) {
-//     console.error("Block has no process.");
-//     return;
-//   } else {
-//     var len = prc.length;
-//     for (let i = 0; i < len; ++i) {
-//       handleOneProcess(info, user, prc[i]);
-//     }
-//   }
-// }
-
-function handleConditional(info, user, conditionals) {
-    console.assert(Array.isArray(conditionals), `Expected ${conditionals} to be array.`);
-    let c;
-    if (conditionals[0].try) {
-        let res = [];
-        // assertion conditional, parse all assertions and commands and then append
-        for (let i = 0; i < conditionals.length; ++i) {
-            c = conditionals[i];
-            if (c.try) {
-                res.push({
-                    try: getParsedProcesses(info, user, c.try),
-                    commands: getParsedProcesses(info, user, c.commands),
-                });
-            } else {
-                handleProcesses(info, user, c.commands);
-                console.assert(i === conditionals.length - 1, "Conditional without assertions is not" +
-                    "the last conditional");
-                break;
-            }
-        }
-        info.process.push(res);
-    } else {
-        for (let i = 0; i < conditionals.length; ++i) {
-            c = conditionals[i];
-            if (meetsReq(user, c.require)) {
-                handleProcesses(info, user, c.commands);
-                return;
-            } else {
-                console.log(`Requirements not met: ${c.require}; skipped.`);
-            }
-        }
-    }
-}
-
-function getParsedProcesses(info, user, strArr) {
-    console.assert(Array.isArray(strArr), `Expected ${strArr} to be array`);
-    let arr = [];
-    let len = strArr.length;
-    for (let i = 0; i < len; ++i) {
-        arr.push(parseProcessStr(info, user, strArr[i]));
-    }
-    return arr;
-}
-
-function meetsReq(user, req) {
-    if (!req)
-        return true;
-
-    let len = req.length;
-    for (let i = 0; i < len; ++i) {
-        if (!getVal(user, req[i]))
-            return false;
-    }
-    return true;
 }
 
 function splitCommand(c) {
@@ -221,53 +324,6 @@ function splitCommand(c) {
     };
 }
 
-function pushToProcess(info, c) {
-    if (!c)
-        return;
-
-    if (!c.action) {
-        console.error(`Process missing action: ${c}`);
-        return;
-        // TODO handle error?
-    }
-
-    info.process.push(c);
-}
-
-// TODO in situations where userKey is nested, we need to handle that
-function getVal(user, userKey) {
-    if (!userKey) {
-        return null;
-    }
-
-    if (userKey.includes(constants.SEL_SEP)) {
-        let [fieldKey, optionVal] = userKey.split(constants.SEL_SEP);
-        return (getUserVal(user, fieldKey) === optionVal) ? fieldKey : null;
-    } else {
-        if (userKey.includes(constants.FORMAT_IND)) {
-            let [newKey, format] = userKey.split(constants.FORMAT_IND);
-            return formatVal(getUserVal(user, newKey), format);
-        } else {
-            return getUserVal(user, userKey);
-        }
-    }
-}
-
-function getUserVal(user, userKey) {
-    if (userKey.startsWith(constants.APP_AUTH_IND)) {
-        return user.appAuth[userKey.substr(1)];
-    }
-
-    let pathArr = userKey.split('.');
-    let item = user;
-    for (let i = 0; i < pathArr.length; ++i) {
-        if (item === undefined)
-            return null;
-        item = item[pathArr[i]];
-    }
-    return item;
-}
-
 function formatVal(val, format) {
     if (!val) {
         console.log("Formatting aborted: cannot find value");
@@ -279,5 +335,11 @@ function formatVal(val, format) {
     let date = moment(val);
     if (date.isValid()) {
         return date.format(format);
+    }
+}
+
+class ParseError extends Error {
+    constructor(...args) {
+        super(...args);
     }
 }

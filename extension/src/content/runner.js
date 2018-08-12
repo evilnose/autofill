@@ -12,18 +12,8 @@ const constants = require('./constants.js');
 module.exports = {
     // Runs the given command
     runCommand: function (cmd) {
-        // if (Array.isArray(cmd))
-        //   return getConditionalPromise(cmd);
         console.log("Got command:", cmd);
         switch (cmd.action) {
-            case 'try':
-                if (doTry(cmd.try)) {
-                    sendStateMessage('try_met');
-                } else {
-                    console.log("Try failed", cmd);
-                    sendStateMessage('try_unmet', {message: cmd.message});
-                }
-                break;
             case 'wait':
                 const delay = cmd.target || constants.DEFAULT_WAIT_DELAY;
                 getDelayPromise(delay)
@@ -31,10 +21,18 @@ module.exports = {
                     .catch(handleActionFailure);
                 break;
             default:
-                getFindElementRetryPromise(cmd.target)
-                    .then(ele => getActionRetryPromise(getCommandFn(cmd.action), ele, cmd))
-                    .then(handleActionSuccess)
-                    .catch(handleActionFailure);
+                let findElPromise = getFindElementRetryPromise(cmd.target);
+                if (cmd.toTest) {
+                    findElPromise
+                        .then(ele => () => getCommandFn(cmd.action)(ele, cmd.val))
+                        .then(handleTestComplete)
+                        .catch(handleActionFailure);
+                } else {
+                    findElPromise
+                        .then(ele => getActionRetryPromise(getCommandFn(cmd.action), ele, cmd))
+                        .then(handleActionSuccess)
+                        .catch(handleActionFailure);
+                }
         }
     }
 };
@@ -44,10 +42,15 @@ function handleActionSuccess() {
 }
 
 function handleActionFailure(rsn) {
-    sendStateMessage('failed', {reason: rsn});
+    console.error(rsn);
+    sendStateMessage('failed', {reason: JSON.stringify(rsn)});
 }
 
-// Returns a promise that retries the given action function until 
+function handleTestComplete(result) {
+    sendStateMessage(result ? 'try_met' : 'try_unmet');
+}
+
+// Returns a promise that retries the given action function until a max number of retries is reached
 function getFindElementRetryPromise(path) {
     return new Promise(function (resolve, reject) {
         retryFindElement(path, 0, resolve, reject);

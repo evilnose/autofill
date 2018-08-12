@@ -5,6 +5,7 @@ module.exports = {
     INTP_IND: '{$}', // in target, indicates that this is to be replaced by userVal
     FORMAT_IND: '>', // indictes that this value is to be formatted
     FLAG_IND: '-', // indicates that this action is flagged
+    USER_DATA_REF: '$userData', // indicate reference to user data
 
     Message: {
         Implication: {

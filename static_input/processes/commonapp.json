@@ -1,207 +1,160 @@
 {
-  "base": "https://apply.commonapp.org",
-  "login_process": [
-    "open;/login",
-    "type;id=emailCntrl;@username",
-    "type;id=pwdCntrl;@password",
-    "-n-click;id=appLogin;"
-  ],
-  "alt_mapping": {
-    "China, People's Republic of": "China"
-  },
-  "process": [
-    "open;/ca4app#!c/0/11?sid=3;",
-    "waitForElementPresent;id=saveSection_11",
-    [
-      {
-        "try": [
-          "assertElementPresent;id=label_ques_173"
-        ],
-        "commands": [
-          "click;id=editSection_11"
-        ]
-      }
+    "base": "https://apply.commonapp.org",
+    "login_process": [
+        "open;/login",
+        "type;id=emailCntrl;@username",
+        "type;id=pwdCntrl;@password",
+        "-n-click;id=appLogin;"
     ],
-    "type;id=text_ques_173;first_name",
-    "type;id=text_ques_174;middle_name",
-    "type;id=text_ques_175;last_name",
-    "click;//div[@id='singleSelect_ques_176_chzn']/div/ul/li[normalize-space(text())=\"{$}\"];suffix",
-    "type;id=text_ques_179;nickname",
-    [
-      {
-        "require": [
-          "other_name"
-        ],
-        "commands": [
-          "click;id=rbContainer_0;",
-          "type;id=text_ques_178;other_name"
-        ]
-      },
-      {
-        "commands": [
-          "click;id=rbContainer_1;"
-        ]
-      }
-    ],
-    "click;(//div[@id='rbContainer_0'])[2];sex=male",
-    "click;(//div[@id='rbContainer_1'])[2];sex=female",
-    "type;id=text_ques_1901;gender",
-    "click;//div[@id='year_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}'];birth_date>YYYY",
-    "click;//div[@id='month_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}'];birth_date>MMMM",
-    "click;//div[@id='day_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}'];birth_date>D",
-    "click;id=saveSection_11",
-    [
-      {
-        "try": [
-          "assertElementPresent;id=editSection_12"
-        ],
-        "commands": [
-          "click;id=editSection_12"
-        ]
-      }
-    ],
-    "click;css=div.editDisplay.bz.m-edit",
-    "click;//div[@id='country_ques_182_chzn']/div/ul/li[normalize-space(text())=\"{$}\"];permanent_address.country",
-    "type;id=add1_ques_182;permanent_address.line_1",
-    "type;id=add2_ques_182;permanent_address.line_2",
-    "type;id=add3_ques_182;permanent_address.line_3",
-    "type;id=city_ques_182;permanent_address.city",
-    [
-      {
-        "require": [
-          "permanent_address.country=China, People's Republic of"
-        ],
-        "commands": [
-          "click;id=state_china_ques_182_chzn",
-          "click;//div[@id='state_china_ques_182_chzn']/div/ul/li[normalize-space(text())='{$}'];permanent_address.state"
-        ]
-      },
-      {
-        "require": [
-          "permanent_address.country=United States"
-        ],
-        "commands": [
-          "click;id=state_us_ques_182_chzn",
-          "click;//div[@id='state_us_ques_182_chzn']/div/ul/li[normalize-space(text())='{$}'];permanent_address.state"
-        ]
-      },
-      {
-        "require": [
-          "permanent_address.country=Canada"
-        ],
-        "commands": [
-          "click;id=state_canada_ques_182_chzn",
-          "click;//div[@id='state_cananda_ques_182_chzn']/div/ul/li[normalize-space(text())='{$}'];permanent_address.state"
-        ]
-      },
-      {
-        "commands": [
-          "type;id=state_other_ques_182;permanent_address.state"
-        ]
-      }
-    ],
-    "type;id=zip_ques_182;permanent_address.zip_code",
-    "click;id=verifyAddress_ques_182",
-    "wait",
-    [
-      {
-        "try": [
-          "assertElementPresent;id=QAS_AcceptOriginal"
-        ],
-        "commands": [
-          "click;id=QAS_AcceptOriginal",
-          "warn;multiple_addresses"
-        ]
-      }
-    ],
-    [
-      {
-        "require": [
-          "mailing_address.country",
-          "mailing_address.line_1",
-          "mailing_address.zip_code"
-        ],
-        "commands": [
-          "click;(.//*[normalize-space(text()) and normalize-space(.)='No alternate address'])[1]/following::label[1]",
-          "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='United States of America'])[1]/following::div[1]",
-          "click;id=add_ques_186",
-          "click;//div[@id='country_ques_186_chzn']/div/ul/li[normalize-space(text())=\"{$}\"];mailing_address.country",
-          "type;id=add1_ques_186;mailing_address.line_1",
-          "type;id=add2_ques_186;mailing_address.line_2",
-          "type;id=add3_ques_186;mailing_address.line_3",
-          "type;id=city_ques_186;mailing_address.city",
-          [
-            {
-              "require": [
-                "mailing_address.country=China, People's Republic of"
-              ],
-              "commands": [
-                "click;id=state_china_ques_186_chzn",
-                "click;//div[@id='state_china_ques_186_chzn']/div/ul/li[normalize-space(text())='{$}'];mailing_address.state"
-              ]
-            },
-            {
-              "require": [
-                "mailing_address.country=United States of America"
-              ],
-              "commands": [
-                "click;id=state_us_ques_186_chzn",
-                "click;//div[@id='state_us_ques_186_chzn']/div/ul/li[normalize-space(text())='{$}'];mailing_address.state"
-              ]
-            },
-            {
-              "require": [
-                "mailing_address.country=Canada"
-              ],
-              "commands": [
-                "click;id=state_cananda_ques_186_chzn",
-                "click;//div[@id='state_cananda_ques_186_chzn']/div/ul/li[normalize-space(text())='{$}'];mailing_address.state"
-              ]
-            },
-            {
-              "commands": [
-                "type;id=state_other_ques_186;mailing_address.state"
-              ]
-            }
-          ],
-          "type;id=zip_ques_186;mailing_address.zip_code",
-          "click;id=verifyAddress_ques_186"
-        ]
-      },
-      {
-        "commands": [
-          "click;//div[@id='container_ques_183']/div"
-        ]
-      }
-    ],
-    "wait",
-    [
-      {
-        "try": [
-          "assertElementPresent;id=QAS_AcceptOriginal"
-        ],
-        "commands": [
-          "click;id=QAS_AcceptOriginal",
-          "warn;multiple_addresses"
-        ]
-      }
-    ],
-    "click;(//div[@id='rbContainer_1'])[2]",
-    "warn;mailing_address_perm",
-    "click;id=saveSection_12",
-    [
-      {
-        "try": [
-          "assertElementPresent;id=editSection_13"
-        ],
-        "commands": [
-          "click;id=editSection_13"
-        ]
-      }
-    ],
-    "click;//div[@id='ctrycode_ques_189_chzn']/div/div/input",
-    "click;//div[@id='ctrycode_ques_189_chzn']/div/ul/li[contains(.,'{$} ')];primary_phone_country_code",
-    "type;id=phone_ques_189;primary_phone_number",
-    "click;id=saveSection_13"
-  ]
+    "alt_mapping": {
+        "China, People's Republic of": "China"
+    },
+    "process": [
+        "open;/ca4app#!c/0/11?sid=3;",
+        "waitForElementPresent;id=saveSection_11",
+        {
+            "if": "assertElementPresent;id=label_ques_173",
+            "then": "click;id=editSection_11"
+        },
+        "type;id=text_ques_173;first_name",
+        "type;id=text_ques_174;middle_name",
+        "type;id=text_ques_175;last_name",
+        "click;//div[@id='singleSelect_ques_176_chzn']/div/ul/li[normalize-space(text())=\"{$}\"];suffix",
+        "type;id=text_ques_179;nickname",
+        {
+            "if": "$userData.other_name",
+            "then": [
+                "click;id=rbContainer_0;",
+                "type;id=text_ques_178;other_name"
+            ]
+        },
+        {
+            "else": "click;id=rbContainer_1;"
+        },
+        "click;(//div[@id='rbContainer_0'])[2];sex=male",
+        "click;(//div[@id='rbContainer_1'])[2];sex=female",
+        "type;id=text_ques_1901;gender",
+        "click;//div[@id='year_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}'];birth_date>YYYY",
+        "click;//div[@id='month_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}'];birth_date>MMMM",
+        "click;//div[@id='day_ques_181_chzn']/div/ul/li[normalize-space(text())='{$}'];birth_date>D",
+        "click;id=saveSection_11",
+        {
+            "if": "assertElementPresent;id=editSection_12",
+            "then": "click;id=editSection_12"
+        },
+        {
+            "if": [
+                "$userData.permanent_address.country",
+                "$userData.permanent_address.line_1",
+                "$userData.permanent_address.zip_code"
+            ],
+            "then": [
+                "click;css=div.editDisplay.bz.m-edit",
+                "click;//div[@id='country_ques_182_chzn']/div/ul/li[normalize-space(text())=\"{$}\"];permanent_address.country",
+                "type;id=add1_ques_182;permanent_address.line_1",
+                "type;id=add2_ques_182;permanent_address.line_2",
+                "type;id=add3_ques_182;permanent_address.line_3",
+                "type;id=city_ques_182;permanent_address.city",
+                {
+                    "if": "$userData.permanent_address.country==China, People's Republic of",
+                    "then": [
+                        "click;id=state_china_ques_182_chzn",
+                        "click;//div[@id='state_china_ques_182_chzn']/div/ul/li[normalize-space(text())='{$}'];permanent_address.state"
+                    ]
+                },
+                {
+                    "elif": "$userData.permanent_address.country==United States",
+                    "then": [
+                        "click;id=state_us_ques_182_chzn",
+                        "click;//div[@id='state_us_ques_182_chzn']/div/ul/li[normalize-space(text())='{$}'];permanent_address.state"
+                    ]
+                },
+                {
+                    "elif": "$userData.permanent_address.country==Canada",
+                    "then": [
+                        "click;id=state_canada_ques_182_chzn",
+                        "click;//div[@id='state_cananda_ques_182_chzn']/div/ul/li[normalize-space(text())='{$}'];permanent_address.state"
+                    ]
+                },
+                {
+                    "else": "type;id=state_other_ques_182;permanent_address.state"
+                },
+                "type;id=zip_ques_182;permanent_address.zip_code",
+                "click;id=verifyAddress_ques_182",
+                "wait",
+                {
+                    "if": "assertElementPresent;id=QAS_AcceptOriginal",
+                    "then": [
+                        "click;id=QAS_AcceptOriginal",
+                        "warn;multiple_addresses"
+                    ]
+                }
+            ]
+        },
+        {
+            "if": [
+                "$userData.mailing_address.country",
+                "$userData.mailing_address.line_1",
+                "$userData.mailing_address.zip_code"
+            ],
+            "then": [
+                "click;(.//*[normalize-space(text()) and normalize-space(.)='No alternate address'])[1]/following::label[1]",
+                "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='United States of America'])[1]/following::div[1]",
+                "click;id=add_ques_186",
+                "click;//div[@id='country_ques_186_chzn']/div/ul/li[normalize-space(text())=\"{$}\"];mailing_address.country",
+                "type;id=add1_ques_186;mailing_address.line_1",
+                "type;id=add2_ques_186;mailing_address.line_2",
+                "type;id=add3_ques_186;mailing_address.line_3",
+                "type;id=city_ques_186;mailing_address.city",
+                {
+                    "if": "$userData.mailing_address.country==China, People's Republic of",
+                    "then": [
+                        "click;id=state_china_ques_186_chzn",
+                        "click;//div[@id='state_china_ques_186_chzn']/div/ul/li[normalize-space(text())='{$}'];mailing_address.state"
+                    ]
+                },
+                {
+                    "elif": "$userData.mailing_address.country==United States of America",
+                    "then": [
+                        "click;id=state_us_ques_186_chzn",
+                        "click;//div[@id='state_us_ques_186_chzn']/div/ul/li[normalize-space(text())='{$}'];mailing_address.state"
+                    ]
+                },
+                {
+                    "elif": "$userData.mailing_address.country==Canada",
+                    "then": [
+                        "click;id=state_cananda_ques_186_chzn",
+                        "click;//div[@id='state_cananda_ques_186_chzn']/div/ul/li[normalize-space(text())='{$}'];mailing_address.state"
+                    ]
+                },
+                {
+                    "else": "type;id=state_other_ques_186;mailing_address.state"
+                },
+                "type;id=zip_ques_186;mailing_address.zip_code",
+                "click;id=verifyAddress_ques_186",
+                "wait",
+                {
+                    "if": "assertElementPresent;id=QAS_AcceptOriginal",
+                    "then": [
+                        "click;id=QAS_AcceptOriginal",
+                        "warn;multiple_addresses"
+                    ]
+                }
+            ]
+        },
+        {
+            "else": "click;//div[@id='container_ques_183']/div"
+        },
+        "click;(//div[@id='rbContainer_1'])[2]",
+        "warn;mailing_address_perm",
+        "click;id=saveSection_12",
+        {
+            "if": "assertElementPresent;id=editSection_13",
+            "then": "click;id=editSection_13"
+        },
+        "click;//div[@id='ctrycode_ques_189_chzn']/div/div/input",
+        "click;//div[@id='ctrycode_ques_189_chzn']/div/ul/li[contains(.,'{$} ')];primary_phone_country_code",
+        "type;id=phone_ques_189;primary_phone_number",
+        "click;id=saveSection_13"
+    ]
 }

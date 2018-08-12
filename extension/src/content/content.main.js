@@ -1,5 +1,5 @@
 /* global chrome */
-const actionProcessor = require('./runtime');
+const actionProcessor = require('./runner');
 import Messaging from '../common/messaging';
 
 chrome.runtime.onMessage.addListener(
