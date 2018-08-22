@@ -57,6 +57,9 @@
                      class="alert alert-danger">
                     <div *ngIf="this.processJSONField.errors.required">Please load/enter the process.</div>
                 </div>
+                <div *ngIf="!jsonValid && (this.processJSONField.dirty || this.processJSONField.touched || processForm.touched)" class="alert alert-danger">
+                    Invalid JSON.
+                </div>
                 <button *ngIf="editingProcess" class="btn btn-outline-primary pull-right mb-2" type="button"
                         (click)="editingProcess=false">
                     <span *ngIf="editingProcess">Done</span>
@@ -65,7 +68,7 @@
                         (click)="editingProcess=true">
                     <span>Edit</span>
                 </button>
-                <textarea [readonly]="!editingProcess" class="editor form-control form-control" rows="25" title="editor"
+                <textarea [readonly]="!editingProcess" class="editor form-control" rows="25" title="editor"
                           formControlName="processJSON" required>
                 </textarea>
             </div>

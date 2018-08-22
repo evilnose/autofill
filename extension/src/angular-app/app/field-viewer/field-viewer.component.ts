@@ -31,9 +31,13 @@ import {DbService} from "../services/db.service";
                 </div>
             </div>
             <div>
-                *The CSV file should be in format of "field_name,description,displayed_name". Do not include headers.
+                *The CSV file <strong>is delimited by ';'</strong> and should be in format of
+                "field_name;description;displayed_name". Do not include headers.
             </div>
             <edi-table [initialTable]="tbl" [columnWidths]="[0.3, 0.4, 0.3]"></edi-table>
+            <div *ngIf="badTable" class="jumbotron">
+                There are some problems with the table. Please contact an admin.
+            </div>
         </div>
     `,
 })
@@ -42,6 +46,7 @@ export default class FieldViewerComponent {
     private tableUpToDate: boolean;
     private saveStatus: SubmitStatus;
     private SubmitStatusRef = SubmitStatus;
+    private badTable: boolean;
 
     constructor(private dbService: DbService) {
         this.saveStatus = SubmitStatus.IDLE;
@@ -52,7 +57,9 @@ export default class FieldViewerComponent {
                 f.displayName,
             ]))
             .then(this.updateTable.bind(this))
-            .then(() => this.tableUpToDate = true);
+            .then(() => this.tableUpToDate = true)
+            .catch(() => this.badTable = true);
+        this.badTable = false;
     }
 
     private updateTable(tableList: string[][]) {
@@ -65,7 +72,7 @@ export default class FieldViewerComponent {
         this.tableUpToDate = false;
         const rows = [];
         for (const line of lines) {
-            const split = line.split(",");
+            const split = line.split(";");
             if (split[0]) {
                 // only push if field name exists
                 rows.push(split);

@@ -5,7 +5,7 @@
   "private": true,
   "main": "./ui/popup/popup.js",
   "scripts": {
-    "test": "mocha test/ -u bdd -R spec",
+    "test": "mocha test/ -u bdd -R spec --require babel-register",
     "lint": "jshint src",
     "build": "webpack --mode development",
     "build:prod": "webpack --mode production",
@@ -64,12 +64,12 @@
   "dependencies": {
     "@angular/animations": "~6.0.6",
     "@angular/cdk": "~6.3.0",
-    "@angular/material": "^6.3.0",
     "@angular/common": "^6.0.6",
     "@angular/compiler": "^6.0.6",
     "@angular/core": "^6.0.6",
     "@angular/forms": "^6.0.6",
     "@angular/http": "^6.0.6",
+    "@angular/material": "^6.3.0",
     "@angular/platform-browser": "^6.0.6",
     "@angular/platform-browser-dynamic": "^6.0.6",
     "@angular/router": "^6.0.6",
@@ -83,6 +83,8 @@
     "npm": "^5.10.0",
     "rxjs": "^6.2.1",
     "rxjs-compat": "~6.2.1",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "country-code-lookup": "latest",
+    "country-code-info": "latest"
   }
 }

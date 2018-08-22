@@ -37,7 +37,7 @@ export function open (tabId, url, callback) {
         if (!url) {
             console.error("URL is null.");
         } else {
-            console.log(`Redirecting to '${url}'`);
+            console.log(`Routing to '${url}'`);
         }
         chrome.tabs.update(tabId, {url: url}, callback);
     });
@@ -80,6 +80,11 @@ export function executeScripts (tabId, fileNames, finalCallback) {
 export function isOfDomain (url, base) {
     // TODO check if url is out of the domain of base
     return (extractRootDomain(url) === extractRootDomain(base));
+}
+
+export function isUrlAbsolute(url) {
+    const pat = /^https?:\/\//i;
+    return pat.test(url);
 }
 
 // FROM STACKOVERFLOW

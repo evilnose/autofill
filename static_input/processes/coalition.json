@@ -1,39 +1,96 @@
 {
-  "allowed_hosts": [
-    "collegenet.com"
-  ],
-  "base": "https://www.mycoalition.org",
-  "login_process": [
-    "open;/app",
-    [
-      {
-        "try": [
-          "assertElementPresent;id=j_username"
-        ],
-        "commands": [
-          "type;id=j_username;@username",
-          "type;id=j_password;@password",
-          "click;$=[name='_eventId_proceed']"
-        ]
-      }
+    "allowed_hosts": [
+        "collegenet.com"
+    ],
+    "base": "https://www.mycoalition.org",
+    "alt_mapping": {
+        "United States": "US"
+    },
+    "login_process": [
+        "open;/app#/home/overview",
+        {
+            "if": "assertElementPresent;id=j_username",
+            "then": [
+                "type;id=j_username;@username",
+                "type;id=j_password;@password",
+                "-r-click;$=button[name='_eventId_proceed']"
+            ]
+        }
+    ],
+    "process": [
+        "open;https://applyweb.collegenet.com/account/profile/edit",
+        {
+            "if": "assertElementPresent;id=j_username",
+            "then": [
+                "type;id=j_username;@username",
+                "type;id=j_password;@password",
+                "-n-click;$=button[name='_eventId_proceed']"
+            ]
+        },
+        "type;id=firstName;first_name",
+        "type;id=lastName;last_name",
+        "type;id=date-input;birth_date|MM/DD/YYYY",
+        "-n-click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Date of Birth'])[1]/following::button[1]",
+        "open;/app#/profile",
+        {
+            "if": "assertElementPresent;id=j_username",
+            "then": [
+                "type;id=j_username;@username",
+                "type;id=j_password;@password",
+                "-r-click;$=button[name='_eventId_proceed']",
+                "open;/app#/profile"
+            ]
+        },
+        "type;//select[@id='formly_1_horizontalSelect_suffix_8'];suffix",
+        {
+            "if": "$userData.sex==female",
+            "then": "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Show additional info'])[1]/following::label[1]"
+        },
+        {
+            "elif": "$userData.sex==male",
+            "then": "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Female'])[1]/following::label[1]"
+        },
+        "type;id=formly_1_horizontalInput_gender_10;gender",
+        "type;id=formly_1_horizontalInput_otherNames_11;other_name",
+        {
+            "if": "$userData.ssn",
+            "then": [
+                "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='*'])[4]/following::label[1]",
+                "-a-type;id=formly_1_ssnInput_SSN_13;ssn"
+            ]
+        },
+        {
+            "else": "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Yes'])[1]/following::label[1]"
+        },
+        "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Edit account info'])[1]/following::button[1]",
+        "open;/app#/profile/contact",
+        "-a-type;id=formly_5_horizontalSelect_countryCode_0;primary_phone_country_code|[1:]",
+        "type;id=formly_5_horizontalInput_number_1;primary_phone_number",
+        "-a-type;id=formly_7_horizontalSelect_country_0;mailing_address.country|country-a2",
+        "type;id=formly_7_horizontalInput_street1_1;mailing_address.line_1",
+        "type;id=formly_7_horizontalInput_street2_2;mailing_address.line_2",
+        "type;id=formly_7_horizontalInput_city_3;mailing_address.city",
+        {
+            "if": "assertElementPresent;id=formly_9_horizontalInput_state_2",
+            "then": "type;id=formly_9_horizontalInput_state_2;mailing_address.state"
+        },
+        {
+            "else": "warn;We could not complete the 'states' field for your mailing address due to the nature of the form. Please fill it in manually."
+        },
+        "type;id=formly_7_horizontalInput_postalCode_5;mailing_address.zip_code",
+
+        "-a-type;id=formly_8_horizontalSelect_country_0;permanent_address.country|country-a2",
+        "type;id=formly_8_horizontalInput_street1_1;permanent_address.line_1",
+        "type;id=formly_8_horizontalInput_street2_2;permanent_address.line_2",
+        "type;id=formly_8_horizontalInput_city_3;permanent_address.city",
+        {
+            "if": "assertElementPresent;id=formly_10_horizontalInput_state_2",
+            "then": "type;id=formly_10_horizontalInput_state_2;permanent_address.state"
+        },
+        {
+            "else": "warn;We could not complete the 'states' field for your permanent address due to the nature of the form. Please fill it in manually."
+        },
+        "type;id=formly_8_horizontalInput_postalCode_5;permanent_address.zip_code",
+        "warn;Be sure to verify your addresses when you perform manual checks later."
     ]
-  ],
-  "process": [
-    "open;/app#/profile",
-    "waitForElementPresent;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Privacy Information'])[1]/following::h1[1]",
-    [
-      {
-        "try": [
-          "assertElementPresent;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Coalition Account ID'])[1]/following::a[1]"
-        ],
-        "commands": [
-          "-n-click;xpath=//dt/a",
-          "click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Personal Info'])[2]/following::a[1]",
-          "type;id=firstName;first_name",
-          "type;id=lastName;last_name",
-          "type;id=date-input;birth_date>MM/DD/YYYY"
-        ]
-      }
-    ]
-  ]
 }

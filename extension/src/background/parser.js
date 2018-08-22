@@ -1,6 +1,7 @@
 import {CommandNode, ConditionalNode, isStr, isArr, isBool, ConnectorNode} from "../common/utils";
 const constants = require('./constants.js');
 const moment = require('moment');
+const CountryCodes = require('country-code-info');
 
 /* NOTE that this is somewhat redundant as it parses the file once in background.js
  * then it parses it again in injected.js, but this ensures that only the required
@@ -9,22 +10,32 @@ const moment = require('moment');
 exports.processForms = function (processObj, user, appAuth, skipLogin, logger) {
     user.appAuth = appAuth;
     processObj.process = processObj.process || [];
-
     // handleProcesses(info, user, totalProcess);
-    const parser = new Parser(user);
-    const info = parser.parse(processObj, skipLogin);
-    logger.appendLogs("Parsed succesfully!");
-    return info;
+    const parser = new Parser(user, logger);
+    console.log('parser created');
+    try {
+        const info = parser.parse(processObj, skipLogin);
+        logger.appendLogs("Parsed succesfully!");
+        return info;
+    } catch (e) {
+        logger.appendLogs(`Uncaught error in parser: ${e}`);
+        console.error(e);
+    }
 };
 
-class Parser {
-    constructor(user) {
+export class Parser {
+    constructor(user, logger) {
         this.user = user;
+        this.logger = logger;
+        this.info = {
+            alt_mapping: {}
+        };
     }
 
     parse(processObj, skipLogin) {
         this.info = Object.assign({}, processObj); // store all meta process info in info.
         this.info.fieldCount = 0;
+        this.info.alt_mapping = this.info.alt_mapping || {};
         delete this.info.process; // delete the juicy stuff to avoid confusion.
         delete this.info.login_process;
         const totalProcess = skipLogin ? processObj.process : processObj.login_process.concat(processObj.process);
@@ -166,8 +177,8 @@ class Parser {
                 return cmd;
             case 'assertElementPresent':
             case 'waitForElementPresent':
-                if (cmd.target.includes(constants.INTP_IND)) {
-                    cmd.target = interpolate(cmd.target, this.getValAndFormat(cmd.val), this.info.alt_mapping);
+                if (cmd.target.includes(constants.INTP_START)) {
+                    cmd.target = this.interpolate(cmd.target, this.info.alt_mapping).processedStr;
                     if (!cmd.target) {
                         console.log(`Command skipped since no userVal (interp): ${cmdStr}`);
                         return;
@@ -175,13 +186,14 @@ class Parser {
                 }
                 return cmd;
             case 'click':
-                if (cmd.target.includes(constants.INTP_IND)) {
-                    cmd.target = interpolate(cmd.target, this.getValAndFormat(cmd.val), this.info.alt_mapping);
-                    cmd.field = getFieldFromKey(cmd.val); // get the field name from a key string
+                if (cmd.target.includes(constants.INTP_START)) {
+                    const res = this.interpolate(cmd.target, this.info.alt_mapping);
+                    cmd.target = res.processedStr;
                     if (!cmd.target) {
                         console.log(`Command skipped since no userVal (interp): ${cmdStr}`);
                         return;
                     }
+                    cmd.field = getFieldFromKey(cmd.val) || res.field; // get the field name from a key string
                 } else if (cmd.val && !(cmd.field = this.getValAndFormat(cmd.val)))
                 // What this does: assign c.val to field if it exists; if not, return nothing. (I know, I know.)
                     return;
@@ -192,7 +204,6 @@ class Parser {
                 if (!!(userVal = this.getValAndFormat(cmd.val))) {
                     if (cmd.val !== '@username' && cmd.val !== '@password') {
                         cmd.field = getFieldFromKey(cmd.val);
-                        this.info.fieldCount++;
                         console.log(cmd.field);
                     }
                     cmd.val = userVal;
@@ -201,7 +212,7 @@ class Parser {
                 console.log(`Command skipped since no userVal: ${cmdStr}`);
                 return;
             default:
-                throw ParseError(`Unrecognized action: ${cmdStr}`);
+                throw new ParseError(`Unrecognized action: ${cmdStr}`);
         }
     }
 
@@ -221,8 +232,8 @@ class Parser {
         switch (cmd.action) {
             case 'assertElementPresent':
             case 'waitForElementPresent':
-                if (cmd.target.includes(constants.INTP_IND)) {
-                    cmd.target = interpolate(cmd.target, this.getValAndFormat(cmd.val), this.info.alt_mapping);
+                if (cmd.target.includes(constants.INTP_START)) {
+                    cmd.target = this.interpolate(cmd.target, this.info.alt_mapping).processedStr;
                     if (!cmd.target) {
                         console.log(`Command skipped since no userVal (interp): ${condStr}`);
                         return;
@@ -232,7 +243,7 @@ class Parser {
         }
 
         // Not ordinary command but condition expression.
-        const sides = condStr.split(constants.SEL_SEP);
+        const sides = condStr.split(constants.EQUALS);
 
         if (sides.length === 1) {
             // no equals sign; return whether the data exists
@@ -243,9 +254,9 @@ class Parser {
         let lastVal = getSideVal(sides[0]);
         for (let i = 1; i < sides.length; i++) {
             const tempVal = getSideVal(sides[i]);
-
-            if (lastVal !== tempVal)
+            if (lastVal.toLowerCase() !== tempVal.toLowerCase()) {
                 return false;
+            }
             lastVal = tempVal;
         }
         return true;
@@ -266,11 +277,17 @@ class Parser {
 
         if (userKey.includes(constants.FORMAT_IND)) {
             let [newKey, format] = userKey.split(constants.FORMAT_IND);
-            return formatVal(this.getUserVal(newKey), format);
+            const val = this.getUserVal(newKey);
+            if (this.info.alt_mapping[val]) {
+                return this.info.alt_mapping[val]; // override format
+            }
+            return formatVal(val, format);
         } else {
-            return this.getUserVal(userKey);
+            const val = this.getUserVal(userKey);
+            if (!val)
+                return null;
+            return this.info.alt_mapping[val] || val;
         }
-
     }
 
     getUserVal(userKey) {
@@ -288,23 +305,42 @@ class Parser {
         return item;
     }
 
+    interpolate(target, altMap) {
+        altMap = altMap || {};
+        const s = constants.INTP_START;
+        const e = constants.INTP_END;
+        let processedStr = target;
+        let startIx;
+        let endIx = -e.length;
+        let userKey;
+        let newVal;
+        let field = null;
+        while ((startIx = processedStr.indexOf(constants.INTP_START, endIx + e.length)) !== -1) {
+            endIx = processedStr.indexOf(constants.INTP_END, startIx + s.length);
+            if (endIx === -1)
+                throw new ParseError(`Expected '${e}' but got EOL in interpolation: '${target}'`);
+            userKey = processedStr.substring(startIx + s.length, endIx);
+            field = field || getFieldFromKey(userKey);
+            newVal = this.getValAndFormat(userKey);
+            if (!newVal) {
+                this.logger.appendLogs(`Interpolation failed since user does not have value for key '${userKey}'`, true);
+                return null;
+            }
+            processedStr = processedStr.substring(0, startIx) + newVal + processedStr.substr(endIx + e.length);
+        }
+        return {
+            'processedStr': processedStr,
+            'field': field,
+        };
+    }
+
     // _parseBooleanExpr(boolStr) {
     //     // TODO in a later time (recursively parse a boolean string into a binary tree)
     // }
 }
 
-function interpolate(target, userVal, altMapping) {
-    if (userVal) {
-        let newVal = altMapping[userVal] || userVal;
-        return target.replace(constants.INTP_IND, newVal);
-    } else {
-        console.log(`Interpolation aborted: No userVal. Target: ${target}`);
-        return null;
-    }
-}
-
 function getFieldFromKey(key) {
-    return key.split(constants.FORMAT_IND)[0];
+    return !!key ? key.split(constants.FORMAT_IND)[0] : null;
 }
 
 function splitCommand(c) {
@@ -332,9 +368,46 @@ function formatVal(val, format) {
         return val;
     }
 
-    let date = moment(val);
-    if (date.isValid()) {
-        return date.format(format);
+    const COUNTRY_PREFIX = 'country-';
+
+    if (format.startsWith('[')) {
+        if (!format.endsWith(']')) {
+            throw new ParseError(`Expected format string '${format}' to end with ].`);
+        }
+        const sepIx = format.indexOf(':');
+        if (sepIx === -1) {
+            throw new ParseError(`Expected separator ':' in format string '${format}'`);
+        }
+        try {
+            const startIx = parseInt(format.substring(1, sepIx));
+            const endIx = parseInt(format.substring(sepIx, -1));
+            return val.substring(startIx || 0, endIx || val.length);
+        } catch (e) {
+            throw new ParseError(`Failed to format: ${e}`);
+        }
+    } else if (format.startsWith(COUNTRY_PREFIX)) {
+        const ct = CountryCodes.findCountry({
+            name: val,
+        });
+        if (ct) {
+            const res = ct[format.substr(COUNTRY_PREFIX.length)];
+            if (res) {
+                return res;
+            } else {
+                throw new ParseError(`Unrecognized country format: ${format.substr(COUNTRY_PREFIX.length)} ` +
+                "Recognized formats are: a2, a3, num, itu, gec, ioc, fifa, ds, wom, gaul, marc, and dial.");
+            }
+        } else {
+            this.logger.appendLogs(`Failed to recognize country name: ${val}. Please check for spelling or try another possible name for it.`);
+            return null;
+        }
+    } else {
+        const date = moment(val);
+        if (date.isValid()) {
+            return date.format(format);
+        } else {
+            throw new ParseError(`Unrecognized format string: ${format}`);
+        }
     }
 }
 

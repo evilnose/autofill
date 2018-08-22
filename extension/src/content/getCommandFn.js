@@ -5,25 +5,33 @@ const getElement = require('./getElement.js');
 const Commands = {
     doClick: function (ele) {
         const domEle = ele[0];
+        domEle.focus();
         triggerMouseEvent(domEle, "mouseover");
         triggerMouseEvent(domEle, "mousedown");
         triggerMouseEvent(domEle, "mouseup");
         triggerMouseEvent(domEle, "click");
-        domEle.focus();
+        domEle.dispatchEvent(new Event('change'));
+
+        // ele.focus();
+        // ele.trigger('mouseover');
+        // ele.trigger('mousedown');
+        // ele.trigger('mouseup');
+        // ele.trigger('click');
+
         // has not default assert, so return true
         return true;
     },
 
-    doType: function (ele, val) {
+    doType: function (ele, cmd) {
         ele.focus();
-        ele[0].value = val;
+        ele[0].value = cmd.val;
         // For angular form validation
         const inpEvent = new Event('input');
         const changeEvent = new Event('change');
         ele[0].dispatchEvent(inpEvent);
         ele[0].dispatchEvent(changeEvent);
         ele.blur(); // shouldn't be required but just in case
-        return assertTyped(ele, val);
+        return cmd.flag === 'a' || assertTyped(ele, cmd.val);
     },
 
     doWaitForElementPresent: function (ele) {
@@ -34,7 +42,7 @@ const Commands = {
     // This is an immediately invoked function (without retries)
     doAssertElementPresent: function (ele) {
         // jquery element does not exist when the array is empty
-        return !!ele;
+        return !!ele.length;
     },
 };
 

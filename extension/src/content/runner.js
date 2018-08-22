@@ -4,32 +4,42 @@ Handles the execution of parsed commands.
  */
 
 import Messaging from "../common/messaging";
+import {dehighlight, highlight, Status} from "./ui";
 
-const getCommandFn = require('./getCommandFn.js');
-const getElement = require('./getElement.js');
-const constants = require('./constants.js');
+const getCommandFn = require('./getCommandFn');
+const getJqElement = require('./getElement');
+const constants = require('./constants');
+const {statusChanged} = require('./ui');
 
 module.exports = {
     // Runs the given command
     runCommand: function (cmd) {
         console.log("Got command:", cmd);
         switch (cmd.action) {
-            case 'wait':
-                const delay = cmd.target || constants.DEFAULT_WAIT_DELAY;
-                getDelayPromise(delay)
-                    .then(handleActionSuccess)
-                    .catch(handleActionFailure);
-                break;
+            // case 'wait':
+            //     const delay = cmd.target || constants.DEFAULT_WAIT_DELAY;
+            //     getDelayPromise(delay)
+            //         .then(handleActionSuccess)
+            //         .catch(handleActionFailure);
+            //     break;
             default:
-                let findElPromise = getFindElementRetryPromise(cmd.target);
-                if (cmd.toTest) {
-                    findElPromise
-                        .then(ele => () => getCommandFn(cmd.action)(ele, cmd.val))
+                statusChanged(Status.LOCATING);
+                if (cmd.action.startsWith('assert')) {
+                    Promise.resolve(getJqElement(cmd.target))
+                        .then(ele => {
+                            statusChanged(Status.EXECUTING);
+                            highlight(ele);
+                            return getCommandFn(cmd.action)(ele, cmd);
+                        })
                         .then(handleTestComplete)
                         .catch(handleActionFailure);
                 } else {
-                    findElPromise
-                        .then(ele => getActionRetryPromise(getCommandFn(cmd.action), ele, cmd))
+                    getFindElementRetryPromise(cmd.target)
+                        .then(ele => {
+                            highlight(ele);
+                            statusChanged(Status.EXECUTING);
+                            return getActionRetryPromise(getCommandFn(cmd.action), ele, cmd);
+                        })
                         .then(handleActionSuccess)
                         .catch(handleActionFailure);
                 }
@@ -38,15 +48,20 @@ module.exports = {
 };
 
 function handleActionSuccess() {
+    dehighlight();
+    statusChanged(Status.SUCCESS);
     sendStateMessage('next');
 }
 
 function handleActionFailure(rsn) {
     console.error(rsn);
+    statusChanged(Status.FAILED);
     sendStateMessage('failed', {reason: JSON.stringify(rsn)});
 }
 
 function handleTestComplete(result) {
+    dehighlight();
+    statusChanged(Status.SUCCESS);
     sendStateMessage(result ? 'try_met' : 'try_unmet');
 }
 
@@ -59,12 +74,12 @@ function getFindElementRetryPromise(path) {
 
 function retryFindElement(path, dIdx, resolve, reject) {
     if (dIdx === constants.FIND_ELE_DELAYS.length) {
-        console.log("Failed to find ele by path. REJECTING...");
+        console.log("Failed to find element. REJECTING...");
         reject('Failed to find element');
         return;
     }
 
-    let ele = getElement(path);
+    let ele = getJqElement(path);
     if (ele.length) {
         console.log("Found ele. Resolving...");
         resolve(ele);
@@ -88,11 +103,11 @@ function retryAction(actionFn, ele, cmd, dIdx, resolve, reject) {
         return;
     }
 
-    if (actionFn(ele, cmd.val)) {
+    if (actionFn(ele, cmd)) {
         console.log(`${cmd.action} success. Resolving...`);
         setTimeout(() => resolve(ele), constants.DEFAULT_DELAY);
     } else {
-        console.log(`Failed to do ${cmd.action}. Retrying...`);
+        console.log(`Failed to do command "${cmd.action}". Retrying...`);
         setTimeout(() => retryAction(actionFn, ele, cmd, dIdx + 1, resolve, reject),
             constants.ACTION_DELAYS[dIdx]);
     }

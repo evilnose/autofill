@@ -29,6 +29,7 @@ export class ProcessEditComponent {
     private processForm: FormGroup;
     private getAppOptionsPromise: Promise<SelectOption[]>;
     private appMap: object;
+    private jsonValid: boolean;
 
     constructor(private fileService: FileService, private dbService: DbService) {
         this.model = new Process();
@@ -39,9 +40,19 @@ export class ProcessEditComponent {
         });
         // TODO catch this
         this.processForm.get("appId").valueChanges
-            .subscribe((id) =>
+            .subscribe((id: string) =>
                 this.dbService.getOfficialProcess(id)
                     .then(this.updateJSON.bind(this)));
+
+        this.processForm.get("processJSON").valueChanges
+            .subscribe((jsonStr: string) => {
+                try {
+                    JSON.parse(jsonStr);
+                    this.jsonValid = true;
+                } catch (e) {
+                    this.jsonValid = false;
+                }
+            });
 
         this.submitStatus = SubmitStatus.IDLE;
         this.editingProcess = false;
@@ -68,6 +79,7 @@ export class ProcessEditComponent {
     get processJSON() {
         const field = this.processJSONField;
         if (field) {
+
             return JSON.parse(field.value);
         }
         return null;
@@ -94,8 +106,12 @@ export class ProcessEditComponent {
 
     public updateJSON(jsonStr: string): void {
         if (jsonStr) {
-            const json = JSON.parse(jsonStr);
-            this.processJSONField.setValue(JSON.stringify(json, null, 2));
+            try {
+                const json = JSON.parse(jsonStr);
+                this.processJSONField.setValue(JSON.stringify(json, null, 2));
+            } catch (e) {
+                this.processJSONField.setValue(jsonStr);
+            }
         }
     }
 

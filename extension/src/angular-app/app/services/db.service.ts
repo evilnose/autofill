@@ -182,7 +182,7 @@ export class DbService {
     public getOfficialFormFields(): Promise<FormField[]> {
         return this.formFieldColl.ref.doc("0").get().then((doc) => {
             if (doc.exists && doc.data().fields) {
-                return doc.data().fields as FormField[];
+                return JSON.parse(doc.data().fields) as FormField[];
             } else {
                 return [];
             }
@@ -190,8 +190,9 @@ export class DbService {
     }
 
     public setOfficialFormFields(formFields: FormField[]): Promise<void> {
+        // transform the FormField[] array to js objects
         return this.formFieldColl.ref.doc("0").update({
-            fields: formFields,
+            fields: JSON.stringify(formFields),
         });
     }
 

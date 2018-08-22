@@ -1,9 +1,10 @@
 {
-	"esnext": "true",
+	"esnext": true,
 	"node": true,
-	"strict": "implied",
+	"strict": false,
 	"globals": {
 		"document": true,
-		"XPathResult": true
+		"XPathResult": true,
+		"window": true
 	}
 }

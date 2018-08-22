@@ -2,18 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7f0fda6-c323-433d-82bc-b7ec587386be" name="Default" comment="Commit before making big changes to parser">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/garyg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/garyg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/extension/src/content/ui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/extension/test/background_test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static_input/fixtures/jane.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static_input/fixtures/michael.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/ext_assets/sample_data/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/ext_assets/sample_data/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/ext_assets/icons/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/extension/assets/icons/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/ext_assets/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/assets/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/ext_assets/sample_data/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/assets/sample_data/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/ext_assets/sample_data/user.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/assets/sample_data/user.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/.jshintrc" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/.jshintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/field-viewer/field-viewer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/field-viewer/field-viewer.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extension/src/background/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/background/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extension/src/background/helpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/background/helpers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extension/src/background/parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/background/parser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extension/src/background/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/background/session.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/common/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/common/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/content/.jshintrc" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/content/.jshintrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extension/src/content/content.main.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/content/content.main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extension/src/content/getCommandFn.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/content/getCommandFn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/content/getElement.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/content/getElement.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/extension/src/content/runner.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/content/runner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/test/dummy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static_input/fields/field.csv" beforeDir="false" afterPath="$PROJECT_DIR$/static_input/fields/field.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static_input/processes/coalition.json" beforeDir="false" afterPath="$PROJECT_DIR$/static_input/processes/coalition.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static_input/processes/commonapp.json" beforeDir="false" afterPath="$PROJECT_DIR$/static_input/processes/commonapp.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/dist/" />
@@ -30,64 +48,74 @@
     <session id="-1524037970">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="17" />
+          <entry key="project.closed" value="28" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.4" value="5" />
           <entry key="project.open.time.5" value="9" />
-          <entry key="project.open.time.6" value="3" />
-          <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="18" />
+          <entry key="project.open.time.6" value="9" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.8" value="2" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="29" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="csv" value="1" />
-          <entry key="gitignore" value="1" />
-          <entry key="html" value="1" />
-          <entry key="js" value="48" />
-          <entry key="jshintrc" value="1" />
-          <entry key="json" value="11" />
-          <entry key="ts" value="15" />
+          <entry key="babelrc" value="1" />
+          <entry key="csv" value="5" />
+          <entry key="gitignore" value="2" />
+          <entry key="html" value="3" />
+          <entry key="js" value="92" />
+          <entry key="jshintrc" value="3" />
+          <entry key="json" value="33" />
+          <entry key="png" value="1" />
+          <entry key="ts" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="1" />
-          <entry key="JSHint" value="1" />
-          <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="48" />
-          <entry key="PLAIN_TEXT" value="2" />
-          <entry key="TypeScript" value="15" />
+          <entry key="CSV" value="3" />
+          <entry key="HTML" value="3" />
+          <entry key="Image" value="1" />
+          <entry key="JSHint" value="3" />
+          <entry key="JSON" value="34" />
+          <entry key="JavaScript" value="92" />
+          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="TypeScript" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="22" />
-          <entry key="js" value="20617" />
-          <entry key="jshintrc" value="24" />
-          <entry key="json" value="335" />
-          <entry key="ts" value="470" />
+          <entry key="babelrc" value="17" />
+          <entry key="csv" value="388" />
+          <entry key="html" value="115" />
+          <entry key="js" value="32938" />
+          <entry key="jshintrc" value="59" />
+          <entry key="json" value="1845" />
+          <entry key="ts" value="1601" />
           <entry key="txt" value="50" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="22" />
-          <entry key="JSHint" value="24" />
-          <entry key="JSON" value="335" />
-          <entry key="JavaScript" value="20617" />
-          <entry key="PLAIN_TEXT" value="50" />
-          <entry key="TypeScript" value="470" />
+          <entry key="CSV" value="251" />
+          <entry key="HTML" value="117" />
+          <entry key="JSHint" value="59" />
+          <entry key="JSON" value="1862" />
+          <entry key="JavaScript" value="32938" />
+          <entry key="PLAIN_TEXT" value="187" />
+          <entry key="TypeScript" value="1599" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/extension/src/background/session.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="119" column="36" lean-forward="true" selection-start-line="119" selection-start-column="36" selection-end-line="119" selection-end-column="36" />
+            <state relative-caret-position="9039">
+              <caret line="398" column="23" selection-start-line="398" selection-start-column="13" selection-end-line="398" selection-end-column="23" />
               <folding>
                 <element signature="e#20#64#0" expanded="true" />
               </folding>
@@ -98,26 +126,68 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/extension/src/background/helpers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+            <state relative-caret-position="575">
+              <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/extension/src/background/parser.js">
+        <entry file="file://$PROJECT_DIR$/extension/src/content/content.main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="188" column="35" selection-start-line="188" selection-start-column="25" selection-end-line="188" selection-end-column="35" />
+            <state relative-caret-position="23">
+              <caret line="1" column="44" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static_input/processes/commonapp.json">
+        <entry file="file://$PROJECT_DIR$/extension/src/content/runner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-333">
-              <caret line="36" column="98" selection-start-line="36" selection-start-column="88" selection-end-line="36" selection-end-column="98" />
+            <state relative-caret-position="1403">
+              <caret line="62" column="18" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
+              <folding>
+                <element signature="e#70#114#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extension/src/background/constants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static_input/processes/coalition.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4002">
+              <caret line="184" column="51" selection-start-line="184" selection-start-column="51" selection-end-line="184" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extension/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1725">
+              <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -128,45 +198,45 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="tsconfig.json" />
         <option value="CSS File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>qas_acc</find>
-      <find>ParseError</find>
-      <find>parse e</find>
-      <find>parse error</find>
-      <find>parser</find>
-      <find>runCurrNode</find>
-      <find>qAS</find>
-      <find>qas</find>
-      <find>$userData.mailing</find>
-      <find>$userData.permanen</find>
-      <find>qas_a</find>
-      <find>getvaland</find>
-      <find>getValAndFormat</find>
+      <find>a</find>
+      <find>sendComma</find>
+      <find>new_page_load</find>
+      <find>helpers.inec</find>
+      <find>constants.NE</find>
+      <find>dbservice</find>
+      <find>.add(</find>
       <find>.field</find>
-      <find>.field</find>
-      <find>json.st</find>
-      <find>.log(</find>
-      <find>chainBOol</find>
-      <find>birth_date</find>
-      <find>fields</find>
-      <find>info.fiel</find>
-      <find>info.field</find>
-      <find>.totalFields</find>
-      <find>totalFi</find>
-      <find>completedField</find>
-      <find>total</find>
+      <find>pendingfield</find>
+      <find>.doc</find>
+      <find>.update</find>
+      <find>update</find>
+      <find>.log</find>
+      <find>fire</find>
+      <find>tableUptoDate</find>
+      <find>&lt;table</find>
+      <find>getComm</find>
+      <find>dehih</find>
+      <find>dehigh</find>
+      <find>dehighligh</find>
+      <find>timeout</find>
+      <find>set</find>
+      <find>setInter</find>
+      <find>if (!</find>
+      <find>this.pendingField = n</find>
+      <find>totalfieldset</find>
+      <find>completedFieldList</find>
+      <find>completedFiel</find>
+      <find>totalF</find>
       <find>totalField</find>
-      <find>completedF</find>
-      <find>this.pendingF</find>
-      <find>completedFieldS</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Work\autofill</dir>
@@ -179,18 +249,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/models/Info.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/user-form/user-form.component.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/user-form/user-form.component.html" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/models/Table.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/field-viewer/field-viewer.component.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/table.component.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/table.component.scss" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/app.component.scss" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/assets/scss/_custom.scss" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/send/send.component.scss" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/status-dot.component.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/services/data-format.service.ts" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/dropdown.component.ts" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts" />
         <option value="$PROJECT_DIR$/extension/src/messaging.ts" />
@@ -208,28 +266,40 @@
         <option value="$PROJECT_DIR$/extension/src/content/constants.js" />
         <option value="$PROJECT_DIR$/extension/src/background/infoLoad.js" />
         <option value="$PROJECT_DIR$/extension/src/content/actionProcessor.js" />
-        <option value="$PROJECT_DIR$/extension/src/.jshintrc" />
         <option value="$PROJECT_DIR$/extension/ext_assets/sample_data/app.json" />
         <option value="$PROJECT_DIR$/extension/src/background/warningCode.js" />
         <option value="$PROJECT_DIR$/extension/src/background/codeToText.js" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/app-credentials.component.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.ts" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts" />
         <option value="$PROJECT_DIR$/extension/src/content/runtime.js" />
-        <option value="$PROJECT_DIR$/static_input/processes/coalition.json" />
-        <option value="$PROJECT_DIR$/extension/src/background/constants.js" />
-        <option value="$PROJECT_DIR$/extension/src/content/content.main.js" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/progress-display.component.ts" />
-        <option value="$PROJECT_DIR$/extension/src/content/getElement.js" />
-        <option value="$PROJECT_DIR$/extension/src/content/getCommandFn.js" />
-        <option value="$PROJECT_DIR$/extension/src/content/runner.js" />
-        <option value="$PROJECT_DIR$/extension/src/background/helpers.js" />
         <option value="$PROJECT_DIR$/extension/src/common/utils.js" />
+        <option value="$PROJECT_DIR$/extension/src/content/getJqElement.js" />
+        <option value="$PROJECT_DIR$/extension/src/content/getElement.js" />
+        <option value="$PROJECT_DIR$/extension/test/dummy.js" />
+        <option value="$PROJECT_DIR$/.babelrc" />
+        <option value="$PROJECT_DIR$/extension/test/parser_test.js" />
+        <option value="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.ts" />
+        <option value="$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.html" />
+        <option value="$PROJECT_DIR$/extension/src/content/getCommandFn.js" />
         <option value="$PROJECT_DIR$/static_input/processes/commonapp.json" />
+        <option value="$PROJECT_DIR$/static_input/fixtures/jane.json" />
+        <option value="$PROJECT_DIR$/extension/src/.jshintrc" />
+        <option value="$PROJECT_DIR$/extension/src/content/.jshintrc" />
+        <option value="$PROJECT_DIR$/static_input/fixtures/michael.json" />
+        <option value="$PROJECT_DIR$/static_input/fields/field.csv" />
+        <option value="$PROJECT_DIR$/extension/test/background_test.js" />
         <option value="$PROJECT_DIR$/extension/src/background/parser.js" />
+        <option value="$PROJECT_DIR$/extension/src/background/helpers.js" />
+        <option value="$PROJECT_DIR$/extension/package.json" />
+        <option value="$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts" />
+        <option value="$PROJECT_DIR$/extension/src/angular-app/app/field-viewer/field-viewer.component.ts" />
+        <option value="$PROJECT_DIR$/extension/src/content/content.main.js" />
+        <option value="$PROJECT_DIR$/extension/src/content/ui.js" />
+        <option value="$PROJECT_DIR$/extension/src/content/runner.js" />
+        <option value="$PROJECT_DIR$/extension/src/background/constants.js" />
         <option value="$PROJECT_DIR$/extension/src/background/session.js" />
+        <option value="$PROJECT_DIR$/static_input/processes/coalition.json" />
       </list>
     </option>
   </component>
@@ -297,34 +367,13 @@
               <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
               <item name="autofill" type="462c0819:PsiDirectoryNode" />
               <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="ext_assets" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
               <item name="autofill" type="462c0819:PsiDirectoryNode" />
               <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="ext_assets" type="462c0819:PsiDirectoryNode" />
-              <item name="sample_data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autofill" type="462c0819:PsiDirectoryNode" />
-              <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autofill" type="462c0819:PsiDirectoryNode" />
-              <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="background" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autofill" type="462c0819:PsiDirectoryNode" />
-              <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
@@ -341,6 +390,12 @@
               <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
               <item name="autofill" type="462c0819:PsiDirectoryNode" />
               <item name="static_input" type="462c0819:PsiDirectoryNode" />
+              <item name="fixtures" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autofill" type="462c0819:PsiDirectoryNode" />
+              <item name="static_input" type="462c0819:PsiDirectoryNode" />
               <item name="processes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -351,19 +406,20 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SearchEverywhereHistoryKey" value="assertElementPr&#9;null&#9;null&#10;root-styles&#9;FILE&#9;file://C:/Users/garyg/Work/autofill/extension/src/angular-app/app/root-styles.css" />
+    <property name="SearchEverywhereHistoryKey" value="babelrc&#9;null&#9;null&#10;assertElementPr&#9;null&#9;null&#10;root-styles&#9;FILE&#9;file://C:/Users/garyg/Work/autofill/extension/src/angular-app/app/root-styles.css" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.9.4" />
-    <property name="last_opened_file_path" value="$USER_HOME$/ontask" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../notifyuw/heroku_connector" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="C:\Users\garyg\AppData\Roaming\npm\node_modules\tslint" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/extension/node_modules/mocha" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Work\autofill\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JSON" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Linters.JSHint" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -390,8 +446,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="build" type="js.build_tools.npm" factoryName="npm" temporary="true">
+  <component name="RunManager" selected="npm.build">
+    <configuration name="build" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/extension/package.json" />
       <command value="run" />
       <scripts>
@@ -401,9 +457,134 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="Parser test" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require babel-register</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/background_test.js</test-file>
+      <test-names>
+        <name value="Parser test" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Parser test.tests simple interpolate" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require babel-register</extra-mocha-options>
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/background_test.js</test-file>
+      <test-names>
+        <name value="Parser test" />
+        <name value="tests simple interpolate" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Parser" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require babel-register</extra-mocha-options>
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/background_test.js</test-file>
+      <test-names>
+        <name value="Parser" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Parser.formats substring" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/background_test.js</test-file>
+      <test-names>
+        <name value="Parser" />
+        <name value="formats substring" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Parser.formats valid country" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/background_test.js</test-file>
+      <test-names>
+        <name value="Parser" />
+        <name value="formats valid country" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Parser.parses condition strings" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/background_test.js</test-file>
+      <test-names>
+        <name value="Parser" />
+        <name value="parses condition strings" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="extension\test\background_test.js" type="mocha-javascript-test-runner" factoryName="Mocha" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require babel-register</extra-mocha-options>
+      <test-kind>TEST_FILE</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/background_test.js</test-file>
+      <method v="2" />
+    </configuration>
+    <configuration name="extension\test\parser_test.js" type="mocha-javascript-test-runner" factoryName="Mocha" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--require babel-register</extra-mocha-options>
+      <test-kind>TEST_FILE</test-kind>
+      <test-file>$PROJECT_DIR$/extension/test/parser_test.js</test-file>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Mocha.extension\test\parser_test.js" />
+      <item itemvalue="Mocha.extension\test\background_test.js" />
+      <item itemvalue="Mocha.Parser test" />
+      <item itemvalue="Mocha.Parser test.tests simple interpolate" />
+      <item itemvalue="Mocha.Parser.parses condition strings" />
+      <item itemvalue="Mocha.Parser" />
+      <item itemvalue="npm.build" />
+      <item itemvalue="Mocha.Parser.formats valid country" />
+      <item itemvalue="Mocha.Parser.formats substring" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
+        <item itemvalue="Mocha.Parser" />
+        <item itemvalue="Mocha.Parser.formats substring" />
+        <item itemvalue="Mocha.Parser.formats valid country" />
+        <item itemvalue="Mocha.Parser.parses condition strings" />
       </list>
     </recent_temporary>
   </component>
@@ -545,7 +726,18 @@
       <workItem from="1533921288208" duration="553000" />
       <workItem from="1533926884770" duration="11618000" />
       <workItem from="1534013392751" duration="4084000" />
-      <workItem from="1534035936357" duration="4543000" />
+      <workItem from="1534035936357" duration="4775000" />
+      <workItem from="1534198547203" duration="4576000" />
+      <workItem from="1534282415877" duration="10553000" />
+      <workItem from="1534371630498" duration="90000" />
+      <workItem from="1534371738561" duration="6068000" />
+      <workItem from="1534456877912" duration="6411000" />
+      <workItem from="1534716003736" duration="2613000" />
+      <workItem from="1534724255041" duration="2257000" />
+      <workItem from="1534800368619" duration="5954000" />
+      <workItem from="1534889832907" duration="7258000" />
+      <workItem from="1534909486267" duration="24000" />
+      <workItem from="1534973382439" duration="566000" />
     </task>
     <task id="LOCAL-00001" summary="Set up Angular 4 and Typescript">
       <created>1525556090659</created>
@@ -578,12 +770,43 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Parser - 2018.08.20 at 17h 27m 18s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 28m 28s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 28m 55s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 29m 15s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 29m 35s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 29m 48s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 30m 49s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser_formats_substring - 2018.08.20 at 17h 34m 11s.xml">
+      <configuration name="Parser.formats substring" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 34m 15s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Parser - 2018.08.20 at 17h 34m 39s.xml">
+      <configuration name="Parser" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="541396000" />
+    <option name="totallyTimeSpent" value="587998000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24381253" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -591,14 +814,14 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3121693" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926794" visible="true" weight="0.30984455" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997934" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926794" weight="0.30914825" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39852786" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.32874617" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32953367" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32912722" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.3284974" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50073206" side_tool="true" weight="0.32874617" />
@@ -656,113 +879,18 @@
     <MESSAGE value="Commit before making big changes to parser" />
     <option name="LAST_COMMIT_MESSAGE" value="Commit before making big changes to parser" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/extension/test/background_test.js</url>
+          <line>18</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/services/auth.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/models/Info.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/admin-test/admin-test.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="49" column="38" lean-forward="true" selection-start-line="49" selection-start-column="38" selection-end-line="65" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/services/data-format.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/dropdown.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="86" column="14" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/background/progressLogger.js" />
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/web-forms.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="321" column="16" selection-start-line="321" selection-start-column="16" selection-end-line="321" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/node_modules/rxjs/src/internal/observable/interval.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/progress-combined.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="44" column="14" lean-forward="true" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/send/send.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="26" column="80" selection-start-line="26" selection-start-column="80" selection-end-line="26" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/node_modules/@types/node/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/send/send.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2622">
-          <caret line="120" column="52" selection-start-line="120" selection-start-column="52" selection-end-line="120" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/status-dot.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/status-dot.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/services/auth-guard.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="20" column="47" lean-forward="true" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/login.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-68">
@@ -791,37 +919,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/content/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="70" lean-forward="true" selection-start-line="3" selection-start-column="70" selection-end-line="3" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/background/infoLoad.js" />
     <entry file="file://$PROJECT_DIR$/extension/src/background/processManager.js" />
-    <entry file="file://$PROJECT_DIR$/static_input/fields/field.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/common/messaging.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/extMessenger.js" />
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="8480" column="4" selection-start-line="8480" selection-start-column="4" selection-end-line="8480" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/.jshintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -832,27 +936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="40" column="15" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="18" column="86" selection-start-line="18" selection-start-column="86" selection-end-line="18" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2323">
-          <caret line="107" column="41" selection-start-line="107" selection-start-column="41" selection-end-line="107" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/app-credentials.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="538">
@@ -860,31 +943,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="116" column="23" lean-forward="true" selection-start-line="116" selection-start-column="23" selection-end-line="116" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static_input/processes/coalition.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="29" column="14" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extension/node_modules/jshint/src/jshint.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
           <caret line="2066" column="4" selection-start-line="2066" selection-start-column="4" selection-end-line="2066" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/background/constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -902,20 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/content/getElement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/content/runner.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="897">
-          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/progress-display.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1058">
@@ -923,7 +971,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extension/ext_assets/sample_data/app.json">
+    <entry file="file://$PROJECT_DIR$/extension/assets/sample_data/app.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="599">
           <caret line="160" column="41" selection-start-line="160" selection-start-column="26" selection-end-line="160" selection-end-column="41" />
@@ -937,20 +985,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/content/getCommandFn.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/content/content.main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -958,34 +992,242 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/background/helpers.js">
+    <entry file="file://$PROJECT_DIR$/extension/node_modules/@angular/compiler/src/expression_parser/parser.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
-          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/node_modules/@angular/compiler/src/ml_parser/parser.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/node_modules/babel-loader/lib/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="125" column="6" selection-start-line="125" selection-start-column="6" selection-end-line="125" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/content/constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="70" lean-forward="true" selection-start-line="3" selection-start-column="70" selection-end-line="3" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/node_modules/@angular/forms/src/model.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="340" column="13" selection-start-line="340" selection-start-column="13" selection-end-line="340" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2944">
+          <caret line="134" column="42" selection-start-line="134" selection-start-column="35" selection-end-line="134" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/contrib/process/process-edit.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1357">
+          <caret line="59" column="127" selection-start-line="59" selection-start-column="127" selection-end-line="59" selection-end-column="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static_input/fixtures/jane.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" lean-forward="true" selection-start-column="1" selection-end-line="18" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/.jshintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/content/.jshintrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static_input/processes/commonapp.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-333">
-          <caret line="36" column="98" selection-start-line="36" selection-start-column="88" selection-end-line="36" selection-end-column="98" />
+        <state relative-caret-position="1857">
+          <caret line="151" column="34" selection-start-line="151" selection-start-column="30" selection-end-line="151" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="40" column="15" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/test/background_test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="12" column="68" lean-forward="true" selection-start-line="12" selection-start-column="68" selection-end-line="12" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static_input/fields/field.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="79" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="79" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/background/parser.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="188" column="35" selection-start-line="188" selection-start-column="25" selection-end-line="188" selection-end-column="35" />
+        <state relative-caret-position="8533">
+          <caret line="371" selection-start-line="371" selection-end-line="371" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static_input/fixtures/michael.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="25" column="6" lean-forward="true" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/models/Table.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="39" column="11" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/field-viewer/field-viewer.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/javascript/nodejs/library/node-globals-stub.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/content/getElement.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/content/getCommandFn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-35">
+          <caret line="48" column="33" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/common/messaging.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/background/session.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="119" column="36" lean-forward="true" selection-start-line="119" selection-start-column="36" selection-end-line="119" selection-end-column="36" />
+        <state relative-caret-position="9039">
+          <caret line="398" column="23" selection-start-line="398" selection-start-column="13" selection-end-line="398" selection-end-column="23" />
           <folding>
             <element signature="e#20#64#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/background/helpers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/content/content.main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="44" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/content/runner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1403">
+          <caret line="62" column="18" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
+          <folding>
+            <element signature="e#70#114#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/background/constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/content/ui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1495">
+          <caret line="65" column="44" selection-start-line="65" selection-start-column="44" selection-end-line="65" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4002">
+          <caret line="184" column="51" selection-start-line="184" selection-start-column="51" selection-end-line="184" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1725">
+          <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/assets/icons/icon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static_input/processes/coalition.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
         </state>
       </provider>
     </entry>

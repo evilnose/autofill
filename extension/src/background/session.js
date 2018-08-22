@@ -12,6 +12,7 @@ const constants = require('./constants');
 const WaitingFor = {
     MESSAGE: 0,
     NEW_PAGE_LOAD: 1,
+    LOCAL_CALL: 2,
 };
 
 export default class Session {
@@ -112,13 +113,13 @@ export default class Session {
 
     runFormSeq(info) {
         this.info = info;
-        this.waitFor = 'tab_load';
+        this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
         this.dedicatedTabCreated = false;
         this.warnings = [];
         this.totalFieldSet = new Set();
         this.completedFieldList = [];
+        this.completedFieldSet = new Set();
         this.newPageLoading = false;
-        this.needToInject = false;
 
         this.startCheckingTimeout();
         chrome.runtime.onMessage.addListener(this.getMessageHandler());
@@ -126,7 +127,7 @@ export default class Session {
         this.logger.appendLogs("Message and tabLoad handlers added. Background and content scripts now communicate.", true);
 
         this.pendingNode = info.initialNode;
-        this.runCurrNode();
+        this.runCurrNodeNow();
     }
 
     startCheckingTimeout() {
@@ -165,21 +166,11 @@ export default class Session {
             // Make sure the tab's url has changed.
             if (changeInfo.url) {
                 this.logger.appendLogs(`\nNew page loading.. (URL: ${changeInfo.url}) `, true, true);
-                if (!helpers.isOfDomain(changeInfo.url, this.info.base)) {
-                    // New domain; fail for safety
-                    let allowed = false;
-                    if (this.info.allowed_hosts) {
-                        allowed = this.info.allowed_hosts.reduce((prev, curr) => {
-                            return prev || helpers.isOfDomain(changeInfo.url, curr);
-                        }, false);
-                    }
-
-                    if (!allowed) {
-                        this.handleFailure('A url not of specified domain' + this.info.base + 'is reached. ' +
-                            'Terminated for safety. This is most likely caused by a faulty template or a change' +
-                            'in App website layout. Please report this incidence if possible, thanks!');
-                        return;
-                    }
+                if (!this.isUrlAllowed(changeInfo.url)) {
+                    this.handleFailure('A url not of specified domain' + this.info.base + 'is reached. ' +
+                        'Terminated for safety. This is most likely caused by a faulty template or a change' +
+                        'in App website layout. Please report this incidence if possible, thanks!');
+                    return;
                 }
                 this.newPageLoading = true;
             }
@@ -189,12 +180,30 @@ export default class Session {
                 this.newPageLoading = false;
 
                 if (this.waitingFor === WaitingFor.NEW_PAGE_LOAD) {
-                    this.runCurrCommandWithDelay();
+                    this.waitingFor = WaitingFor.LOCAL_CALL; // prevent multiple page loading from executing too many commands.
+                    const delay = this.redirectsPending ? constants.NEW_PAGE_DELAY : constants.REDIRECTS_DELAY;
+                    setTimeout(() => {
+                        this.lastTimeActive = Date.now();
+                        this.redirectsPending = false;
+                        helpers.inject(tabId, constants.CONTENT_JS_PATH, this.runCurrNodeNow.bind(this));
+                    }, delay);
                 } else {
-                    console.warn("A new path is loaded, but the script is still there.");
+                    console.warn("A new resource has loaded while waiting for messages. This is fine as long as " +
+                        "not a new page is opened (i.e. the script persists)");
                 }
             }
         }
+    }
+
+    isUrlAllowed(url) {
+        if (helpers.isOfDomain(url, this.info.base)) {
+            return true;
+        }
+
+        // New domain; fail for safety
+        return this.info.allowed_hosts.some((host) => {
+            return helpers.isOfDomain(url, host);
+        });
     }
 
     onMessage(request) {
@@ -205,22 +214,22 @@ export default class Session {
             case 'try_met':
                 this.logger.appendLogs("Conditions met.", true);
                 this.pendingNode = this.pendingNode.altNext;
-                this.tryRunCurrCmd();
+                this.runCurrNodeWithDelay();
                 break;
             case 'next':
                 this.logger.appendLogs("Done.");
-                if (this.pendingField)
-                    this.completedFieldList.push(this.pendingField);
-                this.tryRunCurrCmd();
+                if (this.waitingFor === WaitingFor.MESSAGE) {
+                    if (this.pendingField) {
+                        this.addCompletedField(this.pendingField);
+                        this.pendingField = null;
+                    }
+                    this.runCurrNodeWithDelay();
+                }
                 break;
             case 'try_unmet':
                 this.logger.appendLogs("Conditions not met.", true);
                 this.pendingNode = this.pendingNode.next;
-                this.tryRunCurrCmd();
-                break;
-            case 'injected':
-                this.logger.appendLogs("Script has been injected.", true);
-                this.runCurrCommandWithDelay();
+                this.runCurrNodeWithDelay();
                 break;
             case 'failed':
                 this.handleFailure(request.reason);
@@ -232,15 +241,7 @@ export default class Session {
         this.lastImplication = null;
     }
 
-    tryRunCurrCmd() {
-        if (this.waitingFor === WaitingFor.MESSAGE) {
-            this.runCurrCommandWithDelay();
-        } else {
-            console.error("Expected waitingFor to be MESSAGE but is TAB_LOAD instead.");
-        }
-    }
-
-    runCurrNode() {
+    runCurrNodeNow() {
         while (this.pendingNode && this.pendingNode.type === NodeType.PASS) {
             this.pendingNode = this.pendingNode.next;
         }
@@ -248,14 +249,6 @@ export default class Session {
         if (!this.pendingNode) {
             this.logger.appendLogs("All commands have been run; finishing...");
             this.handleSuccess();
-            return;
-        }
-
-        if (this.needToInject) {
-            // Fresh page; need to inject script TODO or maybe we don't need to do that
-            this.logger.appendLogs("A new page has loaded; injecting content script...", true);
-            this.needToInject = false;
-            helpers.inject(this.tabId, constants.CONTENT_JS_PATH);
             return;
         }
 
@@ -268,9 +261,9 @@ export default class Session {
                 let condCmd = Session.evalCondition(this.pendingNode.condition);
                 if (isBool(condCmd)) {
                     this.pendingNode = condCmd ? this.pendingNode.altNext : this.pendingNode.next;
-                    setTimeout(this.runCurrNode.bind(this)); // call async to avoid recursion
+                    setTimeout(this.runCurrNodeNow.bind(this)); // call async to avoid recursion
                 } else {
-                    this.runCommand(condCmd, true);
+                    this.runCommand(condCmd);
                 }
                 break;
             default:
@@ -278,30 +271,25 @@ export default class Session {
         }
     }
 
-    runCommand(cmd, toTest) {
+    runCommand(cmd) {
         if (!cmd.action) {
             this.handleFailure(`Command has no action attribute: ${JSON.stringify(cmd)}`);
         }
 
-        cmd.toTest = toTest;
-
         // For summary and analytics
         if (cmd.field && !this.totalFieldSet.has(cmd.field)) {
-            this.totalFieldSet.add(cmd.field);
+            this.addTotalField(cmd.field);
             this.pendingField = cmd.field;
-        } else {
-            this.pendingField = null;
         }
 
         switch (cmd.action) {
             case 'open':
-                this.needToInject = true;
                 this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
                 if (!this.dedicatedTabCreated) {
                     // If first command (since idx is incremented before)
                     this.newPageLoading = true;
                     this.logger.appendLogs(`* Creating new tab with URL: ${cmd.target}.. `, false, true);
-                    helpers.newTab(this.getFullUrl(cmd.target),
+                    helpers.newTab(this.getFullUrlSafe(cmd.target),
                         tabId => {
                             this.dedicatedTabCreated = true;
                             console.log(`New tab loaded. ID: ${tabId}`);
@@ -309,21 +297,18 @@ export default class Session {
                         });
                 } else {
                     this.logger.appendLogs(`* Going to URL: ${cmd.target}.. `, false, true);
-                    helpers.open(this.tabId, this.getFullUrl(cmd.target));
+                    helpers.open(this.tabId, this.getFullUrlSafe(cmd.target));
                 }
                 break;
             case 'warn':
                 this.warnings.push(cmd.target);
-                this.runCurrCommandWithDelay();
+                this.runCurrNodeWithDelay();
                 break;
             case 'wait':
-                if (cmd.target) {
-                    this.logger.appendLogs(`* Sending command to delay ${cmd.target} milliseconds.. `, false, true);
-                } else {
-                    this.logger.appendLogs("* Sending command to delay.. ", false, true);
-                }
-                helpers.sendCommand(this.tabId, cmd);
-                this.waitingFor = WaitingFor.MESSAGE;
+                this.logger.appendLogs(`* Pausing for ${cmd.target || constants.WAIT_DELAY} milliseconds... `);
+                // helpers.sendCommand(this.tabId, cmd);
+                // this.waitingFor = WaitingFor.MESSAGE;
+                this.runCurrNodeWithDelay(cmd.target || constants.WAIT_DELAY);
                 break;
             default:
                 this.logCommand(cmd);
@@ -335,6 +320,11 @@ export default class Session {
         // E.g. a new page loads after this
         if (cmd.flag === 'n')
             this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
+        else if (cmd.flag === 'r') {
+            this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
+            this.redirectsPending = true;
+        }
+
 
         this.lastTimeActive = Date.now();
     }
@@ -364,22 +354,49 @@ export default class Session {
                     this.logger.appendLogs("* Clicking for navigation.. ", false, true);
                 this.logger.appendLogs(`(action: click, target: ${cmd.target} `, true, true);
                 break;
+            case 'assertElementPresent':
+                this.logger.appendLogs(`* Asserting that element '${cmd.target}' exists...`, true, true);
+                break;
             case 'waitForElementPresent':
                 this.logger.appendLogs(`* Waiting for element '${cmd.target}' to show up... `, true, true);
                 break;
         }
     }
 
-    runCurrCommandWithDelay() {
-        setTimeout(() => this.runCurrNode(), constants.DEFAULT_DELAY);
+    runCurrNodeWithDelay(delay) {
+        setTimeout(() => this.runCurrNodeNow(), delay || constants.DEFAULT_DELAY);
+    }
+
+    getFullUrlSafe(path) {
+        const url = this.getFullUrl(path);
+        if (this.isUrlAllowed(url)) {
+            return url;
+        }
+        throw new Error("Your process template attempts to go to a url that is of a domain neither specified by the 'base'" +
+            "attribute nor part of the 'allowed_hosts' array.");
     }
 
     getFullUrl(path) {
-        return helpers.getUrl(this.info.base, path);
+        if (helpers.isUrlAbsolute(path)) {
+            return path;
+        } else {
+            return helpers.getUrl(this.info.base, path);
+        }
     }
 
     get sessionInfo() {
         return this.logger.sessionInfo;
+    }
+
+    addCompletedField(f) {
+        if (!this.completedFieldSet.has(f)) {
+            this.completedFieldList.push(f);
+            this.completedFieldSet.add(f);
+        }
+    }
+
+    addTotalField(f) {
+        this.totalFieldSet.add(f);
     }
 }
 
