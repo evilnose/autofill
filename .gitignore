@@ -40,3 +40,4 @@ Thumbs.db
 ##########################
 extension/dist/
 extension/node_modules/
+backend/function/node_modules

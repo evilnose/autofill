@@ -1,43 +1,63 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "./services/auth.service";
 import {DbService} from "./services/db.service";
+import * as firebase from 'firebase/app';
+import {FirebaseApp} from "angularfire2";
 
 @Component({
     template: `
         <div class="div-signin">
             <form class="form-signin text-center">
+                <div class="alert alert-danger" *ngIf="lastError">
+                    {{lastError}}
+                </div>
                 <h2>Sign in</h2>
                 <p>{{getLoginStatusMessage()}}</p>
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <!--<label for="inputEmail" class="sr-only">Email address</label>-->
+                <!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>-->
+                <!--<label for="inputPassword" class="sr-only">Password</label>-->
+                <!--<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+                <!--<div class="checkbox my-3">-->
+                <!--<label>-->
+                <!--<input type="checkbox" (click)="this.remember = !this.remember;"> Remember me-->
+                <!--</label>-->
+                <!--</div>-->
+                <firebase-ui></firebase-ui>
                 <div class="checkbox my-3">
                     <label>
-                        <input type="checkbox" (click)="this.remember = !this.remember;"> Remember me
+                        <input type="checkbox" [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"
+                               (change)="rememberClicked(remember)"> Remember me
                     </label>
                 </div>
-                <button (click)="toLogin()" class="btn-go btn btn-primary mx-auto">
-                    Login
-                </button>
             </form>
         </div>`,
-    styleUrls: ["../assets/scss/app.scss"],
+    styleUrls: ["./login.component.scss", "../assets/scss/app.scss"],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     public message: string;
-    public remember: boolean;
     private readonly FALLBACK_URL = "/welcome";
     private redirecting: boolean;
+    private lastError: any;
 
-    constructor(public authService: AuthService, public router: Router, private dbService: DbService) {
-        this.remember = false;
+    constructor(public authService: AuthService, public router: Router, private dbService: DbService, private firebaseApp: FirebaseApp) {
         this.redirecting = false;
     }
 
-    public toLogin(): void {
-        this.authService.login(this.remember, this.authRedirect.bind(this));
+    ngOnInit() {
+        this.firebaseApp.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+            .catch(err => this.lastError = err);
+    }
+
+    //
+    // public googleLogin(): void {
+    //     this.authService.login(this.remember, this.authRedirect.bind(this));
+    // }
+
+    private rememberClicked(remember: boolean): void {
+        const persistence = remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+        this.firebaseApp.auth().setPersistence(persistence)
+            .catch(err => this.lastError = err);
     }
 
     public toLogout(): void {
