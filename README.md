@@ -31,7 +31,7 @@ Here are the scripts that you can run in the terminal as of now:
 
 * `npm run build`: Builds the extension in development environment. **Starts watching by default.**
 * `npm run build:prod`: Builds the extension in production environment (untested). **Starts watching by default.**
-* `npm run test` or `npm t`: Run the integration test (no test has been created yet). 
+* `npm run test` or `npm t`: Runs unit tests. Few tests have been created due to lack of time.
 * `npm run lint`: Lints all the files in the `src` directory.
 * `npm run watch`: Starts watching the resolved files, excluding `node_modules` directory.
 
