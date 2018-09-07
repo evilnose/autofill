@@ -40,4 +40,8 @@ Thumbs.db
 ##########################
 extension/dist/
 extension/node_modules/
-backend/function/node_modules
+backend/function/node_modules/
+
+# API keys and credentials #
+############################
+extension/src/angular-app/env/

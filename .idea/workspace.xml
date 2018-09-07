@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7f0fda6-c323-433d-82bc-b7ec587386be" name="Default" comment="Commit before making big changes to parser">
-      <change afterPath="$PROJECT_DIR$/extension/src/angular-app/app/account/account.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extension/src/angular-app/app/partials/peek.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extension/src/angular-app/app/partials/resource-list.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/extension/src/angular-app/app/partials/resource-list.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/extension/src/angular-app/env/firebase-initApp.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/partials/app-credentials.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/partials/app-credentials.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/send/send.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/send/send.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/assets/scss/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/angular-app/assets/scss/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/dist/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -29,8 +21,8 @@
     <session id="-1524037970">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="35" />
-          <entry key="project.open.time.1" value="3" />
+          <entry key="project.closed" value="36" />
+          <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.4" value="5" />
           <entry key="project.open.time.5" value="10" />
@@ -38,7 +30,7 @@
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="35" />
+          <entry key="project.opened" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -46,15 +38,15 @@
           <entry key="babelrc" value="1" />
           <entry key="css" value="1" />
           <entry key="csv" value="5" />
-          <entry key="gitignore" value="3" />
+          <entry key="gitignore" value="4" />
           <entry key="html" value="9" />
           <entry key="js" value="93" />
           <entry key="jshintrc" value="4" />
-          <entry key="json" value="33" />
+          <entry key="json" value="35" />
           <entry key="png" value="2" />
           <entry key="scss" value="12" />
           <entry key="svg" value="1" />
-          <entry key="ts" value="52" />
+          <entry key="ts" value="53" />
           <entry key="vue" value="1" />
         </counts>
       </usages-collector>
@@ -65,12 +57,12 @@
           <entry key="HTML" value="9" />
           <entry key="Image" value="2" />
           <entry key="JSHint" value="4" />
-          <entry key="JSON" value="34" />
+          <entry key="JSON" value="36" />
           <entry key="JavaScript" value="93" />
-          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="PLAIN_TEXT" value="6" />
           <entry key="SCSS" value="12" />
           <entry key="SVG" value="1" />
-          <entry key="TypeScript" value="52" />
+          <entry key="TypeScript" value="53" />
           <entry key="Vue.js" value="1" />
         </counts>
       </usages-collector>
@@ -78,13 +70,13 @@
         <counts>
           <entry key="babelrc" value="17" />
           <entry key="csv" value="388" />
-          <entry key="gitignore" value="30" />
+          <entry key="gitignore" value="128" />
           <entry key="html" value="187" />
-          <entry key="js" value="32970" />
+          <entry key="js" value="33055" />
           <entry key="jshintrc" value="59" />
-          <entry key="json" value="1845" />
+          <entry key="json" value="1858" />
           <entry key="scss" value="842" />
-          <entry key="ts" value="9084" />
+          <entry key="ts" value="9191" />
           <entry key="txt" value="50" />
         </counts>
       </usages-collector>
@@ -93,11 +85,11 @@
           <entry key="CSV" value="251" />
           <entry key="HTML" value="292" />
           <entry key="JSHint" value="59" />
-          <entry key="JSON" value="1862" />
-          <entry key="JavaScript" value="32970" />
-          <entry key="PLAIN_TEXT" value="217" />
+          <entry key="JSON" value="1875" />
+          <entry key="JavaScript" value="33055" />
+          <entry key="PLAIN_TEXT" value="315" />
           <entry key="SCSS" value="842" />
-          <entry key="TypeScript" value="8979" />
+          <entry key="TypeScript" value="9086" />
         </counts>
       </usages-collector>
     </session>
@@ -116,7 +108,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/extension/src/angular-app/assets/scss/app.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="587">
@@ -125,25 +117,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/resource-list.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="874">
-              <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+            <state relative-caret-position="541">
+              <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
               <folding>
                 <element signature="e#0#82#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5428">
-              <caret line="246" column="4" selection-start-line="246" selection-start-column="4" selection-end-line="246" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -186,7 +166,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>remember</find>
       <find>Success</find>
       <find>status</find>
       <find>getCredentialsColl</find>
@@ -216,6 +195,7 @@
       <find>resourceS</find>
       <find>send</find>
       <find>font-size</find>
+      <find>&quot;</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Work\autofill</dir>
@@ -228,9 +208,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/extension/ext_assets/sample_data/app.json" />
-        <option value="$PROJECT_DIR$/extension/src/background/warningCode.js" />
-        <option value="$PROJECT_DIR$/extension/src/background/codeToText.js" />
         <option value="$PROJECT_DIR$/extension/src/content/runtime.js" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/progress-display.component.ts" />
         <option value="$PROJECT_DIR$/extension/src/common/utils.js" />
@@ -259,7 +236,6 @@
         <option value="$PROJECT_DIR$/extension/src/background/constants.js" />
         <option value="$PROJECT_DIR$/extension/src/background/session.js" />
         <option value="$PROJECT_DIR$/static_input/processes/coalition.json" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/extension/webpack.config.js" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/login.component.scss" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/services/auth.service.ts" />
@@ -274,11 +250,15 @@
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/send/send.component.html" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/services/db.service.ts" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/resource-list.component.scss" />
-        <option value="$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/peek.component.ts" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/partials/resource-list.component.ts" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/app/account/account.component.ts" />
         <option value="$PROJECT_DIR$/extension/src/angular-app/assets/scss/app.scss" />
+        <option value="$PROJECT_DIR$/extension/env/firebase-items.json" />
+        <option value="$PROJECT_DIR$/extension/env/firebase-initApp.json" />
+        <option value="$PROJECT_DIR$/extension/src/angular-app/env/firebase-initApp.js" />
+        <option value="$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -369,43 +349,7 @@
               <item name="extension" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="angular-app" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="account" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autofill" type="462c0819:PsiDirectoryNode" />
-              <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="angular-app" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="partials" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autofill" type="462c0819:PsiDirectoryNode" />
-              <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="angular-app" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="send" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autofill" type="462c0819:PsiDirectoryNode" />
-              <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="angular-app" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autofill" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autofill" type="462c0819:PsiDirectoryNode" />
-              <item name="extension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="angular-app" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="scss" type="462c0819:PsiDirectoryNode" />
+              <item name="env" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -432,15 +376,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\garyg\Work\autofill" />
-      <recent name="C:\Users\garyg\Work\autofill\extension\src" />
-      <recent name="C:\Users\garyg\Work\autofill\extension\src\angular-app" />
-      <recent name="C:\Users\garyg\Work\autofill\extension\src\angular-app\assets" />
-      <recent name="C:\Users\garyg\Work\autofill\extension\src\common" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Work\autofill\src\angular-app\app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\garyg\Work\autofill\extension\src\angular-app" />
+      <recent name="C:\Users\garyg\Work\autofill" />
+      <recent name="C:\Users\garyg\Work\autofill\extension\src" />
+      <recent name="C:\Users\garyg\Work\autofill\extension\src\angular-app\assets" />
+      <recent name="C:\Users\garyg\Work\autofill\extension\src\common" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -753,6 +697,7 @@
       <workItem from="1536104412372" duration="6617000" />
       <workItem from="1536180085494" duration="10583000" />
       <workItem from="1536278499939" duration="5000" />
+      <workItem from="1536289346370" duration="1396000" />
     </task>
     <task id="LOCAL-00001" summary="Set up Angular 4 and Typescript">
       <created>1525556090659</created>
@@ -818,10 +763,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="618153000" />
+    <option name="totallyTimeSpent" value="619549000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24381253" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -906,13 +852,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/extension/src/background/parser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8533">
-          <caret line="371" selection-start-line="371" selection-end-line="371" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static_input/fixtures/michael.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
@@ -1005,13 +944,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="62" column="18" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="784">
-          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -1154,13 +1086,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="90" column="22" selection-start-line="90" selection-start-column="22" selection-end-line="90" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/peek.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -1172,26 +1097,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="8" column="64" lean-forward="true" selection-start-line="8" selection-start-column="64" selection-end-line="8" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/account/account.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/resource-list.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#82#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1226,6 +1131,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="587">
           <caret line="220" column="12" selection-start-line="220" selection-start-column="12" selection-end-line="220" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/account/account.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/env/firebase-initApp.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="42" column="30" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="36" column="56" lean-forward="true" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extension/src/angular-app/app/partials/resource-list.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#82#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
