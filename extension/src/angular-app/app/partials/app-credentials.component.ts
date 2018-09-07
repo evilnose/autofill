@@ -172,7 +172,7 @@ export class AppCredentialsComponent implements OnInit {
 
     private updateDisplay(): void {
         const id: string = this.formGroup.get("appId").value;
-        this.dbService.getCredentials(id, true)
+        this.dbService.getCredentials(id, this.isContrib)
             .then((creds: AppCredential) => {
                 this.changed.emit(creds);
                 this.savedCredentials = creds;

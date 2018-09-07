@@ -11,6 +11,7 @@ import {WelcomeComponent} from "./welcome/welcome.component";
 import {ContribComponent} from "./contrib/contrib.component";
 import {FixtureViewerComponent} from "./partials/fixture-viewer.component";
 import FieldViewerComponent from "./field-viewer/field-viewer.component";
+import AccountComponent from "./account/account.component";
 
 const appRoutes: Routes = [
     {
@@ -38,6 +39,11 @@ const appRoutes: Routes = [
             { path: "field_viewer", component: FieldViewerComponent },
             // { path: "fields", compo}
         ],
+    },
+    {
+        path: "account",
+        component: AccountComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: "",

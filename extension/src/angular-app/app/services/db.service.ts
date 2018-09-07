@@ -79,6 +79,10 @@ export class DbService {
         return this.getCollAsMap(this.appColl);
     }
 
+    public getAppDoc(appId: string): Promise<any> {
+        return this.appColl.ref.doc(appId).get();
+    }
+
     public getAppCollection(): Promise<any> {
         return this.appColl.ref.get();
     }
@@ -238,6 +242,11 @@ export class DbService {
         } else {
             alert("You're supposed to be logged in. Either I screwed up or you did something sketchy.");
         }
+    }
+
+    getCredentialDocs(): Promise<any> {
+        return this.getCredentialsColl(false).ref.get()
+            .then((qs: QuerySnapshot<AppCredential>) => qs.docs);
     }
 }
 

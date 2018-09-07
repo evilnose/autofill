@@ -4,7 +4,9 @@ A browser extension that automates the process of completing college application
 
 ## Project Directory Structure
 
-*To be done*
+backend/		For future backend data processing. Currently idle.
+extension/		Code for the Chrome extension.
+static_input/	Some static files to be fed to the extension through the admin interface.
 
 ## Build Notes
 
@@ -37,6 +39,6 @@ Here are the scripts that you can run in the terminal as of now:
 
 You can view all the script commands in `package.json` at the project root directory.
 
-### Build rules
+## Process Template Syntax
 
-*To be done*
+Process template syntax is created for developers and contributors to create concise and secure "processes", or instructions, for the extension to follow, in order to send user data to a particular app website. The detailed documentation on how the process template syntax works is [here](https://docs.google.com/document/d/1vFvvlerMwnTfeGj2yDEFs9KPKqqpIAQjp4wTwxG_6SM/edit?usp=sharing).

@@ -209,3 +209,19 @@ p {
   width: 10em;
 }
 
+.container-center {
+  display: flex;
+  align-items: center;
+}
+
+.danger-zone {
+  background-color: #ffe0ed;
+  border: 2px solid red;
+  border-radius: 1em;
+  padding: 3em;
+}
+
+.big-note {
+  font-size: 1.5em;
+  font-weight: bold;
+}

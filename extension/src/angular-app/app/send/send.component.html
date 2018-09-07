@@ -17,36 +17,36 @@
 
     <div class="container-fluid dots-container mt-3 mb-5">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <status-dot [textMap]="userInfoStatusTexts" [status]="userInfoStatus"></status-dot>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <status-dot [textMap]="appStatusTexts" [status]="appStatus"></status-dot>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <status-dot [textMap]="credentialsStatusTexts" [status]="credentialsStatus"></status-dot>
             </div>
         </div>
     </div>
     <div class="row" [formGroup]="sendForm">
-        <div class="col-md-3">
+        <div class="col-lg-4">
             <dropdown-search [options]="appOptions" [btnClass]="'btn btn-primary btn-block'"
                              [btnText]="'Select App...'" formControlName="appId"
                              dropdownRequired>
 
             </dropdown-search>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-8">
             <div *ngIf="userInfo && this.currAppId" class="col-md-6">
                 <app-credential [appFullName]="this.appFullName" [appId]="this.currAppId"
                                 (changed)="onCredChanged($event)"
                                 [isContrib]="false"></app-credential>
             </div>
         </div>
-        <div class="col-md-5">
-            <progress-display [process]="process" [userInfo]="userInfo"
-                              [skipLogin]="skipLogin" [appAuth]="appAuth"
-                              [forAdmin]="false"></progress-display>
-        </div>
+    </div>
+    <div class="mt-5">
+        <progress-display [process]="process" [userInfo]="userInfo"
+                          [skipLogin]="skipLogin" [appAuth]="appAuth"
+                          [forAdmin]="false"></progress-display>
     </div>
 </div>
