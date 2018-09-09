@@ -57,10 +57,6 @@ export class DbService {
         this.processColl = db.collection("processes");
 
         this.isAdmin = false;
-        const self = this;
-        authService.onStateChange((user: User) => {
-            self.updateUserStatus();
-        });
     }
 
     private getUserAdminStatus(): Promise<boolean> {
@@ -206,14 +202,24 @@ export class DbService {
 
     public getCurrUserData(): Promise<IUserData> {
         return this.db.collection(this.currUserPath + "/user_data").ref.doc("0").get().then(
-            (doc) => doc.data().data as IUserData,
+                (doc) => {
+                    console.log("DOC:",doc);
+                    return doc.exists ? doc.data().data as IUserData : {}
+                },
         );
     }
 
-    public setCurrUserData(userData: any): Promise<void> {
-        return this.db.collection(this.currUserPath + "/user_data").ref.doc("0").update({
-            data: userData,
-        });
+    public async setCurrUserData(userData: any): Promise<void> {
+        const docRef = this.db.collection(this.currUserPath + "/user_data").ref.doc("0");
+        const userDoc = await docRef.get();
+        if (userDoc.exists)
+            return docRef.update({
+                data: userData,
+            });
+        else
+            return docRef.set({
+                data: userData,
+            });
     }
 
     protected getPermissions(): Promise<any> {
@@ -225,7 +231,7 @@ export class DbService {
         }
         const userDoc = this.userColl.ref.doc(uid);
         return userDoc.get().then((doc) => {
-            return !doc.exists ? {} : doc.data().permissions;
+            return doc.exists ? (doc.data().permissions || {}) : {};
         });
     }
 
@@ -244,9 +250,24 @@ export class DbService {
         }
     }
 
-    getCredentialDocs(): Promise<any> {
-        return this.getCredentialsColl(false).ref.get()
+    public getCredentialDocs(isContrib: boolean): Promise<any> {
+        return this.getCredentialsColl(isContrib).ref.get()
             .then((qs: QuerySnapshot<AppCredential>) => qs.docs);
+    }
+
+    public async deleteUserData(): Promise<void> {
+        const uid = this.authService.getUid();
+        const userDoc = this.userColl.ref.doc(uid);
+        // Delete app credentials
+        for (const isDev of [false, true]) {
+            const appCreds = await this.getCredentialDocs(isDev) as AngularFirestoreDocument[];
+            for (const appCred of appCreds) {
+                await appCred.ref.delete();
+            }
+        }
+        await userDoc.collection("user_data").doc("0").delete();
+        await userDoc.delete();
+        await this.authService.getCurrentUser().delete();
     }
 }
 

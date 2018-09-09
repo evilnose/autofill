@@ -1,7 +1,7 @@
 import {Component, ContentChild, Input, OnInit, TemplateRef} from "@angular/core";
 import {Status} from "./status-dot.component";
 
-@Component({
+@   Component({
     template: `
         <div *ngIf="deleteStatus === StatusRef.SUCCESS" class="alert alert-success">
             Deletion successful.
@@ -13,7 +13,7 @@ import {Status} from "./status-dot.component";
         <div *ngIf="deleteStatus === StatusRef.PENDING" class="alert alert-info">
             Deleting...
         </div>
-        <div *ngIf="getStatus === StatusRef.SUCCESS" class="resource-block">
+        <div *ngIf="getStatus === StatusRef.SUCCESS" class="resource-block mb-3">
             <div *ngIf="resList?.length > 0" class="container-fluid">
                 <div *ngFor="let r of resList" class="row">
                     <div class="col-md-8 container-center">

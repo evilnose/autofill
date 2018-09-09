@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
         const url: string = state.url;
 
-
         if (!this.authService.isAuthenticated()) {
             // Store the attempted URL for redirecting
             this.authService.redirectUrl = url;
@@ -23,7 +22,7 @@ export class AuthGuard implements CanActivate {
             // Navigate to the login page with extras
             this.router.navigate(["/login"]);
             return false;
-        } else if (url === "/contribute") {
+        } else if (url.startsWith("/contribute")) {
             // Check if user is a registered contributor (or admin, as of now)
             return this.dbService.isAdmin;
         } else {

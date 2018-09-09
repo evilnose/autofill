@@ -1,7 +1,7 @@
-first_name;First Name
-last_name;Last Name
-middle_name;Middle Name
-nickname;Nickname
+first_name;;First Name
+last_name;;Last Name
+middle_name;;Middle Name
+nickname;;Nickname
 former_last_name;Your former last name (if any);Former Last Name
 suffix;;Suffix
 birth_date;Your date of birth;Birth Date
