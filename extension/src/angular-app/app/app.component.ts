@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
                this.dbService.updateUserStatus();
            } else {
                // User is logged out; redirect to main page.
+               this.dbService.isAdmin = false;
                this.router.navigate(["/"]);
            }
         });

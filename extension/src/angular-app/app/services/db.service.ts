@@ -255,7 +255,7 @@ export class DbService {
             .then((qs: QuerySnapshot<AppCredential>) => qs.docs);
     }
 
-    public async deleteUserData(): Promise<void> {
+    public async deleteUserAccountAndData(): Promise<void> {
         const uid = this.authService.getUid();
         const userDoc = this.userColl.ref.doc(uid);
         // Delete app credentials
@@ -266,7 +266,9 @@ export class DbService {
             }
         }
         await userDoc.collection("user_data").doc("0").delete();
-        await userDoc.delete();
+        const userGot = await userDoc.get();
+        if (userGot.exists)
+            await userDoc.delete();
         await this.authService.getCurrentUser().delete();
     }
 }

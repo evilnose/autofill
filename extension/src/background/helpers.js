@@ -87,6 +87,12 @@ export function isUrlAbsolute(url) {
     return pat.test(url);
 }
 
+export function setDiff(a, b) {
+    return new Set(
+        [...a].filter(x => !b.has(x))
+    );
+}
+
 // FROM STACKOVERFLOW
 function extractRootDomain(url) {
     let domain = extractHostname(url),

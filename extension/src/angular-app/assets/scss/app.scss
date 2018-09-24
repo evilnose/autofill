@@ -15,12 +15,7 @@ $contrib-navbar-ht: 60px;
 }
 */
 
-body {
-  font-size: 18px;
-}
-
 p {
-  font-size: 1.2em;
 }
 
 .active-link {
@@ -48,14 +43,14 @@ p {
 
 .admin-action-btn {
   border: 1px solid #ccc;
-  padding: 0.5em;
+  padding: 0.4em;
   cursor: pointer;
   width: 100% !important;
   min-width: 10em;
   background-color: $admin;
   margin: 0;
   color: white;
-  font-size: 1.25em;
+  font-size: 1.1em;
   &:hover {
     background-color: $admin-darker;
   }
@@ -64,10 +59,10 @@ p {
 
 .admin-action-area {
   display: block;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-top: 1.75em;
+  margin-bottom: 1.75em;
   margin-left: 1em;
-  width: 40% !important;
+  width: 90% !important;
 }
 
 .admin-major-action {
@@ -109,11 +104,11 @@ p {
 }
 
 .label-small {
-  font-size: 1.1em;
+  font-size: 0.8em;
 }
 
 .indicator {
-  font-size: 1.3em;
+  font-size: 1.1em;
   color: #7f7f7f;
 }
 
@@ -162,9 +157,9 @@ p {
 
 .btn-go {
   @extend %btn-def;
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: bold;
-  height: 3em;
+  height: 2.75em;
   width: 30%;
   border: 1px solid $primary;
   color: $primary;
@@ -185,7 +180,7 @@ p {
 
 .align-text-w-btn {
   position: absolute;
-  margin-top: 0.5em;
+  margin-top: 0.4em;
 }
 
 .fixed-top-padded {
@@ -202,11 +197,11 @@ p {
 }
 
 .contrib-nav-item {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 .btn-fixed-width {
-  width: 10em;
+  width: 8em;
 }
 
 .container-center {
@@ -217,11 +212,11 @@ p {
 .danger-zone {
   background-color: #ffe0ed;
   border: 2px solid red;
-  border-radius: 1em;
-  padding: 3em;
+  border-radius: 0.75em;
+  padding: 2.75em;
 }
 
 .big-note {
-  font-size: 1.5em;
+  font-size: 1.1em;
   font-weight: bold;
 }

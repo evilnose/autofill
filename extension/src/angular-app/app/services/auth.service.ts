@@ -3,16 +3,18 @@ import {Injectable} from "@angular/core";
 import {FirebaseApp} from "angularfire2";
 import {AngularFireAuth} from "angularfire2/auth";
 import {FirebaseError, User} from "firebase";
+import {Params} from "@angular/router";
 
 @Injectable()
 export class AuthService {
     public redirectUrl: string;
+    public redirectQueryParams: Params;
 
     constructor(public firebaseApp: FirebaseApp, public afAuth: AngularFireAuth) {
     }
 
-    public logout(): void {
-        this.afAuth.auth.signOut();
+    public logout(): Promise<void> {
+        return this.afAuth.auth.signOut();
     }
 
     public isAuthenticated(): boolean {

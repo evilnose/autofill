@@ -11,7 +11,6 @@ import {DbService} from "../services/db.service";
     styleUrls: ["./admin-test.scss", "../../assets/scss/app.scss"],
     template: `
         <div class="test-area">
-            <h2>Test</h2>
             <form [formGroup]="testForm">
                 <div>
                     <div class="row">

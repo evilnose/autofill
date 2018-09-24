@@ -1,6 +1,7 @@
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatTabsModule} from '@angular/material/tabs';
 import {MatDialogModule} from "@angular/material/dialog";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -46,10 +47,10 @@ import {initAppConfig} from "../env/firebase-initApp";
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
     signInFlow: 'popup',
     signInOptions: [
-        {
-            requireDisplayName: false,
-            provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
-        },
+        // {
+        //     requireDisplayName: false,
+        //     provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
+        // },
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         {
             scopes: ['email',],
@@ -63,7 +64,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
         // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
     ],
     tosUrl: 'http://evilnose.github.io/autofill-site/tos',
-    privacyPolicyUrl: 'http://evilnose.github.io/autofill-site/privacy-policy',
+    privacyPolicyUrl: 'http://evilnose.github.io/autofill-site/privacy',
     credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
 };
 
@@ -103,6 +104,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
         FormsModule,
         Ng2PageScrollModule,
         ReactiveFormsModule,
+        MatTabsModule,
         MatDialogModule,
         FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     ],

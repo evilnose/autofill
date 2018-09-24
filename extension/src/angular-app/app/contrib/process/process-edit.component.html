@@ -20,7 +20,7 @@
             Failed to submit process.
         </div>
         <div class="row">
-            <div class="col-md-6 form-group">
+            <div class="col-md-4 form-group">
                 <div *ngIf="this.appIdField.invalid && (this.appIdField.dirty || this.appIdField.touched || processForm.touched)"
                      class="alert alert-danger admin-action-area">
                     <div *ngIf="this.appIdField.errors.required">Please select an App.</div>
@@ -45,32 +45,41 @@
                         Test/Validate...
                     </button>
                 </div>
-                <tester *ngIf="testerOpen" [testProcess]="this.processJSON" [appInfo]="this.currAppData"
-                        [appId]="appId"></tester>
-                <hr/>
+                <div *ngIf="testerOpen" class="admin-action-area">
+                    To test, click the "Test" tab to the right.
+                </div>
                 <div class="admin-action-area">
                     <input type="submit" value="Publish" class="admin-major-action admin-action-btn btn"/>
                 </div>
             </div>
-            <div class="col-md-6 form-group">
-                <div *ngIf="this.processJSONField.invalid && (this.processJSONField.dirty || this.processJSONField.touched || processForm.touched)"
-                     class="alert alert-danger">
-                    <div *ngIf="this.processJSONField.errors.required">Please load/enter the process.</div>
-                </div>
-                <div *ngIf="!jsonValid && (this.processJSONField.dirty || this.processJSONField.touched || processForm.touched)" class="alert alert-danger">
-                    Invalid JSON.
-                </div>
-                <button *ngIf="editingProcess" class="btn btn-outline-primary pull-right mb-2" type="button"
-                        (click)="editingProcess=false">
-                    <span *ngIf="editingProcess">Done</span>
-                </button>
-                <button *ngIf="!editingProcess" class="btn btn-outline-primary pull-right mb-2" type="button"
-                        (click)="editingProcess=true">
-                    <span>Edit</span>
-                </button>
-                <textarea [readonly]="!editingProcess" class="editor form-control" rows="25" title="editor"
-                          formControlName="processJSON" required>
-                </textarea>
+            <div class="col-md-8 form-group">
+                <mat-tab-group>
+                    <mat-tab label="Process JSON">
+                        <div *ngIf="this.processJSONField.invalid && (this.processJSONField.dirty || this.processJSONField.touched || processForm.touched)"
+                             class="alert alert-danger">
+                            <div *ngIf="this.processJSONField.errors.required">Please load/enter the process.</div>
+                        </div>
+                        <div *ngIf="!jsonValid && (this.processJSONField.dirty || this.processJSONField.touched || processForm.touched)"
+                             class="alert alert-danger">
+                            Invalid JSON.
+                        </div>
+                        <button *ngIf="editingProcess" class="btn btn-outline-primary pull-right mb-2" type="button"
+                                (click)="editingProcess=false">
+                            <span *ngIf="editingProcess">Done</span>
+                        </button>
+                        <button *ngIf="!editingProcess" class="btn btn-outline-primary pull-right mb-2" type="button"
+                                (click)="editingProcess=true">
+                            <span>Edit</span>
+                        </button>
+                        <textarea [readonly]="!editingProcess" class="editor form-control" rows="25" title="editor"
+                                  formControlName="processJSON" required></textarea>
+                    </mat-tab>
+                    <mat-tab label="Test">
+                        <tester [testProcess]="this.processJSON" [appInfo]="this.currAppData"
+                                [appId]="appId"></tester>
+                        <hr/>
+                    </mat-tab>
+                </mat-tab-group>
             </div>
         </div>
     </form>

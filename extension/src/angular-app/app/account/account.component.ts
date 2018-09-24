@@ -1,9 +1,15 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {DbService} from "../services/db.service";
 import {Status} from "../partials/status-dot.component";
+import {AuthService} from "../services/auth.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     template: `
+        <div *ngIf="promptParam === 'delete-now'" class="alert alert-info">
+            <h2>Verification successful</h2>
+            You are now verified to delete your account.
+        </div>
         <h2>My Account</h2>
         <p>Manage data associated with your account here.</p>
         <h3 class="my-4">Application Credentials</h3>
@@ -47,7 +53,7 @@ import {Status} from "../partials/status-dot.component";
     `,
     styleUrls: ['../../assets/scss/app.scss', '../partials/resource-list.component.scss'],
 })
-export default class AccountComponent {
+export default class AccountComponent implements OnInit {
     private getCredentialsFn: () => any = () => this.dbService.getCredentialDocs(false)
         .then(async (docs: any[]) => {
             const resources: object[] = [];
@@ -65,9 +71,16 @@ export default class AccountComponent {
     private deleteAccountStatus: Status;
     private StatusRef = Status;
     private lastError: string;
+    private promptParam: string;
 
-    constructor(public dbService: DbService) {
+    constructor(public dbService: DbService, private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
         this.deleteAccountStatus = Status.IDLE;
+    }
+
+    ngOnInit() {
+        this.activatedRoute.queryParams.subscribe((params) => {
+            this.promptParam = params.prompt;
+        });
     }
 
     async deleteAccount() {
@@ -75,10 +88,21 @@ export default class AccountComponent {
         if (sure) {
             try {
                 this.deleteAccountStatus = Status.PENDING;
-                await this.dbService.deleteUserData();
-                // await this.dbService.deleteAccount();
+                await this.dbService.deleteUserAccountAndData();
                 this.deleteAccountStatus = Status.SUCCESS;
             } catch (e) {
+                if (e.code === "auth/requires-recent-login") {
+                    alert("Since deleting your account is a sensitive action, a recent login is required. " +
+                        "You will be logged out and asked to log in again.");
+                    await this.authService.logout();
+                    this.authService.redirectUrl = '/account';
+                    this.router.navigate(['/login'], {
+                        queryParams: {
+                            reason: 'delete-account',
+                        },
+                    });
+                    return;
+                }
                 this.deleteAccountStatus = Status.FAILED;
                 this.lastError = e;
             }

@@ -92,23 +92,34 @@ export default class Session {
     }
 
     getSummaryStr() {
-        let finalStr = "\n----SESSION SUMMARY----\n\n";
-        finalStr += `Fields ${this.completedFieldList.length}/${this.totalFieldSet.size} completed.\n`;
-        if (this.completedFieldList.length > 0) {
-            finalStr += "Completed fields:\n";
+        const strArr = ["\n----SESSION SUMMARY----\n\n", ""];
+        strArr.push(`Fields ${this.completedFieldList.length}/${this.totalFieldSet.size} completed.\n`);
+        strArr.push("Completed fields:\n");
+        if (this.completedFieldList.length) {
             for (const f of this.completedFieldList) {
-                finalStr += "\t" + f + "\n";
+                strArr.push("\t" + f + "\n");
             }
+        } else {
+            strArr.push("\tNone.\n");
         }
-        finalStr += "\n*** IMPORTANT: Please still double-check your App form thoroughly regardless of completion progress. ***\n";
+        const diffSet = helpers.setDiff(this.totalFieldSet, this.completedFieldSet);
+        strArr.push("Missed fields:\n");
+        if (diffSet.size) {
+            for (const f of diffSet) {
+                strArr.push("\t" + f + "\n");
+            }
+        } else {
+            strArr.push("\tNone.\n");
+        }
+        strArr.push("\n*** IMPORTANT: Please still double-check your App form thoroughly regardless of completion progress. ***\n");
         if (this.warnings.length > 0) {
-            finalStr += "\nWarnings:\n";
+            strArr.push("\nWarnings:\n");
             for (const w of this.warnings) {
                 // if WarningMap has a text representation for this warning code, use that; otherwise use the code itself.
-                finalStr += "-\t" + (WarningMap[w] || w) + "\n";
+                strArr.push("-\t" + (WarningMap[w] || w) + "\n");
             }
         }
-        return finalStr;
+        return strArr.join("");
     }
 
     runFormSeq(info) {
