@@ -30,7 +30,7 @@ export class MessengerService {
             debug: debug,
             processObj: processObj,
             userInfo: userInfoObj,
-        }, skipLogin || {authObj: appAuth}); // If skip login, only send skipLogin; else, send appAuth.
+        }, skipLogin ? {skipLogin} : {authObj: appAuth}); // If skip login, only send skipLogin; else, send appAuth.
         chrome.runtime.sendMessage(toSend);
     }
 

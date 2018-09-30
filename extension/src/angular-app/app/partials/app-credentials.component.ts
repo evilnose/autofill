@@ -27,7 +27,10 @@ import {DbService} from "../services/db.service";
                 </div>
             </div>
             <div>
-               <span>
+                <span *ngIf="credsRequired">
+                    You are required to enter credentials for this app. The reason given is: '{{credsRequired}}'.
+                </span>
+                <span *ngIf="!credsRequired">
                    You may <a href="javascript:void(0)" (click)="this.skipLogin=true">skip this step</a> if you have 
                    logged into "{{appFullName}}" in the last 30 minutes in this browser (i.e. your session is still 
                    active.)</span>
@@ -36,7 +39,7 @@ import {DbService} from "../services/db.service";
         <div *ngIf="this.skipLogin">
             <span>
                 <b>Skipping login for "{{appFullName}}". </b><a href="javascript:void(0)"
-                                                         (click)="this.skipLogin=false">Cancel</a><br/>
+                                                                (click)="this.skipLogin=false">Cancel</a><br/>
              (Note: don't do this if you have not logged into this app for more 
             than 30 minutes, or the AutoFill process might be stopped at the login screen.)
             </span>
@@ -92,6 +95,7 @@ export class AppCredentialsComponent implements OnInit {
     @Input() private appFullName: string;
     @Input() private isContrib: boolean;
     @Output() private changed: EventEmitter<AppCredential | boolean> = new EventEmitter<AppCredential | boolean>();
+    @Input() private credsRequired: string;
     private _appId: string;
     private savedCredentials: AppCredential;
     private remember: boolean;

@@ -37,15 +37,16 @@
             </dropdown-search>
         </div>
         <div class="col-lg-8">
-            <div *ngIf="userInfo && this.currAppId" class="col-md-6">
+            <div *ngIf="processObj && this.currAppId" class="col-md-6">
                 <app-credential [appFullName]="this.appFullName" [appId]="this.currAppId"
                                 (changed)="onCredChanged($event)"
-                                [isContrib]="false"></app-credential>
+                                [isContrib]="false"
+                [credsRequired]="processObj.why_credentials_required"></app-credential>
             </div>
         </div>
     </div>
     <div class="mt-5">
-        <progress-display [process]="process" [userInfo]="userInfo"
+        <progress-display [process]="processObj" [userInfo]="userInfo"
                           [skipLogin]="skipLogin" [appAuth]="appAuth"
                           [forAdmin]="false"></progress-display>
     </div>

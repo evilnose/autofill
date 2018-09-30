@@ -17,7 +17,7 @@ module.exports = {
     CONTENT_JS_PATH: './content.bundle.js',
     INDEX_HTML_PATH: './index.html',
 
-    MAX_ACTION_TIMEOUT: 20000,
+    MAX_ACTION_TIMEOUT: 30000,
     CHECK_TIMEOUT_INTERVAL: 1000,
     DEFAULT_DELAY: 300,
     WAIT_DELAY: 5000,

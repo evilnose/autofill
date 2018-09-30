@@ -7,14 +7,14 @@ suffix;;Suffix
 birth_date;Your date of birth;Birth Date
 sex;Your biological sex;Sex
 gender;Your gender/sexual identity (if different from your sex);Gender
-home_address.country;The country of your home address (common and concise);Home Address - Country
+home_address.country;The country of your home address (common and concise e.g. 'United States');Home Address - Country
 home_address.city;The city of your home address;Home Address - City
 home_address.state;The State or Province of your home address;Home Address - State/Province
 home_address.line1;The first line of your home address;Home Address - Line 1
 home_address.line2;The second line of your home address (if applicable);Home Address - Line 2
 home_address.line3;The third line of your home address (if applicable);Home Address - Line 3
 zip_code;The zip code of your home address;Home Address - Zip Code
-mailing_address.country;The country of your mailing address (common and concise);Mailing Address - Country
+mailing_address.country;The country of your mailing address (common and concise: e.g. 'United States');Mailing Address - Country
 mailing_address.city;The city of your mailing address;Mailing Address - City
 mailing_address.state;The State or Province of your mailing address;Mailing Address - State/Province
 mailing_address.line1;The first line of your mailing address;Mailing Address - Line 1

@@ -6,6 +6,7 @@ const constants = require('./constants');
 
 export function sendMsg(tabId, json, callback) {
     chrome.tabs.query({currentWindow: true}, function () {
+        console.log("TAB ID:", tabId);
         chrome.tabs.sendMessage(tabId, json, () => {
             if (callback) callback();
         });
@@ -133,11 +134,11 @@ function extractHostname(url) {
 // END
 
 export class StatusLogger {
-    constructor() {
+    constructor(debug) {
         this.sessionInfo = {
             logs: '',
         };
-        this.debug = false;
+        this.debug = debug;
     }
 
     updateInfo(update, replaceLogs) {

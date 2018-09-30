@@ -11,6 +11,7 @@ export interface IFixture {
 
 export interface IProcess {
     process: object;
+    why_credentials_required: string;
 }
 
 export interface IUserInfo {

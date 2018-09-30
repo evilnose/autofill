@@ -29,11 +29,12 @@ export class Parser {
         this.logger = logger;
         this.info = {
             alt_mapping: {}
-        };
+        }; // for testing (so that alt_mapping is there even if parse() is not called
     }
 
     parse(processObj, skipLogin) {
         this.info = Object.assign({}, processObj); // store all meta process info in info.
+        console.log("FIELD COUNT", this.info);
         this.info.fieldCount = 0;
         this.info.alt_mapping = this.info.alt_mapping || {};
         delete this.info.process; // delete the juicy stuff to avoid confusion.
@@ -174,6 +175,8 @@ export class Parser {
             case 'open':
             case 'wait':
             case 'warn':
+            case 'pass':
+            case 'halt':
                 return cmd;
             case 'assertElementPresent':
             case 'waitForElementPresent':
@@ -267,7 +270,8 @@ export class Parser {
         if (!userKey) {
             return null;
         }
-
+        if (userKey.startsWith("'") && userKey.endsWith("'"))
+            return userKey.substring(1, userKey.length - 1);
         if (requireExplicit) {
             if (!userKey.startsWith(constants.USER_DATA_REF)) {
                 throw new ParseError(`reference to user data in conditions requires the explicit prefix ${constants.USER_DATA_REF}`);
@@ -292,6 +296,9 @@ export class Parser {
 
     getUserVal(userKey) {
         if (userKey.startsWith(constants.APP_AUTH_IND)) {
+            if (!this.user.appAuth) {
+                throw new ParseError(`Trying to fill in '${userKey.substr(1)}' but user did not provide credentials.`);
+            }
             return this.user.appAuth[userKey.substr(1)];
         }
 

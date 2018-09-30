@@ -1,0 +1,58 @@
+{
+    "base": "https://admissions.universityofcalifornia.edu",
+    "why_credentials_required": "UC Application does not store sessions, and therefore user login is required each visit.",
+    "login_process": [
+        "open;/applicant/applicationTerm.htm",
+        "type;id=emailAddress;@username",
+        "type;id=password;@password",
+        "-n-click;xpath=(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::a[1]"
+    ],
+    "process": [
+        "warn;Did not modify your term and educational status",
+        "-n-click;id=next_button_link",
+        "warn;Sorry, but we are currently not able to autofill your mailing address country and state/province.",
+        "type;id=address_street_01;mailing_address.line_1",
+        "type;id=address_city;mailing_address.city",
+        "type;id=address_zipcode;mailing_address.zip_code",
+        "type;id=address_intl_postal;mailing_address.zip_code",
+        "warn;Remember to confirm your address when you fill it in manually.",
+        "warn;Sorry, but we are currently not able to autofill your permanent address country and state/province.",
+        "type;id=address_permanent_street_01;permanent_address.line_1",
+        "type;id=address_permanent_city;permanent_address.city",
+        "type;id=address_permanent_zip;permanent_address.zip_code",
+        "type;id=address_permanent_intl_postal;permanent_address.zip_code",
+        "warn;Remember to confirm your address when you fill it in manually.",
+        {
+            "if": "$userData.primary_phone_country_code==+1",
+            "then": "click;id=phone_location_us"
+        },
+        {
+            "elif": "$userData.primary_phone_country_code==",
+            "then": [
+                "click;id=phone_location_us",
+                "type;id=phone_primary;primary_phone_number"
+            ]
+        },
+        {
+            "else": [
+                "click;id=phone_location_international",
+                "type;id=phone_primary_intl_country_code;primary_phone_country_code",
+                "type;id=phone_primary_intl;primary_phone_number"
+            ]
+        },
+        {
+            "if": "$userData.primary_phone_type==home",
+            "then": "type;id=primary_phone_type;'H'"
+        },
+        {
+            "elif": "$userData.primary_phone_type==cell",
+            "then": "type;id=primary_phone_type;'C'"
+        },
+        {
+            "elif": "$userData.primary_phone_type==mobile",
+            "then": "type;id=primary_phone_type;'C'"
+        },
+        "warn;We did not alter you answer to the 'Release of Contact information' checkbox. Be sure to review that yourself!",
+        "click;id=next_button_link"
+    ]
+}

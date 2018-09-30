@@ -203,7 +203,6 @@ export class DbService {
     public getCurrUserData(): Promise<IUserData> {
         return this.db.collection(this.currUserPath + "/user_data").ref.doc("0").get().then(
                 (doc) => {
-                    console.log("DOC:",doc);
                     return doc.exists ? doc.data().data as IUserData : {}
                 },
         );

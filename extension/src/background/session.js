@@ -19,7 +19,7 @@ export default class Session {
     constructor() {
         this.inSession = false;
 
-        this.logger = new StatusLogger();
+        this.logger = new StatusLogger(true);
         this.logger.updateInfo({
             status: Messaging.SessionStatus.IDLE,
             logs: "Session ready. Standing by.",
@@ -321,8 +321,18 @@ export default class Session {
                 // this.waitingFor = WaitingFor.MESSAGE;
                 this.runCurrNodeWithDelay(cmd.target || constants.WAIT_DELAY);
                 break;
+            case 'pass':
+                this.logger.appendLogs("* 'Pass' command executed.");
+                this.runCurrNodeWithDelay();
+                break;
+            case 'halt':
+                this.logger.appendLogs(`\n*** Session Interrupted. Reason: ${cmd.target} ***`);
+                break;
             default:
                 this.logCommand(cmd);
+                if (!this.dedicatedTabCreated) {
+                    this.handleFailure("Fatal: Cannot find dedicated tab");
+                }
                 helpers.sendCommand(this.tabId, cmd);
                 this.waitingFor = WaitingFor.MESSAGE;
                 break;
@@ -335,7 +345,6 @@ export default class Session {
             this.waitingFor = WaitingFor.NEW_PAGE_LOAD;
             this.redirectsPending = true;
         }
-
 
         this.lastTimeActive = Date.now();
     }
@@ -370,6 +379,10 @@ export default class Session {
                 break;
             case 'waitForElementPresent':
                 this.logger.appendLogs(`* Waiting for element '${cmd.target}' to show up... `, true, true);
+                break;
+            default:
+                this.logger.appendLogs(`Fatal: Unrecognized command action: ${cmd.action}`);
+                this.handleFailure("unrecognized command action");
                 break;
         }
     }

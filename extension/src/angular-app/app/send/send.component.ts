@@ -21,7 +21,7 @@ export class SendComponent {
     private credentialsStatus: Status;
 
     public sendForm: FormGroup;
-    private process: IProcess;
+    private processObj: IProcess;
     private userInfo: IUserData;
     private appAuth: AppCredential;
     private skipLogin: boolean;
@@ -58,7 +58,7 @@ export class SendComponent {
                 this.dbService.getOfficialProcess(id)
                     .then((jsonStr: string) => {
                         if (jsonStr) {
-                            this.process = JSON.parse(jsonStr);
+                            this.processObj = JSON.parse(jsonStr);
                             this.appStatus = Status.SUCCESS;
                             return;
                         }

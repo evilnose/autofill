@@ -42,10 +42,12 @@ import {DbService} from "../services/db.service";
                                 <div class="alert alert-danger" *ngIf="!appInfo.abbrevName">
                                     Need input: target app.
                                 </div>
-                                <div *ngIf="this.fixtureId && appInfo.abbrevName">
+                                <div *ngIf="testProcess && appInfo.abbrevName">
                                     <app-credential [appFullName]="this.appFullName" [appId]="appId"
                                                     (changed)="onCredChanged($event)"
-                                                    [isContrib]="true"></app-credential>
+                                                    [isContrib]="true"
+                                                    [credsRequired]="testProcess.why_credentials_required">
+                                    </app-credential>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +57,8 @@ import {DbService} from "../services/db.service";
             <hr/>
             <progress-display [process]="testProcess" [userInfo]="getCurrentFixtureData()" [appAuth]="appAuth"
                               [skipLogin]="skipLogin"
-                              [forAdmin]="true"></progress-display>
+                              [forAdmin]="true"
+            ></progress-display>
         </div>
     `,
 })

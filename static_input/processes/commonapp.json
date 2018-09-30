@@ -13,6 +13,11 @@
             "if": "assertElementPresent;id=label_ques_173",
             "then": "click;id=editSection_11"
         },
+        {
+            "else": [
+                "halt;"
+            ]
+        },
         "type;id=text_ques_173;first_name",
         "type;id=text_ques_174;middle_name",
         "type;id=text_ques_175;last_name",

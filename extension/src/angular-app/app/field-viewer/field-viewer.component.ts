@@ -31,7 +31,7 @@ import {DbService} from "../services/db.service";
                 </div>
             </div>
             <div>
-                *The CSV file <strong>is delimited by ';'</strong> and should be in format of
+                *The CSV file is delimited by<strong>semicolons (';')</strong> and should be in the format of
                 "field_name;description;displayed_name". Do not include headers.
             </div>
             <edi-table [initialTable]="tbl" [columnWidths]="[0.3, 0.4, 0.3]"></edi-table>
