@@ -54,7 +54,6 @@ import {FormControl} from "@angular/forms";
     `,
 })
 export class FixtureViewerComponent {
-
     private fixtureOptions: SelectOption[];
     private fixtureMap: object;
     private fixtureData: FormControl;

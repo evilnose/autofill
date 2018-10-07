@@ -67,6 +67,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
             this.reloadContent();
         }
     }
+
     @Input() public btnText: string;
     @Input() public btnClass: string;
     @Input() public fullClass: string;
