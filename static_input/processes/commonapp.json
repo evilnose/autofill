@@ -1,5 +1,8 @@
 {
     "base": "https://apply.commonapp.org",
+    "alt_mapping": {
+        "United States": "United States of America"
+    },
     "login_process": [
         "open;/login",
         "type;id=emailCntrl;@username",
@@ -40,6 +43,7 @@
         "click;//div[@id='month_ques_181_chzn']/div/ul/li[normalize-space(text())='${birth_date|MMMM}'];",
         "click;//div[@id='day_ques_181_chzn']/div/ul/li[normalize-space(text())='${birth_date|D}'];",
         "click;id=saveSection_11",
+        "wait;1000",
         {
             "if": "assertElementPresent;id=editSection_12",
             "then": "click;id=editSection_12"
@@ -150,6 +154,7 @@
         "click;(//div[@id='rbContainer_1'])[2]",
         "warn;mailing_address_perm",
         "click;id=saveSection_12",
+        "wait;1000",
         {
             "if": "assertElementPresent;id=editSection_13",
             "then": "click;id=editSection_13"

@@ -34,7 +34,6 @@ export class Parser {
 
     parse(processObj, skipLogin) {
         this.info = Object.assign({}, processObj); // store all meta process info in info.
-        console.log("FIELD COUNT", this.info);
         this.info.fieldCount = 0;
         this.info.alt_mapping = this.info.alt_mapping || {};
         delete this.info.process; // delete the juicy stuff to avoid confusion.
@@ -331,7 +330,7 @@ export class Parser {
             newVal = this.getValAndFormat(userKey);
             if (!newVal) {
                 this.logger.appendLogs(`Interpolation failed since user does not have value for key '${userKey}'`, true);
-                return null;
+                return {};
             }
             processedStr = processedStr.substring(0, startIx) + newVal + processedStr.substr(endIx + e.length);
         }

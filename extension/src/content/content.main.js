@@ -13,7 +13,7 @@ import Messaging from '../common/messaging';
             if (request._source !== Messaging.Source.BACKGROUND) {
                 return;
             }
-            console.log("Message received from background.");
+            // console.log("Message received from background.");
             switch (request.action) {
                 case 'run_cmd':
                     actionProcessor.runCommand(request.command);

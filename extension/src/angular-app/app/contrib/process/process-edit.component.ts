@@ -38,11 +38,11 @@ export class ProcessEditComponent {
             appId: new FormControl(this.model.appId, Validators.required),
             processJSON: new FormControl(this.model.content, Validators.required),
         });
-        // TODO catch this
         this.processForm.get("appId").valueChanges
             .subscribe((id: string) =>
                 this.dbService.getOfficialProcess(id)
-                    .then(this.updateJSON.bind(this)));
+                    .then(this.updateJSON.bind(this))
+                    .catch(this.handleNetworkError));
 
         this.processForm.get("processJSON").valueChanges
             .subscribe((jsonStr: string) => {
@@ -131,13 +131,12 @@ export class ProcessEditComponent {
                     });
             }
         } else {
-            // TODO touch?
             console.error("Form is invalid");
         }
     }
 
     private handleNetworkError(err: any) {
-        // TODO handle network (Firebase) error
+        // TODO
         console.error("Network error handler not done.");
     }
 
